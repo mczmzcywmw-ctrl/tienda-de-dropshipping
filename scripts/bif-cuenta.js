@@ -6,7 +6,7 @@
     cicloMinutos: 185, // al llegar a cero vuelve a empezar con esta duración (3 h 5 min). 0 = no reiniciar
     etiqueta: 'Oferta por tiempo limitado',
     titulo: '¡30% de descuento en toda la tienda!',
-    texto: 'Se aplica solo al pagar. Aprovecha antes de que se acabe el tiempo.',
+    texto: 'Aprovecha antes de que se acabe el tiempo.',
     boton: 'Aprovechar ahora',
     enlace: '/collections/all'
   };
