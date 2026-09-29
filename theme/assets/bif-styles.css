@@ -493,3 +493,12 @@
 .bif-movil__grupo summary svg { width: 18px; height: 18px; transition: transform .3s; }
 .bif-movil__grupo[open] summary svg { transform: rotate(180deg); }
 .bif-menu-movil__panel .bif-movil__grupo a { padding: 13px 0 13px 18px; font-size: 15px; color: var(--bif-gris); }
+
+/* Enlaces de abajo del todo */
+.bif-footer__legales { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; padding: 26px 0; border-top: 1px solid rgba(255,255,255,.12); }
+.bif-footer__legales a { display: inline-flex; align-items: center; height: 42px; padding: 0 22px; border-radius: 999px; border: 1px solid rgba(255,255,255,.25); color: #fff; font-size: 14px; font-weight: 500; transition: background .3s, border-color .3s, transform .4s var(--bif-ease); }
+.bif-footer__legales a:hover { background: var(--bif-verde); border-color: var(--bif-verde); transform: translateY(-2px); }
+@media (max-width: 640px) {
+  .bif-footer__legales { flex-direction: column; align-items: stretch; }
+  .bif-footer__legales a { justify-content: center; }
+}

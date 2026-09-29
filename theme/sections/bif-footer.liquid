@@ -82,6 +82,14 @@
       </div>
     </div>
 
+    {%- if section.settings.menu_abajo.links.size > 0 -%}
+      <nav class="bif-footer__legales" aria-label="Información legal">
+        {%- for link in section.settings.menu_abajo.links -%}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {%- endfor -%}
+      </nav>
+    {%- endif -%}
+
     <div class="bif-footer__base">
       <span>{{ section.settings.copyright }}</span>
       {%- if section.settings.mostrar_pagos -%}
@@ -132,6 +140,7 @@
     { "type": "url", "id": "tiktok", "label": "Enlace de TikTok" },
     { "type": "url", "id": "facebook", "label": "Enlace de Facebook (opcional)" },
     { "type": "header", "content": "Parte inferior" },
+    { "type": "link_list", "id": "menu_abajo", "label": "Enlaces de abajo del todo" },
     { "type": "text", "id": "copyright", "label": "Texto de derechos", "default": "© 2025 BIF Tienda de Bienestar. Todos los derechos reservados." },
     { "type": "checkbox", "id": "mostrar_pagos", "label": "Mostrar íconos de pago", "default": true },
     { "type": "checkbox", "id": "boton_flotante", "label": "Botón flotante de WhatsApp", "default": true },

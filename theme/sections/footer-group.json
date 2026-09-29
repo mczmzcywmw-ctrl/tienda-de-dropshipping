@@ -5,7 +5,8 @@
     "bif_footer": {
       "type": "bif-footer",
       "settings": {
-        "menu_servicio": "servicio-al-cliente"
+        "menu_servicio": "servicio-al-cliente",
+        "menu_abajo": "enlaces-abajo"
       }
     }
   },
