@@ -518,3 +518,6 @@
 .bif-articulo:hover { transform: translateY(-6px); box-shadow: var(--bif-sombra); }
 .bif-articulo__num { font-size: 40px; font-weight: 600; line-height: 1; letter-spacing: -.04em; color: #C6D4BD; }
 .bif-articulo__cuerpo { padding-top: 16px; }
+.bif-articulo--foto { padding: 0; overflow: hidden; }
+.bif-articulo--foto .bif-articulo__img { border-radius: 0; aspect-ratio: 16 / 11; }
+.bif-articulo--foto .bif-articulo__cuerpo { padding: 22px 26px 28px; }
