@@ -1,0 +1,52 @@
+{
+  "type": "header",
+  "name": "t:names.header",
+  "sections": {
+    "anuncio": {
+      "type": "bif-anuncio",
+      "blocks": {
+        "frase_1": {
+          "type": "frase",
+          "settings": {
+            "texto": "🌿 Bienestar natural para ti y tu familia"
+          }
+        },
+        "frase_2": {
+          "type": "frase",
+          "settings": {
+            "texto": "🚚 Envíos a todo el país"
+          }
+        },
+        "frase_3": {
+          "type": "frase",
+          "settings": {
+            "texto": "🔒 Pagos 100% seguros"
+          }
+        },
+        "frase_4": {
+          "type": "frase",
+          "settings": {
+            "texto": "💬 Asesoría personalizada por WhatsApp: +57 317 357 0881"
+          }
+        }
+      },
+      "block_order": [
+        "frase_1",
+        "frase_2",
+        "frase_3",
+        "frase_4"
+      ],
+      "settings": {}
+    },
+    "bif_header": {
+      "type": "bif-header",
+      "settings": {
+        "menu": "menu-bif"
+      }
+    }
+  },
+  "order": [
+    "anuncio",
+    "bif_header"
+  ]
+}

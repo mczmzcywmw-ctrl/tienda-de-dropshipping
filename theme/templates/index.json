@@ -1,0 +1,181 @@
+{
+  "sections": {
+    "hero": {
+      "type": "bif-hero",
+      "blocks": {
+        "chip_1": {
+          "type": "chip",
+          "settings": {
+            "texto": "Envíos a todo el país"
+          }
+        },
+        "chip_2": {
+          "type": "chip",
+          "settings": {
+            "texto": "Pagos 100% seguros"
+          }
+        },
+        "chip_3": {
+          "type": "chip",
+          "settings": {
+            "texto": "Asesoría personalizada"
+          }
+        }
+      },
+      "block_order": [
+        "chip_1",
+        "chip_2",
+        "chip_3"
+      ],
+      "settings": {
+        "antetitulo": "Bienvenido a BIF · Tienda de Bienestar",
+        "titulo": "Tu bienestar, en manos de la naturaleza",
+        "texto": "Productos homeopáticos, naturales y suplementos elegidos con cuidado para que te sientas bien cada día. Compra con la tranquilidad de estar en buenas manos."
+      }
+    },
+    "beneficios": {
+      "type": "bif-beneficios",
+      "blocks": {
+        "beneficio_1": {
+          "type": "beneficio",
+          "settings": {
+            "icono": "camion",
+            "titulo": "Envíos a todo el país",
+            "texto": "Llevamos tu pedido a cualquier ciudad de Colombia."
+          }
+        },
+        "beneficio_2": {
+          "type": "beneficio",
+          "settings": {
+            "icono": "candado",
+            "titulo": "Pagos seguros",
+            "texto": "Paga con tarjeta y otros medios de forma protegida."
+          }
+        },
+        "beneficio_3": {
+          "type": "beneficio",
+          "settings": {
+            "icono": "atencion",
+            "titulo": "Atención personalizada",
+            "texto": "Te asesoramos para que elijas lo mejor para ti."
+          }
+        },
+        "beneficio_4": {
+          "type": "beneficio",
+          "settings": {
+            "icono": "escudo",
+            "titulo": "Protocolos de bioseguridad",
+            "texto": "Cuidamos cada producto desde el empaque hasta tu puerta."
+          }
+        },
+        "beneficio_5": {
+          "type": "beneficio",
+          "settings": {
+            "icono": "hoja",
+            "titulo": "Enfoque natural",
+            "texto": "Alternativas suaves que respetan tu cuerpo."
+          }
+        }
+      },
+      "block_order": [
+        "beneficio_1",
+        "beneficio_2",
+        "beneficio_3",
+        "beneficio_4",
+        "beneficio_5"
+      ],
+      "settings": {}
+    },
+    "categorias": {
+      "type": "bif-categorias",
+      "blocks": {
+        "categoria_1": {
+          "type": "categoria",
+          "settings": {
+            "titulo": "Homeopáticos",
+            "texto": "Alternativas naturales y suaves para acompañar tu salud día a día.",
+            "icono": "gota",
+            "color": "#477E33",
+            "boton": "Ver homeopáticos"
+          }
+        },
+        "categoria_2": {
+          "type": "categoria",
+          "settings": {
+            "titulo": "Nutrición deportiva",
+            "texto": "Proteínas, creatina y suplementos para rendir y recuperarte mejor.",
+            "icono": "pesa",
+            "color": "#3A6B8A",
+            "boton": "Ver suplementos"
+          }
+        },
+        "categoria_3": {
+          "type": "categoria",
+          "settings": {
+            "titulo": "Naturales y vitaminas",
+            "texto": "Vitaminas, minerales y productos de origen natural para tu bienestar.",
+            "icono": "hoja",
+            "color": "#B08A2E",
+            "boton": "Ver naturales"
+          }
+        }
+      },
+      "block_order": [
+        "categoria_1",
+        "categoria_2",
+        "categoria_3"
+      ],
+      "settings": {}
+    },
+    "productos": {
+      "type": "bif-productos",
+      "settings": {}
+    },
+    "confianza": {
+      "type": "bif-confianza",
+      "blocks": {
+        "razon_1": {
+          "type": "razon",
+          "settings": {
+            "titulo": "Productos seleccionados con cuidado",
+            "texto": "Solo ofrecemos productos de marcas y laboratorios confiables."
+          }
+        },
+        "razon_2": {
+          "type": "razon",
+          "settings": {
+            "titulo": "Asesoría real, no automática",
+            "texto": "Una persona te responde por WhatsApp y te orienta."
+          }
+        },
+        "razon_3": {
+          "type": "razon",
+          "settings": {
+            "titulo": "Compra segura y envío garantizado",
+            "texto": "Pagos protegidos y seguimiento de tu pedido hasta tu casa."
+          }
+        }
+      },
+      "block_order": [
+        "razon_1",
+        "razon_2",
+        "razon_3"
+      ],
+      "settings": {
+        "texto": "En BIF no solo vendemos productos: te acompañamos. Resolvemos tus dudas antes y después de tu compra para que tomes la mejor decisión para tu salud."
+      }
+    },
+    "blog": {
+      "type": "bif-blog",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "beneficios",
+    "categorias",
+    "productos",
+    "confianza",
+    "blog"
+  ]
+}

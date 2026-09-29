@@ -1,0 +1,142 @@
+{{ 'bif-styles.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    background: linear-gradient(180deg, {{ section.settings.fondo }}, {{ section.settings.fondo_2 }});
+    padding-top: {{ section.settings.padding_top }}px;
+  }
+{% endstyle %}
+
+{%- liquid
+  assign wa = section.settings.whatsapp | remove: '+' | remove: ' '
+  assign wa_url = 'https://wa.me/' | append: wa
+-%}
+
+<div class="bif-footer bif-section">
+  <div class="bif-container">
+    <div class="bif-footer__arriba">
+      <div>
+        <a href="{{ routes.root_url }}" class="bif-logo">
+          <span class="bif-logo__marca">{% render 'bif-icono', nombre: 'hoja' %}</span>
+          <span class="bif-logo__texto">
+            <span class="bif-logo__nombre">{{ section.settings.nombre }}</span>
+            <span class="bif-logo__sub">{{ section.settings.subtitulo }}</span>
+          </span>
+        </a>
+        {%- if section.settings.lema != blank -%}<p class="bif-footer__lema">{{ section.settings.lema }}</p>{%- endif -%}
+      </div>
+
+      <div>
+        <h3>{{ section.settings.titulo_servicio }}</h3>
+        <ul class="bif-footer__enlaces">
+          {%- for link in section.settings.menu_servicio.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      <div>
+        <h3>{{ section.settings.titulo_bienestar }}</h3>
+        <p>{{ section.settings.texto_bienestar }}</p>
+        <div class="bif-footer__canales">
+          <a href="{{ wa_url }}" target="_blank" rel="noopener">{% render 'bif-icono', nombre: 'whatsapp' %} WhatsApp</a>
+          <a href="mailto:{{ section.settings.correo }}">{% render 'bif-icono', nombre: 'correo' %} Correo</a>
+        </div>
+        <div class="bif-newsletter">
+          {%- form 'customer', id: 'bif-newsletter' -%}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <label for="bif-newsletter-email">{{ section.settings.titulo_boletin }}</label>
+            {%- if form.posted_successfully? -%}
+              <p class="bif-newsletter__ok">¡Gracias por suscribirte! 🌿</p>
+            {%- else -%}
+              <div class="bif-newsletter__campo">
+                <input id="bif-newsletter-email" type="email" name="contact[email]" placeholder="Tu correo electrónico" autocomplete="email" required>
+                <button type="submit">{{ section.settings.boton_boletin }}</button>
+              </div>
+              {%- if form.errors -%}<p class="bif-newsletter__ok">Revisa tu correo e inténtalo de nuevo.</p>{%- endif -%}
+            {%- endif -%}
+          {%- endform -%}
+        </div>
+      </div>
+
+      <div>
+        <h3>{{ section.settings.titulo_contacto }}</h3>
+        <ul class="bif-footer__contacto">
+          {%- if section.settings.whatsapp != blank -%}
+            <li><a href="{{ wa_url }}" target="_blank" rel="noopener">{% render 'bif-icono', nombre: 'whatsapp' %} {{ section.settings.whatsapp_visible }}</a></li>
+          {%- endif -%}
+          {%- if section.settings.correo != blank -%}
+            <li><a href="mailto:{{ section.settings.correo }}">{% render 'bif-icono', nombre: 'correo' %} {{ section.settings.correo }}</a></li>
+          {%- endif -%}
+        </ul>
+        <div class="bif-redes">
+          <a href="{{ section.settings.instagram | default: 'https://www.instagram.com/' }}" target="_blank" rel="noopener" aria-label="Instagram">{% render 'bif-icono', nombre: 'instagram' %}</a>
+          <a href="{{ section.settings.tiktok | default: 'https://www.tiktok.com/' }}" target="_blank" rel="noopener" aria-label="TikTok">{% render 'bif-icono', nombre: 'tiktok' %}</a>
+          {%- if section.settings.facebook != blank -%}
+            <a href="{{ section.settings.facebook }}" target="_blank" rel="noopener" aria-label="Facebook">{% render 'bif-icono', nombre: 'facebook' %}</a>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+
+    <div class="bif-footer__abajo">
+      <span>{{ section.settings.copyright }}</span>
+      {%- if section.settings.mostrar_pagos -%}
+        <div class="bif-pagos">
+          <span class="bif-pagos__texto">{% render 'bif-icono', nombre: 'candado' %} Pagos seguros con</span>
+          {%- liquid
+            assign tipos = shop.enabled_payment_types
+            if tipos.size == 0
+              assign tipos = 'visa,master,american_express,diners_club' | split: ','
+            endif
+          -%}
+          {%- for tipo in tipos -%}
+            {{ tipo | payment_type_svg_tag: class: 'icon icon--full-color' }}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{%- if section.settings.boton_flotante and section.settings.whatsapp != blank -%}
+  <a class="bif-whatsapp" href="{{ wa_url }}?text={{ 'Hola BIF, quiero información sobre sus productos' | url_encode }}" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">{% render 'bif-icono', nombre: 'whatsapp' %}</a>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "BIF – Pie de página",
+  "tag": "div",
+  "class": "bif-footer-wrap",
+  "settings": [
+    { "type": "header", "content": "Marca" },
+    { "type": "text", "id": "nombre", "label": "Nombre", "default": "BIF" },
+    { "type": "text", "id": "subtitulo", "label": "Subtítulo", "default": "Tienda de Bienestar" },
+    { "type": "textarea", "id": "lema", "label": "Frase de la marca", "default": "Salud natural, suplementos y bienestar para toda la familia." },
+    { "type": "header", "content": "1. Servicio al cliente" },
+    { "type": "text", "id": "titulo_servicio", "label": "Título", "default": "Servicio al cliente" },
+    { "type": "link_list", "id": "menu_servicio", "label": "Menú de enlaces" },
+    { "type": "header", "content": "2. Bienestar" },
+    { "type": "text", "id": "titulo_bienestar", "label": "Título", "default": "Bienestar" },
+    { "type": "textarea", "id": "texto_bienestar", "label": "Texto", "default": "¿Tienes dudas sobre qué producto es ideal para ti? Escríbenos por correo o WhatsApp y te asesoramos." },
+    { "type": "text", "id": "titulo_boletin", "label": "Título del boletín", "default": "Suscríbete a nuestro boletín" },
+    { "type": "text", "id": "boton_boletin", "label": "Botón del boletín", "default": "Suscribirme" },
+    { "type": "header", "content": "3. Contáctanos" },
+    { "type": "text", "id": "titulo_contacto", "label": "Título", "default": "Contáctanos" },
+    { "type": "text", "id": "whatsapp", "label": "WhatsApp (solo números con indicativo)", "default": "573173570881" },
+    { "type": "text", "id": "whatsapp_visible", "label": "WhatsApp (como se muestra)", "default": "+57 317 357 0881" },
+    { "type": "text", "id": "correo", "label": "Correo", "default": "tiendadebienestarbif@gmail.com" },
+    { "type": "url", "id": "instagram", "label": "Enlace de Instagram" },
+    { "type": "url", "id": "tiktok", "label": "Enlace de TikTok" },
+    { "type": "url", "id": "facebook", "label": "Enlace de Facebook (opcional)" },
+    { "type": "header", "content": "Parte inferior" },
+    { "type": "text", "id": "copyright", "label": "Texto de derechos", "default": "© 2025 BIF Tienda de Bienestar. Todos los derechos reservados." },
+    { "type": "checkbox", "id": "mostrar_pagos", "label": "Mostrar íconos de pago", "default": true },
+    { "type": "checkbox", "id": "boton_flotante", "label": "Botón flotante de WhatsApp", "default": true },
+    { "type": "header", "content": "Diseño" },
+    { "type": "color", "id": "fondo", "label": "Color de fondo 1", "default": "#2E5621" },
+    { "type": "color", "id": "fondo_2", "label": "Color de fondo 2", "default": "#1E3A15" },
+    { "type": "range", "id": "padding_top", "label": "Espacio superior (px)", "min": 24, "max": 140, "step": 4, "unit": "px", "default": 80 }
+  ]
+}
+{% endschema %}

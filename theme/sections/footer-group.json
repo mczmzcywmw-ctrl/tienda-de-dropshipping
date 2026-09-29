@@ -1,0 +1,15 @@
+{
+  "type": "footer",
+  "name": "t:names.footer",
+  "sections": {
+    "bif_footer": {
+      "type": "bif-footer",
+      "settings": {
+        "menu_servicio": "servicio-al-cliente"
+      }
+    }
+  },
+  "order": [
+    "bif_footer"
+  ]
+}

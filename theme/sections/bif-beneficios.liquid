@@ -1,0 +1,75 @@
+{{ 'bif-styles.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'bif-scripts.js' | asset_url }}" defer></script>
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.fondo }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+  #shopify-section-{{ section.id }} .bif-head { text-align: {{ section.settings.alineacion }}; }
+  #shopify-section-{{ section.id }} .bif-head h2 { font-size: {{ section.settings.titulo_tamano }}px; }
+  #shopify-section-{{ section.id }} .bif-beneficios__grid { --bif-cols: {{ section.blocks.size | at_most: 5 | at_least: 1 }}; }
+  @media (max-width: 640px) {
+    #shopify-section-{{ section.id }} .bif-head h2 { font-size: {{ section.settings.titulo_tamano | times: 0.75 | round }}px; }
+  }
+{% endstyle %}
+
+<section class="bif-beneficios bif-section">
+  <div class="bif-container">
+    {%- if section.settings.titulo != blank or section.settings.antetitulo != blank -%}
+      <div class="bif-head bif-reveal">
+        {%- if section.settings.antetitulo != blank -%}<span class="bif-eyebrow">{{ section.settings.antetitulo }}</span>{%- endif -%}
+        {%- if section.settings.titulo != blank -%}<h2 style="margin-top:12px">{{ section.settings.titulo }}</h2>{%- endif -%}
+      </div>
+    {%- endif -%}
+    <div class="bif-beneficios__grid">
+      {%- for block in section.blocks -%}
+        <div class="bif-beneficio bif-reveal" style="--bif-delay: {{ forloop.index0 | times: 0.08 }}s" {{ block.shopify_attributes }}>
+          <div class="bif-beneficio__icono">{% render 'bif-icono', nombre: block.settings.icono %}</div>
+          <h3>{{ block.settings.titulo }}</h3>
+          {%- if block.settings.texto != blank -%}<p>{{ block.settings.texto }}</p>{%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "BIF – Beneficios",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "antetitulo", "label": "Texto pequeño superior", "default": "Compra con confianza" },
+    { "type": "text", "id": "titulo", "label": "Título", "default": "Te cuidamos en cada paso" },
+    { "type": "select", "id": "alineacion", "label": "Alineación del título", "options": [ { "value": "left", "label": "Izquierda" }, { "value": "center", "label": "Centro" } ], "default": "center" },
+    { "type": "range", "id": "titulo_tamano", "label": "Tamaño del título (px)", "min": 22, "max": 60, "step": 2, "unit": "px", "default": 40 },
+    { "type": "color", "id": "fondo", "label": "Color de fondo", "default": "#EEF4EA" },
+    { "type": "range", "id": "padding_top", "label": "Espacio superior (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 88 },
+    { "type": "range", "id": "padding_bottom", "label": "Espacio inferior (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 88 }
+  ],
+  "blocks": [
+    {
+      "type": "beneficio",
+      "name": "Beneficio",
+      "limit": 8,
+      "settings": [
+        { "type": "select", "id": "icono", "label": "Ícono", "options": [
+          { "value": "camion", "label": "Camión (envíos)" },
+          { "value": "candado", "label": "Candado (pagos seguros)" },
+          { "value": "atencion", "label": "Audífonos (atención)" },
+          { "value": "escudo", "label": "Escudo (bioseguridad)" },
+          { "value": "hoja", "label": "Hoja (natural)" },
+          { "value": "corazon", "label": "Corazón (salud)" },
+          { "value": "estrella", "label": "Estrella (calidad)" },
+          { "value": "gota", "label": "Gota" },
+          { "value": "pesa", "label": "Pesa (deporte)" }
+        ], "default": "hoja" },
+        { "type": "text", "id": "titulo", "label": "Título", "default": "Enfoque natural" },
+        { "type": "textarea", "id": "texto", "label": "Texto" }
+      ]
+    }
+  ],
+  "presets": [ { "name": "BIF – Beneficios", "blocks": [ { "type": "beneficio" } ] } ]
+}
+{% endschema %}

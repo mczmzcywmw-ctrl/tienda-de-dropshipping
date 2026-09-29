@@ -1,0 +1,67 @@
+{{ 'bif-styles.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'bif-scripts.js' | asset_url }}" defer></script>
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.fondo }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+  #shopify-section-{{ section.id }} .bif-confianza__caja { background: linear-gradient(135deg, {{ section.settings.color_b }}, {{ section.settings.color_a }}); }
+{% endstyle %}
+
+<section class="bif-confianza bif-section">
+  <div class="bif-container">
+    <div class="bif-confianza__caja bif-reveal">
+      <div style="position:relative;z-index:1">
+        {%- if section.settings.antetitulo != blank -%}<span class="bif-eyebrow">{{ section.settings.antetitulo }}</span>{%- endif -%}
+        <h2 class="bif-confianza__cita">{{ section.settings.cita }}</h2>
+        {%- if section.settings.texto != blank -%}<p class="bif-confianza__texto">{{ section.settings.texto | newline_to_br }}</p>{%- endif -%}
+        <div class="bif-hero__botones">
+          {%- if section.settings.boton_texto != blank and section.settings.whatsapp != blank -%}
+            <a class="bif-btn bif-btn--claro" href="https://wa.me/{{ section.settings.whatsapp | remove: '+' | remove: ' ' }}" target="_blank" rel="noopener">{% render 'bif-icono', nombre: 'whatsapp' %} {{ section.settings.boton_texto }}</a>
+          {%- endif -%}
+          {%- if section.settings.boton2_texto != blank -%}
+            <a class="bif-btn bif-btn--borde" href="{{ section.settings.boton2_enlace | default: routes.all_products_collection_url }}">{{ section.settings.boton2_texto }}</a>
+          {%- endif -%}
+        </div>
+      </div>
+      <ul class="bif-confianza__lista">
+        {%- for block in section.blocks -%}
+          <li class="bif-reveal" style="--bif-delay: {{ forloop.index0 | times: 0.1 }}s" {{ block.shopify_attributes }}>
+            {% render 'bif-icono', nombre: 'check' %}
+            <div><strong>{{ block.settings.titulo }}</strong><span>{{ block.settings.texto }}</span></div>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "BIF – Por qué elegirnos",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "antetitulo", "label": "Texto pequeño superior", "default": "¿Por qué BIF?" },
+    { "type": "textarea", "id": "cita", "label": "Frase principal", "default": "Creemos que el bienestar se construye con productos confiables y personas que te escuchan." },
+    { "type": "textarea", "id": "texto", "label": "Texto" },
+    { "type": "text", "id": "boton_texto", "label": "Botón WhatsApp – texto", "default": "Habla con un asesor" },
+    { "type": "text", "id": "whatsapp", "label": "Número de WhatsApp", "default": "573173570881" },
+    { "type": "text", "id": "boton2_texto", "label": "Segundo botón – texto", "default": "Ver productos" },
+    { "type": "url", "id": "boton2_enlace", "label": "Segundo botón – enlace" },
+    { "type": "color", "id": "color_a", "label": "Color de la caja 1", "default": "#477E33" },
+    { "type": "color", "id": "color_b", "label": "Color de la caja 2", "default": "#1E3A15" },
+    { "type": "color", "id": "fondo", "label": "Color de fondo de la sección", "default": "#FFFFFF" },
+    { "type": "range", "id": "padding_top", "label": "Espacio superior (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 32 },
+    { "type": "range", "id": "padding_bottom", "label": "Espacio inferior (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 96 }
+  ],
+  "blocks": [
+    { "type": "razon", "name": "Razón", "limit": 6, "settings": [
+      { "type": "text", "id": "titulo", "label": "Título", "default": "Productos seleccionados" },
+      { "type": "text", "id": "texto", "label": "Texto", "default": "Elegimos cada producto pensando en tu salud." }
+    ] }
+  ],
+  "presets": [ { "name": "BIF – Por qué elegirnos", "blocks": [ { "type": "razon" } ] } ]
+}
+{% endschema %}
