@@ -93,7 +93,29 @@
     });
   }
 
-  function iniciar() { iniciarPalabras(); iniciarReveals(); iniciarAnuncios(); iniciarInclinacion(); iniciarContadores(); }
+  // Menú desplegable: se abre con clic o toque y se cierra al tocar fuera.
+  function iniciarDesplegables() {
+    document.querySelectorAll('.bif-nav__desplegable:not([data-listo])').forEach(function (item) {
+      item.dataset.listo = '1';
+      var boton = item.querySelector('.bif-nav__boton');
+      boton.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var abierto = item.classList.toggle('is-abierto');
+        boton.setAttribute('aria-expanded', abierto ? 'true' : 'false');
+      });
+    });
+    if (!document.documentElement.dataset.bifDesplegables) {
+      document.documentElement.dataset.bifDesplegables = '1';
+      document.addEventListener('click', function () {
+        document.querySelectorAll('.bif-nav__desplegable.is-abierto').forEach(function (item) {
+          item.classList.remove('is-abierto');
+          item.querySelector('.bif-nav__boton').setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+  }
+
+  function iniciar() { iniciarPalabras(); iniciarReveals(); iniciarAnuncios(); iniciarInclinacion(); iniciarContadores(); iniciarDesplegables(); }
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', iniciar);

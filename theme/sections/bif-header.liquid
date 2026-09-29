@@ -1,4 +1,5 @@
 {{ 'bif-styles.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'bif-scripts.js' | asset_url }}" defer></script>
 
 {% style %}
   {%- if section.settings.fijo -%}
@@ -25,7 +26,22 @@
     <nav class="bif-nav-wrap" aria-label="Menú principal">
       <ul class="bif-nav">
         {%- for link in section.settings.menu.links -%}
-          <li><a href="{{ link.url }}" {% if link.current %}aria-current="page"{% endif %}>{{ link.title }}</a></li>
+          {%- if link.links.size > 0 -%}
+            <li class="bif-nav__desplegable">
+              <button type="button" class="bif-nav__boton{% if link.child_active %} is-activo{% endif %}" aria-haspopup="true" aria-expanded="false">
+                {{ link.title }} {% render 'bif-icono', nombre: 'abajo' %}
+              </button>
+              <div class="bif-nav__panel">
+                <ul>
+                  {%- for sub in link.links -%}
+                    <li><a href="{{ sub.url }}" {% if sub.current %}aria-current="page"{% endif %}>{{ sub.title }}</a></li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+            </li>
+          {%- else -%}
+            <li><a href="{{ link.url }}" {% if link.current %}aria-current="page"{% endif %}>{{ link.title }}</a></li>
+          {%- endif -%}
         {%- endfor -%}
       </ul>
     </nav>
@@ -43,7 +59,16 @@
         <summary class="bif-icono-btn" aria-label="Abrir menú">{% render 'bif-icono', nombre: 'menu' %}</summary>
         <div class="bif-menu-movil__panel">
           {%- for link in section.settings.menu.links -%}
-            <a href="{{ link.url }}">{{ link.title }}</a>
+            {%- if link.links.size > 0 -%}
+              <details class="bif-movil__grupo">
+                <summary>{{ link.title }} {% render 'bif-icono', nombre: 'abajo' %}</summary>
+                {%- for sub in link.links -%}
+                  <a href="{{ sub.url }}">{{ sub.title }}</a>
+                {%- endfor -%}
+              </details>
+            {%- else -%}
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            {%- endif -%}
           {%- endfor -%}
           {%- if section.settings.whatsapp != blank -%}
             <a class="bif-btn bif-btn--verde" href="https://wa.me/{{ section.settings.whatsapp | remove: '+' | remove: ' ' }}" target="_blank" rel="noopener">{% render 'bif-icono', nombre: 'whatsapp' %} Escríbenos por WhatsApp</a>
