@@ -5,7 +5,8 @@
       "settings": {
         "antetitulo": "Bienvenido a BIF · Tienda de Bienestar",
         "titulo": "Tu bienestar, en manos de la naturaleza",
-        "texto": "Productos homeopáticos, naturales y suplementos elegidos con cuidado para que te sientas bien cada día. Compra con la tranquilidad de estar en buenas manos."
+        "texto": "Productos homeopáticos, naturales y suplementos elegidos con cuidado para que te sientas bien cada día. Compra con la tranquilidad de estar en buenas manos.",
+        "mostrar_producto": false
       },
       "blocks": {
         "garantia_1": {
