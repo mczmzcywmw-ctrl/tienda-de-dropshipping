@@ -3,7 +3,8 @@
     "main": {
       "type": "bif-legal",
       "settings": {
-        "menu": "servicio-al-cliente"
+        "menu": "servicio-al-cliente",
+        "correo": "tiendadebienestarbif25@gmail.com"
       }
     }
   },

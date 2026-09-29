@@ -6,7 +6,8 @@
       "type": "bif-footer",
       "settings": {
         "menu_servicio": "servicio-al-cliente",
-        "menu_abajo": "enlaces-abajo"
+        "menu_abajo": "enlaces-abajo",
+        "correo": "tiendadebienestarbif25@gmail.com"
       }
     }
   },
