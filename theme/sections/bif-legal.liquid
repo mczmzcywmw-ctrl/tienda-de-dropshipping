@@ -1,0 +1,64 @@
+{{ 'bif-styles.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'bif-scripts.js' | asset_url }}" defer></script>
+
+{% style %}
+  #shopify-section-{{ section.id }} { --bif-hero-a: #477E33; --bif-hero-b: #1F3B17; }
+{% endstyle %}
+
+{%- assign wa = section.settings.whatsapp | remove: '+' | remove: ' ' -%}
+
+<div class="bif-legal bif-section">
+  <section class="bif-banner bif-banner--corto">
+    <div class="bif-hero__blob bif-hero__blob--1"></div>
+    <div class="bif-container bif-banner__contenido">
+      <span class="bif-hero__pildora bif-reveal"><span class="bif-hero__punto"></span>{{ section.settings.antetitulo }}</span>
+      <h1 class="bif-palabras">{{ page.title }}</h1>
+    </div>
+  </section>
+
+  <section class="bif-legal__cuerpo">
+    <div class="bif-container bif-legal__grid">
+      <article class="bif-rte bif-legal__contenido">
+        {{ page.content }}
+      </article>
+      <aside class="bif-legal__aside">
+        <div class="bif-legal__tarjeta">
+          <span class="bif-legal__icono">{% render 'bif-icono', nombre: 'atencion' %}</span>
+          <h3>{{ section.settings.ayuda_titulo }}</h3>
+          <p>{{ section.settings.ayuda_texto }}</p>
+          {%- if wa != blank -%}
+            <a class="bif-btn bif-btn--verde" href="https://wa.me/{{ wa }}" target="_blank" rel="noopener">{% render 'bif-icono', nombre: 'whatsapp' %} WhatsApp</a>
+          {%- endif -%}
+          {%- if section.settings.correo != blank -%}
+            <a class="bif-btn bif-btn--linea" href="mailto:{{ section.settings.correo }}">{% render 'bif-icono', nombre: 'correo' %} Correo</a>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.menu.links.size > 0 -%}
+          <nav class="bif-legal__otras" aria-label="Otras políticas">
+            <span>{{ section.settings.menu_titulo }}</span>
+            {%- for link in section.settings.menu.links -%}
+              <a href="{{ link.url }}" {% if link.current %}aria-current="page"{% endif %}>{{ link.title }} {% render 'bif-icono', nombre: 'flecha' %}</a>
+            {%- endfor -%}
+          </nav>
+        {%- endif -%}
+      </aside>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "BIF – Página legal",
+  "tag": "div",
+  "settings": [
+    { "type": "paragraph", "content": "El texto se edita en Tienda online → Páginas." },
+    { "type": "text", "id": "antetitulo", "label": "Texto pequeño superior", "default": "Información legal" },
+    { "type": "text", "id": "ayuda_titulo", "label": "Tarjeta de ayuda – título", "default": "¿Tienes dudas?" },
+    { "type": "textarea", "id": "ayuda_texto", "label": "Tarjeta de ayuda – texto", "default": "Escríbenos y con gusto te explicamos cualquier punto de este documento." },
+    { "type": "text", "id": "whatsapp", "label": "WhatsApp", "default": "573173570881" },
+    { "type": "text", "id": "correo", "label": "Correo", "default": "tiendadebienestarbif@gmail.com" },
+    { "type": "link_list", "id": "menu", "label": "Menú de otras páginas" },
+    { "type": "text", "id": "menu_titulo", "label": "Título del menú", "default": "Otras páginas" }
+  ]
+}
+{% endschema %}

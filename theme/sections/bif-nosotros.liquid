@@ -1,0 +1,168 @@
+{{ 'bif-styles.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'bif-scripts.js' | asset_url }}" defer></script>
+
+{% style %}
+  #shopify-section-{{ section.id }} { --bif-hero-a: #477E33; --bif-hero-b: #1F3B17; }
+{% endstyle %}
+
+{%- liquid
+  assign wa = section.settings.whatsapp | remove: '+' | remove: ' '
+  assign cifras = section.blocks | where: 'type', 'cifra'
+  assign hitos = section.blocks | where: 'type', 'hito'
+-%}
+
+<div class="bif-nosotros bif-section">
+  {%- comment -%} Portada {%- endcomment -%}
+  <section class="bif-banner">
+    <div class="bif-hero__blob bif-hero__blob--1"></div>
+    <div class="bif-container bif-banner__contenido">
+      <span class="bif-hero__pildora bif-reveal"><span class="bif-hero__punto"></span>{{ section.settings.antetitulo }}</span>
+      <h1 class="bif-palabras">{{ section.settings.titulo | default: page.title }}</h1>
+      {%- if section.settings.subtitulo != blank -%}
+        <p class="bif-reveal" style="--bif-delay:.4s">{{ section.settings.subtitulo }}</p>
+      {%- endif -%}
+    </div>
+  </section>
+
+  {%- comment -%} Historia + foto {%- endcomment -%}
+  <section class="bif-historia">
+    <div class="bif-container bif-historia__grid">
+      <div class="bif-historia__texto bif-reveal">
+        <span class="bif-antetitulo">{{ section.settings.historia_antetitulo }}</span>
+        <h2>{{ section.settings.historia_titulo }}</h2>
+        <div class="bif-rte">{{ page.content }}</div>
+      </div>
+      <div class="bif-historia__media bif-reveal" style="--bif-delay:.15s">
+        <div class="bif-foto-marco">
+          {%- if section.settings.foto != blank -%}
+            <img src="{{ section.settings.foto | image_url: width: 1200 }}" alt="{{ section.settings.foto.alt | default: 'Tienda de Bienestar BIF' | escape }}" width="{{ section.settings.foto.width }}" height="{{ section.settings.foto.height }}" loading="lazy">
+          {%- else -%}
+            <div class="bif-foto-vacia">
+              {% render 'bif-icono', nombre: 'hoja' %}
+              <strong>{{ section.settings.foto_texto_vacio }}</strong>
+              {%- if request.design_mode -%}<span>Sube tu foto en “Foto principal”</span>{%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.sello != blank -%}
+          <div class="bif-foto-sello"><strong>{{ section.settings.sello }}</strong><span>{{ section.settings.sello_texto }}</span></div>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} Cifras {%- endcomment -%}
+  {%- if cifras.size > 0 -%}
+    <section class="bif-cifras">
+      <div class="bif-container">
+        <div class="bif-cifras__fila" style="--bif-cols: {{ cifras.size | at_most: 4 }}">
+          {%- for block in cifras -%}
+            <div class="bif-cifra bif-reveal" style="--bif-delay: {{ forloop.index0 | times: 0.1 }}s" {{ block.shopify_attributes }}>
+              <strong><span>{{ block.settings.prefijo }}</span><span{% if block.settings.contar %} data-bif-contar="{{ block.settings.numero }}"{% endif %}>{{ block.settings.numero }}</span><span>{{ block.settings.sufijo }}</span></strong>
+              <p>{{ block.settings.texto }}</p>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} Línea de tiempo {%- endcomment -%}
+  {%- if hitos.size > 0 -%}
+    <section class="bif-linea">
+      <div class="bif-container">
+        <div class="bif-titulo bif-reveal">
+          <span class="bif-antetitulo">{{ section.settings.linea_antetitulo }}</span>
+          <h2>{{ section.settings.linea_titulo }}</h2>
+        </div>
+        <div class="bif-linea__lista bif-reveal">
+          <span class="bif-linea__eje" aria-hidden="true"><span></span></span>
+          {%- for block in hitos -%}
+            <div class="bif-hito" style="--bif-paso: {{ forloop.index0 }}" {{ block.shopify_attributes }}>
+              <span class="bif-hito__punto" aria-hidden="true"></span>
+              <div class="bif-hito__tarjeta">
+                <span class="bif-hito__anio">{{ block.settings.anio }}</span>
+                <h3>{{ block.settings.titulo }}</h3>
+                <p>{{ block.settings.texto }}</p>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} Visión {%- endcomment -%}
+  <section class="bif-vision">
+    <div class="bif-container">
+      <div class="bif-vision__caja bif-reveal">
+        <div class="bif-vision__texto">
+          <span class="bif-antetitulo">{{ section.settings.vision_antetitulo }}</span>
+          <h2>{{ section.settings.vision_titulo }}</h2>
+          <div class="bif-rte">{{ section.settings.vision_texto }}</div>
+          <div class="bif-hero__botones">
+            <a class="bif-btn bif-btn--blanco" href="{{ routes.all_products_collection_url }}">Ver productos {% render 'bif-icono', nombre: 'flecha' %}</a>
+            {%- if wa != blank -%}
+              <a class="bif-btn bif-btn--linea-blanca" href="https://wa.me/{{ wa }}" target="_blank" rel="noopener">{% render 'bif-icono', nombre: 'whatsapp' %} Escríbenos</a>
+            {%- endif -%}
+          </div>
+        </div>
+        <div class="bif-vision__media">
+          {%- if section.settings.foto2 != blank -%}
+            <img src="{{ section.settings.foto2 | image_url: width: 900 }}" alt="{{ section.settings.foto2.alt | escape }}" loading="lazy">
+          {%- else -%}
+            <div class="bif-arte bif-arte--mini" aria-hidden="true">
+              <span class="bif-arte__anillo bif-arte__anillo--1"></span>
+              <span class="bif-arte__anillo bif-arte__anillo--2"></span>
+              <div class="bif-arte__centro">{% render 'bif-icono', nombre: 'corazon' %}</div>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "BIF – Acerca de nosotros",
+  "tag": "div",
+  "settings": [
+    { "type": "header", "content": "Portada" },
+    { "type": "text", "id": "antetitulo", "label": "Texto pequeño superior", "default": "Nuestra historia" },
+    { "type": "text", "id": "titulo", "label": "Título", "default": "Acerca de nosotros" },
+    { "type": "text", "id": "subtitulo", "label": "Subtítulo", "default": "Desde 2017 acompañando tu bienestar de forma natural." },
+    { "type": "header", "content": "Historia" },
+    { "type": "paragraph", "content": "El texto de la historia se edita en Tienda online → Páginas → Acerca de nosotros." },
+    { "type": "text", "id": "historia_antetitulo", "label": "Texto pequeño superior", "default": "Quiénes somos" },
+    { "type": "text", "id": "historia_titulo", "label": "Título", "default": "Una historia que nace del amor por lo natural" },
+    { "type": "image_picker", "id": "foto", "label": "Foto principal" },
+    { "type": "text", "id": "foto_texto_vacio", "label": "Texto cuando no hay foto", "default": "Tienda de Bienestar BIF" },
+    { "type": "text", "id": "sello", "label": "Sello sobre la foto – título", "default": "Santiago de Cali" },
+    { "type": "text", "id": "sello_texto", "label": "Sello sobre la foto – texto", "default": "Colombia" },
+    { "type": "header", "content": "Línea de tiempo" },
+    { "type": "text", "id": "linea_antetitulo", "label": "Texto pequeño superior", "default": "Nuestro camino" },
+    { "type": "text", "id": "linea_titulo", "label": "Título", "default": "Así hemos crecido contigo" },
+    { "type": "header", "content": "Visión" },
+    { "type": "text", "id": "vision_antetitulo", "label": "Texto pequeño superior", "default": "Nuestra visión" },
+    { "type": "text", "id": "vision_titulo", "label": "Título", "default": "Hacia dónde vamos" },
+    { "type": "richtext", "id": "vision_texto", "label": "Texto" },
+    { "type": "image_picker", "id": "foto2", "label": "Foto de la visión (opcional)" },
+    { "type": "text", "id": "whatsapp", "label": "WhatsApp", "default": "573173570881" }
+  ],
+  "blocks": [
+    { "type": "cifra", "name": "Cifra", "limit": 4, "settings": [
+      { "type": "text", "id": "prefijo", "label": "Antes del número", "default": "+" },
+      { "type": "number", "id": "numero", "label": "Número", "default": 1000 },
+      { "type": "text", "id": "sufijo", "label": "Después del número" },
+      { "type": "checkbox", "id": "contar", "label": "Animar el número contando", "default": true },
+      { "type": "text", "id": "texto", "label": "Texto", "default": "Pacientes atendidos" }
+    ] },
+    { "type": "hito", "name": "Momento de la historia", "limit": 8, "settings": [
+      { "type": "text", "id": "anio", "label": "Año", "default": "2017" },
+      { "type": "text", "id": "titulo", "label": "Título", "default": "El comienzo" },
+      { "type": "textarea", "id": "texto", "label": "Texto" }
+    ] }
+  ]
+}
+{% endschema %}

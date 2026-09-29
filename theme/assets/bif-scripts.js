@@ -66,7 +66,34 @@
     });
   }
 
-  function iniciar() { iniciarPalabras(); iniciarReveals(); iniciarAnuncios(); iniciarInclinacion(); }
+  // Números que cuentan desde 0 cuando aparecen en pantalla.
+  function iniciarContadores() {
+    var numeros = document.querySelectorAll('[data-bif-contar]:not([data-listo])');
+    if (!('IntersectionObserver' in window)) return;
+    var obs = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (entrada) {
+        if (!entrada.isIntersecting) return;
+        obs.unobserve(entrada.target);
+        var el = entrada.target;
+        var meta = parseFloat(el.dataset.bifContar) || 0;
+        var inicio = null;
+        function paso(t) {
+          if (!inicio) inicio = t;
+          var p = Math.min((t - inicio) / 1800, 1);
+          var valor = Math.round(meta * (1 - Math.pow(1 - p, 3)));
+          el.textContent = valor.toLocaleString('es-CO');
+          if (p < 1) requestAnimationFrame(paso);
+        }
+        requestAnimationFrame(paso);
+      });
+    }, { threshold: 0.5 });
+    numeros.forEach(function (el) {
+      el.dataset.listo = '1';
+      obs.observe(el);
+    });
+  }
+
+  function iniciar() { iniciarPalabras(); iniciarReveals(); iniciarAnuncios(); iniciarInclinacion(); iniciarContadores(); }
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', iniciar);

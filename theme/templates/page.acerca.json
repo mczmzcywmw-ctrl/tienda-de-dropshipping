@@ -1,0 +1,100 @@
+{
+  "sections": {
+    "main": {
+      "type": "bif-nosotros",
+      "settings": {
+        "vision_texto": "<p>Ser una de las tiendas de medicina natural más confiables y reconocidas en Colombia y Latinoamérica, comprometida con ofrecer productos 100% naturales y de alta calidad que contribuyan al bienestar integral de las personas.</p><p>Nuestra meta es acompañar a cada cliente en el cuidado de su salud, brindándole soluciones seguras, efectivas y respaldadas por la experiencia y el conocimiento en medicina natural. Queremos ser un aliado permanente para que el bienestar físico, mental y emocional de nuestros clientes se mantenga siempre en equilibrio, fomentando hábitos saludables y una conexión más consciente con la naturaleza.</p>"
+      },
+      "blocks": {
+        "c1": {
+          "type": "cifra",
+          "settings": {
+            "prefijo": "+",
+            "numero": 1000,
+            "texto": "Pacientes atendidos"
+          }
+        },
+        "c2": {
+          "type": "cifra",
+          "settings": {
+            "prefijo": "+",
+            "numero": 5,
+            "texto": "Años de desarrollo y estudio"
+          }
+        },
+        "c3": {
+          "type": "cifra",
+          "settings": {
+            "prefijo": "",
+            "numero": 100,
+            "sufijo": "%",
+            "texto": "Productos naturales"
+          }
+        },
+        "c4": {
+          "type": "cifra",
+          "settings": {
+            "prefijo": "",
+            "numero": 2017,
+            "contar": false,
+            "texto": "Año en que comenzamos"
+          }
+        },
+        "h1": {
+          "type": "hito",
+          "settings": {
+            "anio": "2017",
+            "titulo": "Nace Tips Saludables.doc",
+            "texto": "Empezamos compartiendo en redes sociales recomendaciones de alimentación y salud."
+          }
+        },
+        "h2": {
+          "type": "hito",
+          "settings": {
+            "anio": "2020 – 2021",
+            "titulo": "Atención desde casa",
+            "texto": "Recibimos a nuestros pacientes en un espacio en casa, con estrictas medidas de bioseguridad durante la pandemia."
+          }
+        },
+        "h3": {
+          "type": "hito",
+          "settings": {
+            "anio": "2021",
+            "titulo": "Nace BIF",
+            "texto": "Adoptamos nuestro nombre actual: Biorreguladora Integrativa Funcional, una propuesta de medicina natural para el bienestar integral."
+          }
+        },
+        "h4": {
+          "type": "hito",
+          "settings": {
+            "anio": "Santiago de Cali",
+            "titulo": "Nuestro punto físico",
+            "texto": "Abrimos un punto físico en Cali, primero en una ubicación temporal y luego en nuestra sede actual."
+          }
+        },
+        "h5": {
+          "type": "hito",
+          "settings": {
+            "anio": "Agosto 2025",
+            "titulo": "Llegamos al mundo digital",
+            "texto": "Inauguramos la tienda virtual para que pacientes y nuevos clientes accedan a productos 100% naturales desde cualquier lugar."
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

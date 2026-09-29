@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "bif-legal",
+      "settings": {
+        "menu": "servicio-al-cliente"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
