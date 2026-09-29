@@ -33,7 +33,7 @@
     <div class="bif-header__iconos">
       <a href="{{ routes.search_url }}" class="bif-icono-btn" aria-label="Buscar">{% render 'bif-icono', nombre: 'buscar' %}</a>
       {%- if shop.customer_accounts_enabled -%}
-        <a href="{{ routes.account_url }}" class="bif-icono-btn" aria-label="Mi cuenta">{% render 'bif-icono', nombre: 'usuario' %}</a>
+        <a href="{{ routes.account_url }}" class="bif-icono-btn bif-icono-btn--cuenta" aria-label="Mi cuenta">{% render 'bif-icono', nombre: 'usuario' %}</a>
       {%- endif -%}
       <a href="{{ routes.cart_url }}" class="bif-icono-btn" aria-label="Carrito ({{ cart.item_count }})">
         {% render 'bif-icono', nombre: 'bolsa' %}

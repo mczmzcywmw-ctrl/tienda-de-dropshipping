@@ -6,7 +6,32 @@
         "antetitulo": "Bienvenido a BIF · Tienda de Bienestar",
         "titulo": "Tu bienestar, en manos de la naturaleza",
         "texto": "Productos homeopáticos, naturales y suplementos elegidos con cuidado para que te sientas bien cada día. Compra con la tranquilidad de estar en buenas manos."
-      }
+      },
+      "blocks": {
+        "garantia_1": {
+          "type": "garantia",
+          "settings": {
+            "texto": "Asesoría por WhatsApp"
+          }
+        },
+        "garantia_2": {
+          "type": "garantia",
+          "settings": {
+            "texto": "Envíos a toda Colombia"
+          }
+        },
+        "garantia_3": {
+          "type": "garantia",
+          "settings": {
+            "texto": "Pago seguro"
+          }
+        }
+      },
+      "block_order": [
+        "garantia_1",
+        "garantia_2",
+        "garantia_3"
+      ]
     },
     "beneficios": {
       "type": "bif-beneficios",
@@ -145,13 +170,56 @@
     "blog": {
       "type": "bif-blog",
       "settings": {}
+    },
+    "cinta": {
+      "type": "bif-cinta",
+      "settings": {}
+    },
+    "pasos": {
+      "type": "bif-pasos",
+      "settings": {
+        "texto": "Sin filas, sin complicaciones: pide desde tu casa y recíbelo en la puerta."
+      },
+      "blocks": {
+        "paso_1": {
+          "type": "paso",
+          "settings": {
+            "icono": "bolsa",
+            "titulo": "Elige tus productos",
+            "texto": "Explora el catálogo o escríbenos y te ayudamos a elegir lo mejor para ti."
+          }
+        },
+        "paso_2": {
+          "type": "paso",
+          "settings": {
+            "icono": "candado",
+            "titulo": "Paga de forma segura",
+            "texto": "Pagos protegidos con tarjeta y otros medios. Tus datos siempre están seguros."
+          }
+        },
+        "paso_3": {
+          "type": "paso",
+          "settings": {
+            "icono": "camion",
+            "titulo": "Recíbelo en casa",
+            "texto": "Enviamos a todo el país con protocolos de bioseguridad en cada pedido."
+          }
+        }
+      },
+      "block_order": [
+        "paso_1",
+        "paso_2",
+        "paso_3"
+      ]
     }
   },
   "order": [
     "hero",
     "beneficios",
     "categorias",
+    "cinta",
     "productos",
+    "pasos",
     "confianza",
     "blog"
   ]

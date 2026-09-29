@@ -1,0 +1,44 @@
+{{ 'bif-styles.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.fondo }};
+    padding-top: {{ section.settings.padding }}px;
+    padding-bottom: {{ section.settings.padding }}px;
+  }
+  #shopify-section-{{ section.id }} .bif-cinta { color: {{ section.settings.color_texto }}; font-size: {{ section.settings.tamano }}px; }
+  #shopify-section-{{ section.id }} .bif-cinta__pista { animation-duration: {{ section.settings.velocidad }}s; }
+  @media (max-width: 640px) {
+    #shopify-section-{{ section.id }} .bif-cinta { font-size: {{ section.settings.tamano | times: 0.6 | round }}px; }
+  }
+{% endstyle %}
+
+{%- assign palabras = section.settings.palabras | split: ',' -%}
+<div class="bif-cinta bif-section" aria-label="{{ section.settings.palabras | escape }}">
+  <div class="bif-cinta__pista">
+    {%- for vuelta in (1..2) -%}
+      <div class="bif-cinta__grupo" {% if vuelta == 2 %}aria-hidden="true"{% endif %}>
+        {%- for palabra in palabras -%}
+          <span class="bif-cinta__palabra{% cycle '', ' bif-cinta__palabra--hueca' %}">{{ palabra | strip }}</span>
+          <span class="bif-cinta__sep">{% render 'bif-icono', nombre: 'hoja' %}</span>
+        {%- endfor -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "BIF – Cinta en movimiento",
+  "tag": "div",
+  "settings": [
+    { "type": "textarea", "id": "palabras", "label": "Palabras (separadas por comas)", "default": "Homeopáticos, Proteínas, Creatina, Vitaminas, Naturales, Bienestar" },
+    { "type": "range", "id": "tamano", "label": "Tamaño del texto (px)", "min": 24, "max": 96, "step": 2, "unit": "px", "default": 56 },
+    { "type": "range", "id": "velocidad", "label": "Velocidad (más alto = más lento)", "min": 10, "max": 90, "step": 5, "unit": "s", "default": 40 },
+    { "type": "color", "id": "fondo", "label": "Color de fondo", "default": "#FFFFFF" },
+    { "type": "color", "id": "color_texto", "label": "Color del texto", "default": "#477E33" },
+    { "type": "range", "id": "padding", "label": "Espacio arriba y abajo (px)", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 }
+  ],
+  "presets": [ { "name": "BIF – Cinta en movimiento" } ]
+}
+{% endschema %}

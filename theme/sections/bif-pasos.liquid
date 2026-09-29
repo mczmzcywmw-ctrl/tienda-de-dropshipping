@@ -1,0 +1,72 @@
+{{ 'bif-styles.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'bif-scripts.js' | asset_url }}" defer></script>
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.fondo }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+  #shopify-section-{{ section.id }} .bif-pasos__fila { --bif-cols: {{ section.blocks.size | at_most: 4 | at_least: 1 }}; }
+  @media (max-width: 990px) {
+    #shopify-section-{{ section.id }} { padding-top: {{ section.settings.padding_top | times: 0.7 | round }}px; padding-bottom: {{ section.settings.padding_bottom | times: 0.7 | round }}px; }
+  }
+{% endstyle %}
+
+<section class="bif-pasos bif-section">
+  <div class="bif-container">
+    <div class="bif-titulo bif-reveal">
+      {%- if section.settings.antetitulo != blank -%}<span class="bif-antetitulo">{{ section.settings.antetitulo }}</span>{%- endif -%}
+      {%- if section.settings.titulo != blank -%}<h2>{{ section.settings.titulo }}</h2>{%- endif -%}
+      {%- if section.settings.texto != blank -%}<p>{{ section.settings.texto }}</p>{%- endif -%}
+    </div>
+    <div class="bif-pasos__fila bif-reveal">
+      <span class="bif-pasos__linea" aria-hidden="true"><span></span></span>
+      {%- for block in section.blocks -%}
+        <div class="bif-paso" style="--bif-paso: {{ forloop.index0 }}" {{ block.shopify_attributes }}>
+          <div class="bif-paso__icono">
+            {% render 'bif-icono', nombre: block.settings.icono %}
+            <span class="bif-paso__num">{{ forloop.index }}</span>
+          </div>
+          <h3>{{ block.settings.titulo }}</h3>
+          {%- if block.settings.texto != blank -%}<p>{{ block.settings.texto }}</p>{%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "BIF – Cómo comprar",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "antetitulo", "label": "Texto pequeño superior", "default": "Así de fácil" },
+    { "type": "text", "id": "titulo", "label": "Título", "default": "Compra en 3 pasos, sin complicaciones" },
+    { "type": "text", "id": "texto", "label": "Texto" },
+    { "type": "color", "id": "fondo", "label": "Color de fondo", "default": "#FFFFFF" },
+    { "type": "range", "id": "padding_top", "label": "Espacio superior (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 104 },
+    { "type": "range", "id": "padding_bottom", "label": "Espacio inferior (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 24 }
+  ],
+  "blocks": [
+    {
+      "type": "paso",
+      "name": "Paso",
+      "limit": 4,
+      "settings": [
+        { "type": "select", "id": "icono", "label": "Ícono", "options": [
+          { "value": "bolsa", "label": "Bolsa" },
+          { "value": "candado", "label": "Candado" },
+          { "value": "camion", "label": "Camión" },
+          { "value": "atencion", "label": "Audífonos" },
+          { "value": "corazon", "label": "Corazón" },
+          { "value": "hoja", "label": "Hoja" }
+        ], "default": "bolsa" },
+        { "type": "text", "id": "titulo", "label": "Título", "default": "Elige tus productos" },
+        { "type": "textarea", "id": "texto", "label": "Texto" }
+      ]
+    }
+  ],
+  "presets": [ { "name": "BIF – Cómo comprar", "blocks": [ { "type": "paso" } ] } ]
+}
+{% endschema %}

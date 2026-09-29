@@ -38,7 +38,7 @@
             assign img = col.featured_image
           endif
         -%}
-        <a href="{{ enlace }}" class="bif-categoria bif-reveal" style="--bif-delay: {{ forloop.index0 | times: 0.1 }}s; background: linear-gradient(160deg, {{ block.settings.color }} 0%, #1F3B17 100%);" {{ block.shopify_attributes }}>
+        <a href="{{ enlace }}" data-bif-inclinar class="bif-categoria bif-reveal" style="--bif-delay: {{ forloop.index0 | times: 0.1 }}s; background: linear-gradient(160deg, {{ block.settings.color }} 0%, #1F3B17 100%);" {{ block.shopify_attributes }}>
           {%- if img != blank -%}
             <div class="bif-categoria__fondo"><img src="{{ img | image_url: width: 900 }}" alt="{{ img.alt | escape }}" loading="lazy" width="{{ img.width }}" height="{{ img.height }}"></div>
           {%- endif -%}
