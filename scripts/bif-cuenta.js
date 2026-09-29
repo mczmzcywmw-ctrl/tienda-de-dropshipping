@@ -2,7 +2,8 @@
    Para cambiar la hora de fin o los textos, edita CONFIG. */
 (function () {
   var CONFIG = {
-    fin: '2026-09-29T15:00:00-05:00', // hora de Colombia
+    fin: '2026-09-29T15:00:00-05:00', // hora de Colombia (fin de la primera vuelta)
+    cicloMinutos: 185, // al llegar a cero vuelve a empezar con esta duración (3 h 5 min). 0 = no reiniciar
     etiqueta: 'Oferta por tiempo limitado',
     titulo: '¡30% de descuento en toda la tienda!',
     texto: 'Se aplica solo al pagar. Aprovecha antes de que se acabe el tiempo.',
@@ -10,7 +11,14 @@
     enlace: '/collections/all'
   };
   var fin = new Date(CONFIG.fin).getTime();
-  if (isNaN(fin) || fin <= Date.now()) return;
+  var ciclo = (CONFIG.cicloMinutos || 0) * 60000;
+  if (isNaN(fin) || (!ciclo && fin <= Date.now())) return;
+  // Los ciclos parten de la misma hora de fin: todos los clientes ven el mismo tiempo aunque recarguen.
+  var siguienteFin = function () {
+    var ahora = Date.now();
+    if (!ciclo || ahora < fin) return fin;
+    return fin + (Math.floor((ahora - fin) / ciclo) + 1) * ciclo;
+  };
 
   function iniciar() {
     // Si el tema ya trae su propia cuenta regresiva (tema v2), no se duplica.
@@ -86,7 +94,7 @@
     };
     var timer;
     var tic = function () {
-      var r = Math.floor((fin - Date.now()) / 1000);
+      var r = Math.floor((siguienteFin() - Date.now()) / 1000);
       if (r <= 0) { clearInterval(timer); barra.parentNode && barra.parentNode.removeChild(barra); return; }
       var d = Math.floor(r / 86400), h = Math.floor(r % 86400 / 3600), m = Math.floor(r % 3600 / 60), s = r % 60;
       cajaDias.style.display = d === 0 ? 'none' : '';

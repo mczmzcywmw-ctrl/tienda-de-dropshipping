@@ -10,7 +10,7 @@
 {% endstyle %}
 
 {%- if section.settings.fin != blank -%}
-<div class="bif-cuenta bif-section" data-bif-cuenta="{{ section.settings.fin | replace: ' ', 'T' }}:00{{ section.settings.zona }}" data-bif-al-terminar="{{ section.settings.al_terminar }}" hidden>
+<div class="bif-cuenta bif-section" data-bif-cuenta="{{ section.settings.fin | replace: ' ', 'T' }}:00{{ section.settings.zona }}" data-bif-al-terminar="{{ section.settings.al_terminar }}" data-bif-ciclo="{% if section.settings.reiniciar %}{{ section.settings.ciclo_horas | times: 60 | plus: section.settings.ciclo_minutos }}{% else %}0{% endif %}" hidden>
   <div class="bif-container bif-cuenta__fila">
     <div class="bif-cuenta__texto">
       {%- if section.settings.etiqueta != blank -%}<span class="bif-cuenta__pildora"><span class="bif-cuenta__pulso"></span>{{ section.settings.etiqueta }}</span>{%- endif -%}
@@ -47,6 +47,14 @@
     var fin = new Date(el.getAttribute('data-bif-cuenta')).getTime();
     if (isNaN(fin)) return;
     var modo = el.getAttribute('data-bif-al-terminar');
+    var ciclo = parseInt(el.getAttribute('data-bif-ciclo'), 10) * 60000 || 0;
+    // Con reinicio: al llegar a cero vuelve a empezar. Los ciclos parten de la misma hora de fin,
+    // así todos los clientes ven el mismo tiempo aunque recarguen la página.
+    var siguienteFin = function () {
+      var ahora = Date.now();
+      if (!ciclo || ahora < fin) return fin;
+      return fin + (Math.floor((ahora - fin) / ciclo) + 1) * ciclo;
+    };
     var campos = { d: el.querySelector('[data-v="d"]'), h: el.querySelector('[data-v="h"]'), m: el.querySelector('[data-v="m"]'), s: el.querySelector('[data-v="s"]') };
     var cajaDias = el.querySelector('[data-dias]');
     var dos = function (n) { return (n < 10 ? '0' : '') + n; };
@@ -58,7 +66,7 @@
     };
     var timer;
     var tic = function () {
-      var r = Math.floor((fin - Date.now()) / 1000);
+      var r = Math.floor((siguienteFin() - Date.now()) / 1000);
       if (r <= 0) {
         clearInterval(timer);
         if (modo === 'mensaje') { el.hidden = false; el.classList.add('is-terminada'); }
@@ -82,8 +90,11 @@
   "name": "BIF – Cuenta regresiva",
   "tag": "div",
   "settings": [
-    { "type": "paragraph", "content": "La cuenta llega a cero en la fecha y hora que pongas aquí, igual para todos los clientes. Úsala solo con un descuento real que termine en ese momento." },
+    { "type": "paragraph", "content": "La cuenta llega a cero en la fecha y hora que pongas aquí, igual para todos los clientes. Si activas \"Volver a empezar\", al llegar a cero arranca otra vuelta con la duración que elijas." },
     { "type": "text", "id": "fin", "label": "Fecha y hora en que termina", "info": "Formato AAAA-MM-DD HH:MM (24 horas). Ejemplo: 2026-10-05 20:00", "default": "2026-09-29 15:00" },
+    { "type": "checkbox", "id": "reiniciar", "label": "Volver a empezar cuando llegue a cero", "default": true },
+    { "type": "range", "id": "ciclo_horas", "label": "Duración de cada vuelta – horas", "min": 0, "max": 23, "step": 1, "default": 3 },
+    { "type": "range", "id": "ciclo_minutos", "label": "Duración de cada vuelta – minutos", "min": 0, "max": 55, "step": 5, "default": 5 },
     { "type": "select", "id": "zona", "label": "Zona horaria", "options": [ { "value": "-05:00", "label": "Colombia (GMT-5)" } ], "default": "-05:00" },
     { "type": "text", "id": "etiqueta", "label": "Etiqueta", "default": "Oferta por tiempo limitado" },
     { "type": "text", "id": "titulo", "label": "Título", "default": "¡30% de descuento en toda la tienda!" },
