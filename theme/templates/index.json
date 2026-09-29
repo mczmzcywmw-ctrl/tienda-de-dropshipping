@@ -25,12 +25,42 @@
           "settings": {
             "texto": "Pago seguro"
           }
+        },
+        "cifra_1": {
+          "type": "cifra",
+          "settings": {
+            "prefijo": "+",
+            "numero": 1000,
+            "contar": true,
+            "texto": "Pacientes atendidos"
+          }
+        },
+        "cifra_2": {
+          "type": "cifra",
+          "settings": {
+            "prefijo": "+",
+            "numero": 5,
+            "contar": true,
+            "texto": "Años de experiencia"
+          }
+        },
+        "cifra_3": {
+          "type": "cifra",
+          "settings": {
+            "prefijo": "",
+            "numero": 2017,
+            "contar": false,
+            "texto": "Acompañándote desde"
+          }
         }
       },
       "block_order": [
         "garantia_1",
         "garantia_2",
-        "garantia_3"
+        "garantia_3",
+        "cifra_1",
+        "cifra_2",
+        "cifra_3"
       ]
     },
     "beneficios": {
@@ -224,9 +254,9 @@
   },
   "order": [
     "hero",
+    "cinta",
     "beneficios",
     "categorias",
-    "cinta",
     "productos",
     "pasos",
     "confianza",

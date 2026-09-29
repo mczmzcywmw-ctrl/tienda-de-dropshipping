@@ -115,7 +115,55 @@
     }
   }
 
-  function iniciar() { iniciarPalabras(); iniciarReveals(); iniciarAnuncios(); iniciarInclinacion(); iniciarContadores(); iniciarDesplegables(); }
+  // Palabra del título de la portada que va cambiando.
+  function iniciarRotadores() {
+    document.querySelectorAll('[data-bif-rota]:not([data-listo])').forEach(function (caja) {
+      caja.dataset.listo = '1';
+      var palabras = caja.querySelectorAll('.bif-rota__palabra');
+      if (palabras.length < 2) return;
+      var actual = 0;
+      setTimeout(function () {
+        setInterval(function () {
+          var sale = palabras[actual];
+          actual = (actual + 1) % palabras.length;
+          sale.classList.remove('is-activa');
+          sale.classList.add('is-sale');
+          setTimeout(function () { sale.classList.remove('is-sale'); }, 700);
+          palabras[actual].classList.add('is-activa');
+        }, 2600);
+      }, 1600);
+    });
+  }
+
+  // Portada: la ilustración se mueve un poco con el mouse y una luz suave sigue el cursor.
+  function iniciarPortadaMouse() {
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    document.querySelectorAll('[data-bif-hero]:not([data-listo])').forEach(function (hero) {
+      hero.dataset.listo = '1';
+      var pendiente = null;
+      hero.addEventListener('mousemove', function (e) {
+        var r = hero.getBoundingClientRect();
+        var x = e.clientX - r.left, y = e.clientY - r.top;
+        if (pendiente) return;
+        pendiente = requestAnimationFrame(function () {
+          pendiente = null;
+          hero.style.setProperty('--mx', ((x / r.width) * 2 - 1).toFixed(3));
+          hero.style.setProperty('--my', ((y / r.height) * 2 - 1).toFixed(3));
+          hero.style.setProperty('--lx', x + 'px');
+          hero.style.setProperty('--ly', y + 'px');
+          hero.classList.add('is-luz');
+        });
+      });
+      hero.addEventListener('mouseleave', function () {
+        hero.classList.remove('is-luz');
+        hero.style.setProperty('--mx', 0);
+        hero.style.setProperty('--my', 0);
+      });
+    });
+  }
+
+  function iniciar() { iniciarPalabras(); iniciarReveals(); iniciarAnuncios(); iniciarInclinacion(); iniciarContadores(); iniciarDesplegables(); iniciarRotadores(); iniciarPortadaMouse(); }
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', iniciar);

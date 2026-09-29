@@ -19,7 +19,7 @@
   }
 {% endstyle %}
 
-<section class="bif-hero bif-section">
+<section class="bif-hero bif-section" data-bif-hero>
   <div class="bif-hero__blob bif-hero__blob--1"></div>
   <div class="bif-hero__blob bif-hero__blob--2"></div>
   <div class="bif-hero__particulas" aria-hidden="true">
@@ -28,6 +28,7 @@
     {%- endfor -%}
   </div>
 
+  <div class="bif-hero__luz" aria-hidden="true"></div>
   <div class="bif-container bif-hero__grid">
     <div>
       {%- if section.settings.antetitulo != blank -%}
@@ -35,7 +36,25 @@
           <span class="bif-hero__punto"></span>{{ section.settings.antetitulo }}
         </span>
       {%- endif -%}
-      <h1 class="bif-palabras">{{ section.settings.titulo }}</h1>
+      {%- liquid
+        assign rotan = section.settings.palabras_rotan | split: ','
+        assign partes = section.settings.titulo | split: ' '
+        assign ultima = partes | last
+        assign base = section.settings.titulo | remove_last: ultima | strip
+      -%}
+      {%- if rotan.size > 1 -%}
+        <h1 class="bif-hero__titulo" aria-label="{{ section.settings.titulo | escape }}">
+          <span class="bif-palabras" aria-hidden="true">{{ base }}</span>
+          <span class="bif-rota" data-bif-rota aria-hidden="true">
+            {%- for palabra in rotan -%}
+              <span class="bif-rota__palabra{% if forloop.first %} is-activa{% endif %}">{{ palabra | strip }}</span>
+            {%- endfor -%}
+            <svg class="bif-rota__trazo" viewBox="0 0 300 20" preserveAspectRatio="none" fill="none"><path d="M3 15C60 5 150 3 297 11" pathLength="1" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg>
+          </span>
+        </h1>
+      {%- else -%}
+        <h1 class="bif-palabras">{{ section.settings.titulo }}</h1>
+      {%- endif -%}
       {%- if section.settings.texto != blank -%}
         <p class="bif-hero__texto bif-reveal" style="--bif-delay:.5s">{{ section.settings.texto | newline_to_br }}</p>
       {%- endif -%}
@@ -47,12 +66,24 @@
           <a class="bif-btn bif-btn--linea-blanca" href="https://wa.me/{{ section.settings.whatsapp | remove: '+' | remove: ' ' }}" target="_blank" rel="noopener">{% render 'bif-icono', nombre: 'whatsapp' %} {{ section.settings.boton2_texto }}</a>
         {%- endif -%}
       </div>
-      {%- if section.blocks.size > 0 -%}
+      {%- assign garantias = section.blocks | where: 'type', 'garantia' -%}
+      {%- if garantias.size > 0 -%}
         <ul class="bif-hero__garantias bif-reveal" style="--bif-delay:.8s">
-          {%- for block in section.blocks -%}
+          {%- for block in garantias -%}
             <li {{ block.shopify_attributes }}>{% render 'bif-icono', nombre: 'check' %} {{ block.settings.texto }}</li>
           {%- endfor -%}
         </ul>
+      {%- endif -%}
+      {%- assign cifras = section.blocks | where: 'type', 'cifra' -%}
+      {%- if cifras.size > 0 -%}
+        <div class="bif-hero__cifras bif-reveal" style="--bif-delay:.95s">
+          {%- for block in cifras -%}
+            <div class="bif-hero__cifra" {{ block.shopify_attributes }}>
+              <strong>{{ block.settings.prefijo }}<span{% if block.settings.contar %} data-bif-contar="{{ block.settings.numero }}"{% endif %}>{% if block.settings.contar %}0{% else %}{{ block.settings.numero }}{% endif %}</span>{{ block.settings.sufijo }}</strong>
+              <span>{{ block.settings.texto }}</span>
+            </div>
+          {%- endfor -%}
+        </div>
       {%- endif -%}
     </div>
 
@@ -85,6 +116,23 @@
           </div>
         </div>
       {%- endif -%}
+      {%- assign destacado = section.settings.producto | default: collections.all.products.first -%}
+      {%- if section.settings.mostrar_producto and destacado != blank -%}
+        <a class="bif-hero__producto" href="{{ destacado.url }}">
+          <span class="bif-hero__producto-img">
+            {%- if destacado.featured_image -%}<img src="{{ destacado.featured_image | image_url: width: 240 }}" alt="{{ destacado.featured_image.alt | default: destacado.title | escape }}" width="120" height="120" loading="eager">{%- endif -%}
+          </span>
+          <span class="bif-hero__producto-info">
+            <small>{{ section.settings.producto_etiqueta }}</small>
+            <strong>{{ destacado.title }}</strong>
+            <span class="bif-hero__producto-precio">
+              {%- if destacado.compare_at_price > destacado.price -%}<s>{{ destacado.compare_at_price | money }}</s> {% endif -%}
+              {{ destacado.price | money }}
+            </span>
+          </span>
+          <span class="bif-hero__producto-ir" aria-hidden="true">{% render 'bif-icono', nombre: 'flecha' %}</span>
+        </a>
+      {%- endif -%}
       <div class="bif-hero__tarjetas">
       {%- if section.settings.tarjeta1_titulo != blank -%}
         <div class="bif-flota bif-flota--1">
@@ -101,6 +149,9 @@
       </div>
     </div>
   </div>
+  {%- if section.settings.mostrar_bajar -%}
+    <div class="bif-hero__bajar" aria-hidden="true"><span class="bif-hero__raton"><span></span></span>{{ section.settings.bajar_texto }}</div>
+  {%- endif -%}
 </section>
 
 {% schema %}
@@ -111,6 +162,7 @@
     { "type": "header", "content": "Textos" },
     { "type": "text", "id": "antetitulo", "label": "Texto pequeño superior", "default": "Bienvenido a BIF · Tienda de Bienestar" },
     { "type": "text", "id": "titulo", "label": "Título", "default": "Tu bienestar, en manos de la naturaleza" },
+    { "type": "text", "id": "palabras_rotan", "label": "Palabras que cambian al final del título", "info": "Separadas por comas. Reemplazan la última palabra del título. Déjalo vacío para un título fijo.", "default": "naturaleza, confianza, tradición" },
     { "type": "textarea", "id": "texto", "label": "Frase de confianza", "default": "Productos homeopáticos, naturales y suplementos seleccionados con cuidado para acompañarte en cada etapa de tu salud." },
     { "type": "header", "content": "Botones" },
     { "type": "text", "id": "boton1_texto", "label": "Botón principal – texto", "default": "Ver productos" },
@@ -121,11 +173,18 @@
     { "type": "image_picker", "id": "imagen", "label": "Foto (opcional)", "info": "Si subes una foto, reemplaza la ilustración animada." },
     { "type": "text", "id": "centro_titulo", "label": "Texto central", "default": "Bienestar natural" },
     { "type": "text", "id": "centro_texto", "label": "Texto central pequeño", "default": "Cuidado consciente" },
+    { "type": "header", "content": "Producto destacado" },
+    { "type": "checkbox", "id": "mostrar_producto", "label": "Mostrar un producto flotando junto a la ilustración", "default": true },
+    { "type": "product", "id": "producto", "label": "Producto", "info": "Si no eliges uno, se muestra el primero de la tienda." },
+    { "type": "text", "id": "producto_etiqueta", "label": "Etiqueta", "default": "Producto destacado" },
     { "type": "header", "content": "Tarjetas flotantes" },
     { "type": "text", "id": "tarjeta1_titulo", "label": "Tarjeta 1 – título", "default": "Envíos a todo el país" },
     { "type": "text", "id": "tarjeta1_texto", "label": "Tarjeta 1 – texto", "default": "Directo a tu puerta" },
     { "type": "text", "id": "tarjeta2_titulo", "label": "Tarjeta 2 – título", "default": "Compra 100% segura" },
     { "type": "text", "id": "tarjeta2_texto", "label": "Tarjeta 2 – texto", "default": "Pagos protegidos" },
+    { "type": "header", "content": "Indicador para bajar" },
+    { "type": "checkbox", "id": "mostrar_bajar", "label": "Mostrar indicador de \"desliza\"", "default": true },
+    { "type": "text", "id": "bajar_texto", "label": "Texto", "default": "Descubre más" },
     { "type": "header", "content": "Diseño" },
     { "type": "color", "id": "color_a", "label": "Color de fondo 1", "default": "#477E33" },
     { "type": "color", "id": "color_b", "label": "Color de fondo 2", "default": "#1F3B17" },
@@ -135,7 +194,14 @@
     { "type": "range", "id": "padding_bottom", "label": "Espacio inferior (px)", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 112 }
   ],
   "blocks": [
-    { "type": "garantia", "name": "Garantía", "limit": 4, "settings": [ { "type": "text", "id": "texto", "label": "Texto", "default": "Productos originales" } ] }
+    { "type": "garantia", "name": "Garantía", "limit": 4, "settings": [ { "type": "text", "id": "texto", "label": "Texto", "default": "Productos originales" } ] },
+    { "type": "cifra", "name": "Cifra", "limit": 3, "settings": [
+      { "type": "text", "id": "prefijo", "label": "Antes del número", "default": "+" },
+      { "type": "number", "id": "numero", "label": "Número", "default": 1000 },
+      { "type": "text", "id": "sufijo", "label": "Después del número" },
+      { "type": "checkbox", "id": "contar", "label": "Animar el número contando", "default": true },
+      { "type": "text", "id": "texto", "label": "Texto", "default": "Pacientes atendidos" }
+    ] }
   ],
   "presets": [ { "name": "BIF – Bienvenida" } ]
 }
