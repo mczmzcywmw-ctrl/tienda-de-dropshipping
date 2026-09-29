@@ -506,3 +506,9 @@
   .bif-footer__legales a { justify-content: center; }
 }
 .bif-footer__contacto a { font-size: 13.5px; }
+
+/* Foto horizontal en Acerca de nosotros */
+.bif-foto-marco--horizontal { aspect-ratio: 4 / 3; border-radius: 28px; }
+.bif-foto-marco--horizontal img { object-position: 30% center; }
+@media (min-width: 991px) { .bif-historia__grid:has(.bif-foto-marco--horizontal) { grid-template-columns: 1fr 1fr; } }
+.bif-foto-marco--horizontal + .bif-foto-sello { left: auto; right: 24px; bottom: -26px; }

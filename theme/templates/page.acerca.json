@@ -3,7 +3,9 @@
     "main": {
       "type": "bif-nosotros",
       "settings": {
-        "vision_texto": "<p>Ser una de las tiendas de medicina natural más confiables y reconocidas en Colombia y Latinoamérica, comprometida con ofrecer productos 100% naturales y de alta calidad que contribuyan al bienestar integral de las personas.</p><p>Nuestra meta es acompañar a cada cliente en el cuidado de su salud, brindándole soluciones seguras, efectivas y respaldadas por la experiencia y el conocimiento en medicina natural. Queremos ser un aliado permanente para que el bienestar físico, mental y emocional de nuestros clientes se mantenga siempre en equilibrio, fomentando hábitos saludables y una conexión más consciente con la naturaleza.</p>"
+        "vision_texto": "<p>Ser una de las tiendas de medicina natural más confiables y reconocidas en Colombia y Latinoamérica, comprometida con ofrecer productos 100% naturales y de alta calidad que contribuyan al bienestar integral de las personas.</p><p>Nuestra meta es acompañar a cada cliente en el cuidado de su salud, brindándole soluciones seguras, efectivas y respaldadas por la experiencia y el conocimiento en medicina natural. Queremos ser un aliado permanente para que el bienestar físico, mental y emocional de nuestros clientes se mantenga siempre en equilibrio, fomentando hábitos saludables y una conexión más consciente con la naturaleza.</p>",
+        "foto": "shopify://shop_images/bif-sede-cali.webp",
+        "foto_forma": "horizontal"
       },
       "blocks": {
         "c1": {

@@ -33,7 +33,7 @@
         <div class="bif-rte">{{ page.content }}</div>
       </div>
       <div class="bif-historia__media bif-reveal" style="--bif-delay:.15s">
-        <div class="bif-foto-marco">
+        <div class="bif-foto-marco{% if section.settings.foto != blank and section.settings.foto_forma == 'horizontal' %} bif-foto-marco--horizontal{% endif %}">
           {%- if section.settings.foto != blank -%}
             <img src="{{ section.settings.foto | image_url: width: 1200 }}" alt="{{ section.settings.foto.alt | default: 'Tienda de Bienestar BIF' | escape }}" width="{{ section.settings.foto.width }}" height="{{ section.settings.foto.height }}" loading="lazy">
           {%- else -%}
@@ -137,6 +137,7 @@
     { "type": "text", "id": "historia_antetitulo", "label": "Texto pequeño superior", "default": "Quiénes somos" },
     { "type": "text", "id": "historia_titulo", "label": "Título", "default": "Una historia que nace del amor por lo natural" },
     { "type": "image_picker", "id": "foto", "label": "Foto principal" },
+    { "type": "select", "id": "foto_forma", "label": "Forma de la foto", "options": [ { "value": "arco", "label": "Arco (vertical)" }, { "value": "horizontal", "label": "Horizontal" } ], "default": "arco" },
     { "type": "text", "id": "foto_texto_vacio", "label": "Texto cuando no hay foto", "default": "Tienda de Bienestar BIF" },
     { "type": "text", "id": "sello", "label": "Sello sobre la foto – título", "default": "Santiago de Cali" },
     { "type": "text", "id": "sello_texto", "label": "Sello sobre la foto – texto", "default": "Colombia" },
