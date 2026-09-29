@@ -43,9 +43,14 @@
       "settings": {
         "menu": "menu-bif"
       }
+    },
+    "cuenta": {
+      "type": "bif-cuenta",
+      "settings": {}
     }
   },
   "order": [
+    "cuenta",
     "anuncio",
     "bif_header"
   ]

@@ -1,0 +1,101 @@
+{{ 'bif-styles.css' | asset_url | stylesheet_tag }}
+
+{%- comment -%}
+  Cuenta regresiva de una oferta. Cuenta hasta una fecha y hora fijas (hora de Colombia por defecto),
+  así todos los clientes ven el mismo tiempo. Cuando llega a cero, la barra se oculta sola.
+{%- endcomment -%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .bif-cuenta { --c-a: {{ section.settings.color_a }}; --c-b: {{ section.settings.color_b }}; --c-acento: {{ section.settings.acento }}; }
+{% endstyle %}
+
+{%- if section.settings.fin != blank -%}
+<div class="bif-cuenta bif-section" data-bif-cuenta="{{ section.settings.fin | replace: ' ', 'T' }}:00{{ section.settings.zona }}" data-bif-al-terminar="{{ section.settings.al_terminar }}" hidden>
+  <div class="bif-container bif-cuenta__fila">
+    <div class="bif-cuenta__texto">
+      {%- if section.settings.etiqueta != blank -%}<span class="bif-cuenta__pildora"><span class="bif-cuenta__pulso"></span>{{ section.settings.etiqueta }}</span>{%- endif -%}
+      <div>
+        <strong class="bif-cuenta__titulo">{{ section.settings.titulo }}</strong>
+        {%- if section.settings.texto != blank -%}<p class="bif-cuenta__sub">{{ section.settings.texto }}</p>{%- endif -%}
+      </div>
+    </div>
+
+    <div class="bif-cuenta__reloj" role="timer" aria-live="off">
+      <span class="bif-cuenta__termina">Termina en</span>
+      <div class="bif-cuenta__casillas">
+        <div class="bif-cuenta__casilla" data-dias hidden><b data-v="d">00</b><small>Días</small></div>
+        <div class="bif-cuenta__casilla"><b data-v="h">00</b><small>Horas</small></div>
+        <span class="bif-cuenta__sep">:</span>
+        <div class="bif-cuenta__casilla"><b data-v="m">00</b><small>Min</small></div>
+        <span class="bif-cuenta__sep">:</span>
+        <div class="bif-cuenta__casilla"><b data-v="s">00</b><small>Seg</small></div>
+      </div>
+    </div>
+
+    {%- if section.settings.boton != blank -%}
+      <a class="bif-cuenta__boton" href="{{ section.settings.enlace | default: routes.all_products_collection_url }}">{{ section.settings.boton }} <span aria-hidden="true">→</span></a>
+    {%- endif -%}
+  </div>
+  <p class="bif-cuenta__fin-msg" hidden>{{ section.settings.mensaje_fin }}</p>
+</div>
+
+<script>
+  (function () {
+    var el = document.currentScript.previousElementSibling;
+    while (el && !el.hasAttribute('data-bif-cuenta')) el = el.previousElementSibling;
+    if (!el) return;
+    var fin = new Date(el.getAttribute('data-bif-cuenta')).getTime();
+    if (isNaN(fin)) return;
+    var modo = el.getAttribute('data-bif-al-terminar');
+    var campos = { d: el.querySelector('[data-v="d"]'), h: el.querySelector('[data-v="h"]'), m: el.querySelector('[data-v="m"]'), s: el.querySelector('[data-v="s"]') };
+    var cajaDias = el.querySelector('[data-dias]');
+    var dos = function (n) { return (n < 10 ? '0' : '') + n; };
+    var poner = function (k, v) {
+      var t = campos[k];
+      if (t.textContent === v) return;
+      t.textContent = v;
+      t.classList.remove('is-cambio'); void t.offsetWidth; t.classList.add('is-cambio');
+    };
+    var timer;
+    var tic = function () {
+      var r = Math.floor((fin - Date.now()) / 1000);
+      if (r <= 0) {
+        clearInterval(timer);
+        if (modo === 'mensaje') { el.hidden = false; el.classList.add('is-terminada'); }
+        else { el.hidden = true; }
+        return;
+      }
+      var d = Math.floor(r / 86400), h = Math.floor(r % 86400 / 3600), m = Math.floor(r % 3600 / 60), s = r % 60;
+      cajaDias.hidden = d === 0;
+      poner('d', dos(d)); poner('h', dos(h)); poner('m', dos(m)); poner('s', dos(s));
+      el.classList.toggle('is-urgente', r < 3600);
+      el.hidden = false;
+    };
+    tic();
+    timer = setInterval(tic, 1000);
+  })();
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "BIF – Cuenta regresiva",
+  "tag": "div",
+  "settings": [
+    { "type": "paragraph", "content": "La cuenta llega a cero en la fecha y hora que pongas aquí, igual para todos los clientes. Úsala solo con un descuento real que termine en ese momento." },
+    { "type": "text", "id": "fin", "label": "Fecha y hora en que termina", "info": "Formato AAAA-MM-DD HH:MM (24 horas). Ejemplo: 2026-10-05 20:00", "default": "2026-09-29 15:00" },
+    { "type": "select", "id": "zona", "label": "Zona horaria", "options": [ { "value": "-05:00", "label": "Colombia (GMT-5)" } ], "default": "-05:00" },
+    { "type": "text", "id": "etiqueta", "label": "Etiqueta", "default": "Oferta por tiempo limitado" },
+    { "type": "text", "id": "titulo", "label": "Título", "default": "¡Descuento especial en BIF!" },
+    { "type": "text", "id": "texto", "label": "Texto", "default": "Aprovecha antes de que se acabe el tiempo." },
+    { "type": "text", "id": "boton", "label": "Texto del botón", "default": "Aprovechar ahora" },
+    { "type": "url", "id": "enlace", "label": "Enlace del botón" },
+    { "type": "select", "id": "al_terminar", "label": "Cuando termine el tiempo", "options": [ { "value": "ocultar", "label": "Ocultar la barra" }, { "value": "mensaje", "label": "Mostrar un mensaje" } ], "default": "ocultar" },
+    { "type": "text", "id": "mensaje_fin", "label": "Mensaje al terminar", "default": "La oferta terminó. ¡Pronto tendremos más sorpresas!" },
+    { "type": "color", "id": "color_a", "label": "Color de fondo 1", "default": "#1F3B17" },
+    { "type": "color", "id": "color_b", "label": "Color de fondo 2", "default": "#477E33" },
+    { "type": "color", "id": "acento", "label": "Color de acento", "default": "#E8C872" }
+  ],
+  "presets": [ { "name": "BIF – Cuenta regresiva" } ]
+}
+{% endschema %}
