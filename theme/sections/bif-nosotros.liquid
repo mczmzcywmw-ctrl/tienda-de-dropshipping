@@ -9,6 +9,30 @@
   assign wa = section.settings.whatsapp | remove: '+' | remove: ' '
   assign cifras = section.blocks | where: 'type', 'cifra'
   assign hitos = section.blocks | where: 'type', 'hito'
+
+  comment
+    Si el texto de la página trae una foto (insertada desde Páginas), se usa esa foto en el marco
+    y se quita del texto para que no salga repetida.
+  endcomment
+  assign historia = page.content
+  assign foto_pagina = ''
+  if historia contains '<img'
+    assign trozo = historia | split: '<img' | slice: 1 | first
+    assign etiqueta = trozo | split: '>' | first
+    assign foto_pagina = etiqueta | split: 'src="' | slice: 1 | first | split: '"' | first
+    assign etiqueta_completa = '<img' | append: etiqueta | append: '>'
+    assign historia = historia | remove: etiqueta_completa | remove: '<p></p>'
+  endif
+  comment
+    La visión tiene su propia sección más abajo; si también está en el texto de la página, se recorta aquí.
+  endcomment
+  if historia contains '<p><strong>Nuestra visión</strong></p>'
+    assign historia = historia | split: '<p><strong>Nuestra visión</strong></p>' | first
+  endif
+  assign hay_foto = false
+  if foto_pagina != blank or section.settings.foto != blank
+    assign hay_foto = true
+  endif
 -%}
 
 <div class="bif-nosotros bif-section">
@@ -30,11 +54,13 @@
       <div class="bif-historia__texto bif-reveal">
         <span class="bif-antetitulo">{{ section.settings.historia_antetitulo }}</span>
         <h2>{{ section.settings.historia_titulo }}</h2>
-        <div class="bif-rte">{{ page.content }}</div>
+        <div class="bif-rte">{{ historia }}</div>
       </div>
       <div class="bif-historia__media bif-reveal" style="--bif-delay:.15s">
-        <div class="bif-foto-marco{% if section.settings.foto != blank and section.settings.foto_forma == 'horizontal' %} bif-foto-marco--horizontal{% endif %}">
-          {%- if section.settings.foto != blank -%}
+        <div class="bif-foto-marco{% if hay_foto and section.settings.foto_forma == 'horizontal' %} bif-foto-marco--horizontal{% endif %}">
+          {%- if foto_pagina != blank -%}
+            <img src="{{ foto_pagina }}" alt="Tienda de Bienestar BIF" loading="lazy">
+          {%- elsif section.settings.foto != blank -%}
             <img src="{{ section.settings.foto | image_url: width: 1200 }}" alt="{{ section.settings.foto.alt | default: 'Tienda de Bienestar BIF' | escape }}" width="{{ section.settings.foto.width }}" height="{{ section.settings.foto.height }}" loading="lazy">
           {%- else -%}
             <div class="bif-foto-vacia">
