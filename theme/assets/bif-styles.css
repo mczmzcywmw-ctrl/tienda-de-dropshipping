@@ -181,6 +181,8 @@
 .bif-beneficios__fila { display: grid; grid-template-columns: repeat(var(--bif-cols, 5), minmax(0, 1fr)); }
 .bif-beneficio { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; padding: 8px 22px; }
 .bif-beneficio + .bif-beneficio { border-left: 1px solid var(--bif-verde-linea); }
+.bif-beneficios__fila { row-gap: 40px; }
+.bif-beneficio:first-child:nth-last-child(6) ~ .bif-beneficio:nth-child(4) { border-left: 0; }
 .bif-beneficio__icono { width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center; background: var(--bif-verde-suave); color: var(--bif-verde); transition: background .35s, color .35s, transform .5s var(--bif-ease); }
 .bif-beneficio:hover .bif-beneficio__icono { background: var(--bif-verde); color: #fff; transform: translateY(-4px); }
 .bif-beneficio__icono svg { width: 26px; height: 26px; }

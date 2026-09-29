@@ -8,7 +8,13 @@
     padding-bottom: {{ section.settings.padding_bottom }}px;
     {%- if section.settings.linea %} border-bottom: 1px solid #DCE6D5;{% endif %}
   }
-  #shopify-section-{{ section.id }} .bif-beneficios__fila { --bif-cols: {{ section.blocks.size | at_most: 5 | at_least: 1 }}; }
+  {%- liquid
+    assign columnas = section.blocks.size | at_most: 5 | at_least: 1
+    if section.blocks.size == 6
+      assign columnas = 3
+    endif
+  -%}
+  #shopify-section-{{ section.id }} .bif-beneficios__fila { --bif-cols: {{ columnas }}; }
   @media (max-width: 640px) {
     #shopify-section-{{ section.id }} { padding-top: {{ section.settings.padding_top | times: 0.75 | round }}px; padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round }}px; }
   }

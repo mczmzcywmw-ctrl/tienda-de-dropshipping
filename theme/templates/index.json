@@ -75,6 +75,14 @@
             "titulo": "Enfoque natural",
             "texto": "Alternativas suaves que respetan tu cuerpo."
           }
+        },
+        "beneficio_6": {
+          "type": "beneficio",
+          "settings": {
+            "icono": "estrella",
+            "titulo": "Productos de calidad",
+            "texto": "Elegimos marcas y laboratorios confiables para ti."
+          }
         }
       },
       "block_order": [
@@ -82,7 +90,8 @@
         "beneficio_2",
         "beneficio_3",
         "beneficio_4",
-        "beneficio_5"
+        "beneficio_5",
+        "beneficio_6"
       ],
       "settings": {}
     },
