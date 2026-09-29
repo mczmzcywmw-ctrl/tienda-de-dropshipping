@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+main:has(.bifa) .image-block:has(.placeholder-image),main:has(.bifa) .placeholder-image{display:none!important}
+main:has(.bifa) h1:not(.bifa h1){font-family:'Poppins',sans-serif!important;font-size:40px!important;font-weight:600!important;line-height:1.15!important;letter-spacing:-.025em!important;color:#18200F!important;max-width:820px;margin:0 auto!important;text-align:center}
+.bifa{max-width:760px;margin:0 auto;font-family:'Poppins',sans-serif;font-size:16px;line-height:1.8;color:#1E251B}
+.bifa *{font-family:inherit!important}
+.bifa__meta{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-bottom:22px;margin-bottom:26px!important;border-bottom:1px solid #E1E9DB}
+.bifa__volver{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:500;color:#477E33!important;text-decoration:none!important;transition:gap .3s}
+.bifa__volver:hover{gap:12px}
+.bifa__tags{display:flex;gap:8px;flex-wrap:wrap}
+.bifa__tags span{padding:6px 14px;border-radius:999px;background:#F2F6EF;color:#35632A;font-size:12.5px;font-weight:500}
+.bifa h2{font-size:21px!important;line-height:1.35!important;color:#1F3B17!important;margin:36px 0 10px!important;font-weight:600!important;letter-spacing:-.01em!important;font-family:'Poppins',sans-serif!important}
+.bifa p{margin:0 0 14px!important;color:#3F4A3B}
+.bifa ul{margin:0 0 16px!important;padding-left:22px!important}
+.bifa li{margin:6px 0;color:#3F4A3B}
+.bifa strong{color:#18200F}
+.bifa__intro{font-size:18px!important;line-height:1.75!important;color:#18200F!important;padding:22px 26px;border-radius:18px;background:#F2F6EF;border-left:4px solid #477E33}
+.bifa__nota{margin:34px 0 18px;padding:16px 20px;border-radius:14px;background:#FFF8E6;border:1px solid #EFD9A3;font-size:14.5px;color:#5C4A1A}
+.bifa__fuentes{padding:22px 24px;border-radius:18px;background:#fff;border:1px solid #E1E9DB;font-size:14px}
+.bifa__fuentes ol{margin:10px 0 0!important;padding-left:20px!important}
+.bifa__fuentes li{margin:8px 0;font-size:14px}
+.bifa__fuentes a{color:#477E33!important;text-decoration:underline}
+.bifa__fin{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-top:30px;padding:26px 28px;border-radius:22px;background:#1F3B17;color:#fff}
+.bifa__fin p{margin:0!important;color:#fff!important;font-weight:500}
+.bifa__fin div{display:flex;gap:10px;flex-wrap:wrap}
+.bifa__fin a{display:inline-flex;align-items:center;padding:12px 22px;border-radius:999px;font-size:14px;font-weight:500;text-decoration:none!important;transition:transform .3s}
+.bifa__fin a:hover{transform:translateY(-2px)}
+.bifa__fin a:first-child{background:#fff;color:#1F3B17!important}
+.bifa__fin a:last-child{border:1.5px solid rgba(255,255,255,.5);color:#fff!important}
+@media(max-width:640px){main:has(.bifa) h1:not(.bifa h1){font-size:28px!important}.bifa{font-size:15.5px}.bifa__intro{font-size:16.5px!important;padding:18px 20px}.bifa__fin{padding:22px 20px}.bifa__fin a{width:100%;justify-content:center}}
