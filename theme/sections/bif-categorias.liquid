@@ -7,20 +7,19 @@
     padding-top: {{ section.settings.padding_top }}px;
     padding-bottom: {{ section.settings.padding_bottom }}px;
   }
-  #shopify-section-{{ section.id }} .bif-head { text-align: {{ section.settings.alineacion }}; }
-  #shopify-section-{{ section.id }} .bif-head h2 { font-size: {{ section.settings.titulo_tamano }}px; }
+  #shopify-section-{{ section.id }} .bif-categorias__grid { --bif-cols: {{ section.blocks.size | at_most: 4 | at_least: 1 }}; }
   #shopify-section-{{ section.id }} .bif-categoria { min-height: {{ section.settings.alto }}px; }
-  @media (max-width: 640px) {
-    #shopify-section-{{ section.id }} .bif-head h2 { font-size: {{ section.settings.titulo_tamano | times: 0.75 | round }}px; }
-    #shopify-section-{{ section.id }} .bif-categoria { min-height: {{ section.settings.alto | times: 0.8 | round }}px; }
+  @media (max-width: 990px) {
+    #shopify-section-{{ section.id }} { padding-top: {{ section.settings.padding_top | times: 0.7 | round }}px; padding-bottom: {{ section.settings.padding_bottom | times: 0.7 | round }}px; }
+    #shopify-section-{{ section.id }} .bif-categoria { min-height: {{ section.settings.alto | times: 0.75 | round }}px; }
   }
 {% endstyle %}
 
 <section class="bif-categorias bif-section">
   <div class="bif-container">
-    <div class="bif-head bif-reveal">
-      {%- if section.settings.antetitulo != blank -%}<span class="bif-eyebrow">{{ section.settings.antetitulo }}</span>{%- endif -%}
-      {%- if section.settings.titulo != blank -%}<h2 style="margin-top:12px">{{ section.settings.titulo }}</h2>{%- endif -%}
+    <div class="bif-titulo bif-reveal">
+      {%- if section.settings.antetitulo != blank -%}<span class="bif-antetitulo">{{ section.settings.antetitulo }}</span>{%- endif -%}
+      {%- if section.settings.titulo != blank -%}<h2>{{ section.settings.titulo }}</h2>{%- endif -%}
       {%- if section.settings.texto != blank -%}<p>{{ section.settings.texto }}</p>{%- endif -%}
     </div>
     <div class="bif-categorias__grid">
@@ -39,11 +38,11 @@
             assign img = col.featured_image
           endif
         -%}
-        <a href="{{ enlace }}" class="bif-categoria bif-reveal" style="--bif-delay: {{ forloop.index0 | times: 0.1 }}s; background: linear-gradient(150deg, {{ block.settings.color }}, #1E3A15);" {{ block.shopify_attributes }}>
+        <a href="{{ enlace }}" class="bif-categoria bif-reveal" style="--bif-delay: {{ forloop.index0 | times: 0.1 }}s; background: linear-gradient(160deg, {{ block.settings.color }} 0%, #1F3B17 100%);" {{ block.shopify_attributes }}>
           {%- if img != blank -%}
-            <div class="bif-categoria__img"><img src="{{ img | image_url: width: 900 }}" alt="{{ img.alt | escape }}" loading="lazy" width="{{ img.width }}" height="{{ img.height }}"></div>
+            <div class="bif-categoria__fondo"><img src="{{ img | image_url: width: 900 }}" alt="{{ img.alt | escape }}" loading="lazy" width="{{ img.width }}" height="{{ img.height }}"></div>
           {%- endif -%}
-          <span class="bif-categoria__deco">{% render 'bif-icono', nombre: block.settings.icono %}</span>
+          <span class="bif-categoria__icono">{% render 'bif-icono', nombre: block.settings.icono %}</span>
           <div class="bif-categoria__cuerpo">
             <h3>{{ block.settings.titulo }}</h3>
             {%- if block.settings.texto != blank -%}<p>{{ block.settings.texto }}</p>{%- endif -%}
@@ -63,18 +62,16 @@
     { "type": "text", "id": "antetitulo", "label": "Texto pequeño superior", "default": "Nuestras líneas" },
     { "type": "text", "id": "titulo", "label": "Título", "default": "Encuentra lo que tu cuerpo necesita" },
     { "type": "text", "id": "texto", "label": "Texto" },
-    { "type": "select", "id": "alineacion", "label": "Alineación del título", "options": [ { "value": "left", "label": "Izquierda" }, { "value": "center", "label": "Centro" } ], "default": "left" },
-    { "type": "range", "id": "titulo_tamano", "label": "Tamaño del título (px)", "min": 22, "max": 60, "step": 2, "unit": "px", "default": 42 },
-    { "type": "range", "id": "alto", "label": "Alto de las tarjetas (px)", "min": 240, "max": 560, "step": 10, "unit": "px", "default": 380 },
+    { "type": "range", "id": "alto", "label": "Alto de las tarjetas (px)", "min": 240, "max": 560, "step": 10, "unit": "px", "default": 400 },
     { "type": "color", "id": "fondo", "label": "Color de fondo", "default": "#FFFFFF" },
-    { "type": "range", "id": "padding_top", "label": "Espacio superior (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 96 },
-    { "type": "range", "id": "padding_bottom", "label": "Espacio inferior (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 48 }
+    { "type": "range", "id": "padding_top", "label": "Espacio superior (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 104 },
+    { "type": "range", "id": "padding_bottom", "label": "Espacio inferior (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 104 }
   ],
   "blocks": [
     {
       "type": "categoria",
       "name": "Categoría",
-      "limit": 6,
+      "limit": 4,
       "settings": [
         { "type": "text", "id": "titulo", "label": "Nombre", "default": "Homeopáticos" },
         { "type": "textarea", "id": "texto", "label": "Descripción" },

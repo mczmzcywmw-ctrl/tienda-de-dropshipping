@@ -16,10 +16,28 @@
     elementos.forEach(function (el) { observador.observe(el); });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', iniciarReveals);
-  } else {
-    iniciarReveals();
+  function iniciarAnuncios() {
+    document.querySelectorAll('[data-bif-rotador]').forEach(function (rotador) {
+      if (rotador.dataset.listo) return;
+      rotador.dataset.listo = '1';
+      var frases = rotador.querySelectorAll('.bif-anuncio__frase');
+      if (frases.length < 2) return;
+      var actual = 0;
+      var intervalo = (parseInt(rotador.dataset.bifRotador, 10) || 4) * 1000;
+      setInterval(function () {
+        frases[actual].classList.remove('is-activa');
+        actual = (actual + 1) % frases.length;
+        frases[actual].classList.add('is-activa');
+      }, intervalo);
+    });
   }
-  document.addEventListener('shopify:section:load', iniciarReveals);
+
+  function iniciar() { iniciarReveals(); iniciarAnuncios(); }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', iniciar);
+  } else {
+    iniciar();
+  }
+  document.addEventListener('shopify:section:load', iniciar);
 })();

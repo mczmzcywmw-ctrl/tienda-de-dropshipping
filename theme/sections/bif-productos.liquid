@@ -7,10 +7,9 @@
     padding-top: {{ section.settings.padding_top }}px;
     padding-bottom: {{ section.settings.padding_bottom }}px;
   }
-  #shopify-section-{{ section.id }} .bif-head h2 { font-size: {{ section.settings.titulo_tamano }}px; }
   #shopify-section-{{ section.id }} .bif-productos__grid { --bif-cols: {{ section.settings.columnas }}; }
-  @media (max-width: 640px) {
-    #shopify-section-{{ section.id }} .bif-head h2 { font-size: {{ section.settings.titulo_tamano | times: 0.75 | round }}px; }
+  @media (max-width: 990px) {
+    #shopify-section-{{ section.id }} { padding-top: {{ section.settings.padding_top | times: 0.7 | round }}px; padding-bottom: {{ section.settings.padding_bottom | times: 0.7 | round }}px; }
   }
 {% endstyle %}
 
@@ -24,15 +23,10 @@
 
 <section class="bif-productos bif-section">
   <div class="bif-container">
-    <div class="bif-productos__top bif-head bif-reveal">
-      <div>
-        {%- if section.settings.antetitulo != blank -%}<span class="bif-eyebrow">{{ section.settings.antetitulo }}</span>{%- endif -%}
-        {%- if section.settings.titulo != blank -%}<h2 style="margin-top:12px">{{ section.settings.titulo }}</h2>{%- endif -%}
-        {%- if section.settings.texto != blank -%}<p>{{ section.settings.texto }}</p>{%- endif -%}
-      </div>
-      {%- if section.settings.boton_texto != blank -%}
-        <a class="bif-btn bif-btn--primario" href="{{ ver_todo }}">{{ section.settings.boton_texto }} {% render 'bif-icono', nombre: 'flecha' %}</a>
-      {%- endif -%}
+    <div class="bif-titulo bif-reveal">
+      {%- if section.settings.antetitulo != blank -%}<span class="bif-antetitulo">{{ section.settings.antetitulo }}</span>{%- endif -%}
+      {%- if section.settings.titulo != blank -%}<h2>{{ section.settings.titulo }}</h2>{%- endif -%}
+      {%- if section.settings.texto != blank -%}<p>{{ section.settings.texto }}</p>{%- endif -%}
     </div>
 
     <div class="bif-productos__grid">
@@ -44,7 +38,7 @@
               <span class="bif-card__etiqueta bif-card__etiqueta--agotado">Agotado</span>
             {%- else -%}
               {%- if product.compare_at_price > product.price -%}
-                <span class="bif-card__etiqueta">-{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}%</span>
+                <span class="bif-card__etiqueta">-{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price | floor }}%</span>
               {%- endif -%}
             {%- endunless -%}
             {%- if product.featured_image -%}
@@ -60,17 +54,17 @@
             {%- if product.type != blank -%}<span class="bif-card__tipo">{{ product.type }}</span>{%- endif -%}
             <h3 class="bif-card__titulo"><a href="{{ product.url }}">{{ product.title }}</a></h3>
             <div class="bif-card__precio">
-              {%- if product.price_varies -%}Desde {% endif -%}{{ product.price | money }}
+              <span>{%- if product.price_varies -%}Desde {% endif -%}{{ product.price | money }}</span>
               {%- if product.compare_at_price > product.price -%}<s>{{ product.compare_at_price | money }}</s>{%- endif -%}
             </div>
             {%- if product.available and product.has_only_default_variant and section.settings.mostrar_agregar -%}
               <form method="post" action="{{ routes.cart_add_url }}">
                 <input type="hidden" name="id" value="{{ variante.id }}">
                 <input type="hidden" name="quantity" value="1">
-                <button type="submit" class="bif-btn bif-btn--primario">{% render 'bif-icono', nombre: 'bolsa' %} Agregar al carrito</button>
+                <button type="submit" class="bif-btn bif-btn--verde">Agregar al carrito</button>
               </form>
             {%- else -%}
-              <a class="bif-btn bif-btn--primario" href="{{ product.url }}">Ver producto</a>
+              <a class="bif-btn bif-btn--linea" href="{{ product.url }}">Ver producto</a>
             {%- endif -%}
           </div>
         </article>
@@ -78,6 +72,12 @@
         <div class="bif-vacio">Aquí aparecerán tus productos en cuanto los agregues a la tienda.</div>
       {%- endfor -%}
     </div>
+
+    {%- if section.settings.boton_texto != blank -%}
+      <div class="bif-productos__pie">
+        <a class="bif-btn bif-btn--linea" href="{{ ver_todo }}">{{ section.settings.boton_texto }} {% render 'bif-icono', nombre: 'flecha' %}</a>
+      </div>
+    {%- endif -%}
   </div>
 </section>
 
@@ -94,11 +94,10 @@
     { "type": "range", "id": "columnas", "label": "Columnas en computador", "min": 2, "max": 5, "step": 1, "default": 4 },
     { "type": "checkbox", "id": "mostrar_agregar", "label": "Botón 'Agregar al carrito' en la tarjeta", "default": true },
     { "type": "checkbox", "id": "segunda_foto", "label": "Mostrar segunda foto al pasar el mouse", "default": true },
-    { "type": "text", "id": "boton_texto", "label": "Botón 'ver todo' – texto", "default": "Ver todos" },
-    { "type": "range", "id": "titulo_tamano", "label": "Tamaño del título (px)", "min": 22, "max": 60, "step": 2, "unit": "px", "default": 42 },
-    { "type": "color", "id": "fondo", "label": "Color de fondo", "default": "#FFFFFF" },
-    { "type": "range", "id": "padding_top", "label": "Espacio superior (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 64 },
-    { "type": "range", "id": "padding_bottom", "label": "Espacio inferior (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 96 }
+    { "type": "text", "id": "boton_texto", "label": "Botón 'ver todo' – texto", "default": "Ver todos los productos" },
+    { "type": "color", "id": "fondo", "label": "Color de fondo", "default": "#FAFAF6" },
+    { "type": "range", "id": "padding_top", "label": "Espacio superior (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 104 },
+    { "type": "range", "id": "padding_bottom", "label": "Espacio inferior (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 104 }
   ],
   "presets": [ { "name": "BIF – Productos" } ]
 }

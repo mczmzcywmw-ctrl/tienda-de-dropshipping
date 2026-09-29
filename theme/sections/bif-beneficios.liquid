@@ -6,26 +6,25 @@
     background: {{ section.settings.fondo }};
     padding-top: {{ section.settings.padding_top }}px;
     padding-bottom: {{ section.settings.padding_bottom }}px;
+    {%- if section.settings.linea %} border-bottom: 1px solid #DCE6D5;{% endif %}
   }
-  #shopify-section-{{ section.id }} .bif-head { text-align: {{ section.settings.alineacion }}; }
-  #shopify-section-{{ section.id }} .bif-head h2 { font-size: {{ section.settings.titulo_tamano }}px; }
-  #shopify-section-{{ section.id }} .bif-beneficios__grid { --bif-cols: {{ section.blocks.size | at_most: 5 | at_least: 1 }}; }
+  #shopify-section-{{ section.id }} .bif-beneficios__fila { --bif-cols: {{ section.blocks.size | at_most: 5 | at_least: 1 }}; }
   @media (max-width: 640px) {
-    #shopify-section-{{ section.id }} .bif-head h2 { font-size: {{ section.settings.titulo_tamano | times: 0.75 | round }}px; }
+    #shopify-section-{{ section.id }} { padding-top: {{ section.settings.padding_top | times: 0.75 | round }}px; padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round }}px; }
   }
 {% endstyle %}
 
 <section class="bif-beneficios bif-section">
   <div class="bif-container">
-    {%- if section.settings.titulo != blank or section.settings.antetitulo != blank -%}
-      <div class="bif-head bif-reveal">
-        {%- if section.settings.antetitulo != blank -%}<span class="bif-eyebrow">{{ section.settings.antetitulo }}</span>{%- endif -%}
-        {%- if section.settings.titulo != blank -%}<h2 style="margin-top:12px">{{ section.settings.titulo }}</h2>{%- endif -%}
+    {%- if section.settings.titulo != blank -%}
+      <div class="bif-titulo bif-reveal">
+        {%- if section.settings.antetitulo != blank -%}<span class="bif-antetitulo">{{ section.settings.antetitulo }}</span>{%- endif -%}
+        <h2>{{ section.settings.titulo }}</h2>
       </div>
     {%- endif -%}
-    <div class="bif-beneficios__grid">
+    <div class="bif-beneficios__fila">
       {%- for block in section.blocks -%}
-        <div class="bif-beneficio bif-reveal" style="--bif-delay: {{ forloop.index0 | times: 0.08 }}s" {{ block.shopify_attributes }}>
+        <div class="bif-beneficio bif-reveal" style="--bif-delay: {{ forloop.index0 | times: 0.07 }}s" {{ block.shopify_attributes }}>
           <div class="bif-beneficio__icono">{% render 'bif-icono', nombre: block.settings.icono %}</div>
           <h3>{{ block.settings.titulo }}</h3>
           {%- if block.settings.texto != blank -%}<p>{{ block.settings.texto }}</p>{%- endif -%}
@@ -40,13 +39,12 @@
   "name": "BIF – Beneficios",
   "tag": "section",
   "settings": [
-    { "type": "text", "id": "antetitulo", "label": "Texto pequeño superior", "default": "Compra con confianza" },
-    { "type": "text", "id": "titulo", "label": "Título", "default": "Te cuidamos en cada paso" },
-    { "type": "select", "id": "alineacion", "label": "Alineación del título", "options": [ { "value": "left", "label": "Izquierda" }, { "value": "center", "label": "Centro" } ], "default": "center" },
-    { "type": "range", "id": "titulo_tamano", "label": "Tamaño del título (px)", "min": 22, "max": 60, "step": 2, "unit": "px", "default": 40 },
-    { "type": "color", "id": "fondo", "label": "Color de fondo", "default": "#EEF4EA" },
-    { "type": "range", "id": "padding_top", "label": "Espacio superior (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 88 },
-    { "type": "range", "id": "padding_bottom", "label": "Espacio inferior (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 88 }
+    { "type": "text", "id": "antetitulo", "label": "Texto pequeño superior" },
+    { "type": "text", "id": "titulo", "label": "Título (opcional)" },
+    { "type": "color", "id": "fondo", "label": "Color de fondo", "default": "#FFFFFF" },
+    { "type": "checkbox", "id": "linea", "label": "Línea divisoria abajo", "default": true },
+    { "type": "range", "id": "padding_top", "label": "Espacio superior (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 64 },
+    { "type": "range", "id": "padding_bottom", "label": "Espacio inferior (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 64 }
   ],
   "blocks": [
     {

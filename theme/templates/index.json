@@ -2,31 +2,6 @@
   "sections": {
     "hero": {
       "type": "bif-hero",
-      "blocks": {
-        "chip_1": {
-          "type": "chip",
-          "settings": {
-            "texto": "Envíos a todo el país"
-          }
-        },
-        "chip_2": {
-          "type": "chip",
-          "settings": {
-            "texto": "Pagos 100% seguros"
-          }
-        },
-        "chip_3": {
-          "type": "chip",
-          "settings": {
-            "texto": "Asesoría personalizada"
-          }
-        }
-      },
-      "block_order": [
-        "chip_1",
-        "chip_2",
-        "chip_3"
-      ],
       "settings": {
         "antetitulo": "Bienvenido a BIF · Tienda de Bienestar",
         "titulo": "Tu bienestar, en manos de la naturaleza",
@@ -129,7 +104,9 @@
     },
     "productos": {
       "type": "bif-productos",
-      "settings": {}
+      "settings": {
+        "texto": "Productos originales, elegidos por su calidad y con envío a todo el país."
+      }
     },
     "confianza": {
       "type": "bif-confianza",

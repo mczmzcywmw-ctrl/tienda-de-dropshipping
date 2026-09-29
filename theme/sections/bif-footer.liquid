@@ -2,8 +2,11 @@
 
 {% style %}
   #shopify-section-{{ section.id }} {
-    background: linear-gradient(180deg, {{ section.settings.fondo }}, {{ section.settings.fondo_2 }});
+    background: {{ section.settings.fondo }};
     padding-top: {{ section.settings.padding_top }}px;
+  }
+  @media (max-width: 640px) {
+    #shopify-section-{{ section.id }} { padding-top: {{ section.settings.padding_top | times: 0.7 | round }}px; }
   }
 {% endstyle %}
 
@@ -14,7 +17,7 @@
 
 <div class="bif-footer bif-section">
   <div class="bif-container">
-    <div class="bif-footer__arriba">
+    <div class="bif-footer__grid">
       <div>
         <a href="{{ routes.root_url }}" class="bif-logo">
           <span class="bif-logo__marca">{% render 'bif-icono', nombre: 'hoja' %}</span>
@@ -37,7 +40,7 @@
 
       <div>
         <h3>{{ section.settings.titulo_bienestar }}</h3>
-        <p>{{ section.settings.texto_bienestar }}</p>
+        <p class="bif-footer__texto">{{ section.settings.texto_bienestar }}</p>
         <div class="bif-footer__canales">
           <a href="{{ wa_url }}" target="_blank" rel="noopener">{% render 'bif-icono', nombre: 'whatsapp' %} WhatsApp</a>
           <a href="mailto:{{ section.settings.correo }}">{% render 'bif-icono', nombre: 'correo' %} Correo</a>
@@ -47,13 +50,13 @@
             <input type="hidden" name="contact[tags]" value="newsletter">
             <label for="bif-newsletter-email">{{ section.settings.titulo_boletin }}</label>
             {%- if form.posted_successfully? -%}
-              <p class="bif-newsletter__ok">¡Gracias por suscribirte! 🌿</p>
+              <p class="bif-newsletter__msj">¡Gracias por suscribirte!</p>
             {%- else -%}
               <div class="bif-newsletter__campo">
                 <input id="bif-newsletter-email" type="email" name="contact[email]" placeholder="Tu correo electrónico" autocomplete="email" required>
                 <button type="submit">{{ section.settings.boton_boletin }}</button>
               </div>
-              {%- if form.errors -%}<p class="bif-newsletter__ok">Revisa tu correo e inténtalo de nuevo.</p>{%- endif -%}
+              {%- if form.errors -%}<p class="bif-newsletter__msj">Revisa tu correo e inténtalo de nuevo.</p>{%- endif -%}
             {%- endif -%}
           {%- endform -%}
         </div>
@@ -79,11 +82,11 @@
       </div>
     </div>
 
-    <div class="bif-footer__abajo">
+    <div class="bif-footer__base">
       <span>{{ section.settings.copyright }}</span>
       {%- if section.settings.mostrar_pagos -%}
         <div class="bif-pagos">
-          <span class="bif-pagos__texto">{% render 'bif-icono', nombre: 'candado' %} Pagos seguros con</span>
+          <span class="bif-pagos__texto">{% render 'bif-icono', nombre: 'candado' %} Pagos seguros</span>
           {%- liquid
             assign tipos = shop.enabled_payment_types
             if tipos.size == 0
@@ -107,7 +110,6 @@
 {
   "name": "BIF – Pie de página",
   "tag": "div",
-  "class": "bif-footer-wrap",
   "settings": [
     { "type": "header", "content": "Marca" },
     { "type": "text", "id": "nombre", "label": "Nombre", "default": "BIF" },
@@ -134,9 +136,8 @@
     { "type": "checkbox", "id": "mostrar_pagos", "label": "Mostrar íconos de pago", "default": true },
     { "type": "checkbox", "id": "boton_flotante", "label": "Botón flotante de WhatsApp", "default": true },
     { "type": "header", "content": "Diseño" },
-    { "type": "color", "id": "fondo", "label": "Color de fondo 1", "default": "#2E5621" },
-    { "type": "color", "id": "fondo_2", "label": "Color de fondo 2", "default": "#1E3A15" },
-    { "type": "range", "id": "padding_top", "label": "Espacio superior (px)", "min": 24, "max": 140, "step": 4, "unit": "px", "default": 80 }
+    { "type": "color", "id": "fondo", "label": "Color de fondo", "default": "#1F3B17" },
+    { "type": "range", "id": "padding_top", "label": "Espacio superior (px)", "min": 24, "max": 140, "step": 4, "unit": "px", "default": 88 }
   ]
 }
 {% endschema %}

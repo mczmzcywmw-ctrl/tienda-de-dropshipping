@@ -22,7 +22,7 @@
       {%- endif -%}
     </a>
 
-    <nav aria-label="Menú principal">
+    <nav class="bif-nav-wrap" aria-label="Menú principal">
       <ul class="bif-nav">
         {%- for link in section.settings.menu.links -%}
           <li><a href="{{ link.url }}" {% if link.current %}aria-current="page"{% endif %}>{{ link.title }}</a></li>
@@ -46,7 +46,7 @@
             <a href="{{ link.url }}">{{ link.title }}</a>
           {%- endfor -%}
           {%- if section.settings.whatsapp != blank -%}
-            <a class="bif-btn bif-btn--primario" href="https://wa.me/{{ section.settings.whatsapp | remove: '+' | remove: ' ' }}" target="_blank" rel="noopener">{% render 'bif-icono', nombre: 'whatsapp' %} Escríbenos por WhatsApp</a>
+            <a class="bif-btn bif-btn--verde" href="https://wa.me/{{ section.settings.whatsapp | remove: '+' | remove: ' ' }}" target="_blank" rel="noopener">{% render 'bif-icono', nombre: 'whatsapp' %} Escríbenos por WhatsApp</a>
           {%- endif -%}
         </div>
       </details>
@@ -58,7 +58,6 @@
 {
   "name": "BIF – Encabezado",
   "tag": "div",
-  "class": "bif-header-wrap",
   "settings": [
     { "type": "header", "content": "Logo" },
     { "type": "image_picker", "id": "logo", "label": "Imagen del logo (opcional)", "info": "Si no subes un logo, se muestra el nombre con una hoja." },
