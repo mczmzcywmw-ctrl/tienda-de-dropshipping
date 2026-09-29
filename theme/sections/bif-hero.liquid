@@ -85,6 +85,7 @@
           </div>
         </div>
       {%- endif -%}
+      <div class="bif-hero__tarjetas">
       {%- if section.settings.tarjeta1_titulo != blank -%}
         <div class="bif-flota bif-flota--1">
           <span class="bif-flota__icono">{% render 'bif-icono', nombre: 'camion' %}</span>
@@ -97,6 +98,7 @@
           <span><strong>{{ section.settings.tarjeta2_titulo }}</strong>{{ section.settings.tarjeta2_texto }}</span>
         </div>
       {%- endif -%}
+      </div>
     </div>
   </div>
 </section>
