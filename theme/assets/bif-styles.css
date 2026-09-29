@@ -512,3 +512,9 @@
 .bif-foto-marco--horizontal img { object-position: 30% center; }
 @media (min-width: 991px) { .bif-historia__grid:has(.bif-foto-marco--horizontal) { grid-template-columns: 1fr 1fr; } }
 .bif-foto-marco--horizontal + .bif-foto-sello { left: auto; right: 24px; bottom: -26px; }
+
+/* Blog de inicio sin imágenes */
+.bif-articulo { padding: 30px 28px; border-radius: var(--bif-radio); background: #fff; border: 1px solid var(--bif-verde-linea); transition: transform .5s var(--bif-ease), box-shadow .5s var(--bif-ease); }
+.bif-articulo:hover { transform: translateY(-6px); box-shadow: var(--bif-sombra); }
+.bif-articulo__num { font-size: 40px; font-weight: 600; line-height: 1; letter-spacing: -.04em; color: #C6D4BD; }
+.bif-articulo__cuerpo { padding-top: 16px; }

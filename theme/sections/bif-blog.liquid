@@ -25,9 +25,7 @@
     <div class="bif-blog__grid">
       {%- for article in blog.articles limit: 3 -%}
         <a href="{{ article.url }}" class="bif-articulo bif-reveal" style="--bif-delay: {{ forloop.index0 | times: 0.1 }}s">
-          <div class="bif-articulo__img">
-            {%- if article.image -%}<img src="{{ article.image | image_url: width: 800 }}" alt="{{ article.image.alt | escape }}" loading="lazy">{%- endif -%}
-          </div>
+          <span class="bif-articulo__num">{{ forloop.index | prepend: '0' }}</span>
           <div class="bif-articulo__cuerpo">
             <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%d/%m/%Y' }}</time>
             <h3>{{ article.title }}</h3>

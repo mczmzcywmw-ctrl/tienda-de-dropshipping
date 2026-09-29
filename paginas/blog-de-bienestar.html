@@ -2,126 +2,190 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 .section:has(.bifb){--page-content-width:1180px;--page-width:calc(1180px + var(--page-margin,16px) * 2)}
 main:has(.bifb) h1:not(.bifb h1){display:none}
-.bifb{--v:#477E33;--vo:#1F3B17;--vs:#F2F6EF;--vl:#DCE6D5;--dor:#C9A55A;--tx:#1E251B;--gr:#667062;font-family:'Poppins',-apple-system,'Segoe UI',sans-serif!important;color:var(--tx)}
+.bifb{--v:#477E33;--vo:#1F3B17;--vs:#F2F6EF;--vl:#E1E9DB;--dor:#C9A55A;--tx:#18200F;--gr:#6B7466;font-family:'Poppins',-apple-system,'Segoe UI',sans-serif!important;color:var(--tx)}
 .bifb *{box-sizing:border-box;font-family:inherit!important}
-.bifb :is(h1,h2,h3,p){margin:0;padding:0;letter-spacing:normal;text-transform:none}
-.bifb a{text-decoration:none!important}
-.bifb__hero{position:relative;overflow:hidden;border-radius:32px;padding:64px 56px;color:#fff;text-align:center;background:linear-gradient(125deg,#477E33,#1F3B17,#477E33);background-size:220% 220%;animation:bifbGrad 14s ease-in-out infinite}
-.bifb__hero::before,.bifb__hero::after{content:'';position:absolute;border-radius:50%;pointer-events:none}
-.bifb__hero::before{width:420px;height:420px;left:-140px;bottom:-200px;background:radial-gradient(circle,rgba(255,255,255,.12),transparent 65%);animation:bifbFlota 10s ease-in-out infinite}
-.bifb__hero::after{width:480px;height:480px;right:-150px;top:-200px;background:radial-gradient(circle,rgba(201,165,90,.32),transparent 65%);animation:bifbFlota 12s ease-in-out infinite reverse}
-.bifb__pill{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);color:#DDF0D2;font-size:12.5px!important;font-weight:600;letter-spacing:.06em!important;text-transform:uppercase!important}
-.bifb__hero h1{position:relative;z-index:1;margin-top:18px!important;font-size:46px!important;font-weight:600!important;line-height:1.1!important;color:#fff!important;letter-spacing:-.025em!important}
-.bifb__hero h1 span{color:#CFE8BE}
-.bifb__hero p{position:relative;z-index:1;margin:16px auto 0!important;max-width:640px;font-size:17px;font-weight:300;color:rgba(255,255,255,.85);line-height:1.7}
-.bifb__datos{position:relative;z-index:1;display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:28px}
-.bifb__datos span{padding:10px 18px;border-radius:14px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);font-size:14px}
-.bifb__datos b{font-size:18px;margin-right:4px}
-
-/* Filtros */
-.bifb__filtros{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin:40px 0 30px}
+.bifb :is(h1,h2,h3,p){margin:0;padding:0;text-transform:none}
+.bifb a{text-decoration:none!important;color:inherit}
 .bifb input{position:absolute;opacity:0;pointer-events:none}
-.bifb__filtros label{cursor:pointer;display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;border:1.5px solid var(--vl);background:#fff;font-size:14.5px;font-weight:500;color:var(--tx);transition:all .3s cubic-bezier(.22,1,.36,1)}
-.bifb__filtros label:hover{border-color:var(--v);color:var(--v);transform:translateY(-2px)}
-#bifb-todos:checked ~ .bifb__filtros label[for=bifb-todos],#bifb-med:checked ~ .bifb__filtros label[for=bifb-med],#bifb-pla:checked ~ .bifb__filtros label[for=bifb-pla]{background:var(--v);border-color:var(--v);color:#fff;box-shadow:0 12px 24px -12px rgba(71,126,51,.8)}
-#bifb-med:checked ~ .bifb__grid .bifb__card[data-cat=pla],#bifb-pla:checked ~ .bifb__grid .bifb__card[data-cat=med]{display:none}
-#bifb-med:checked ~ .bifb__grupo--pla,#bifb-pla:checked ~ .bifb__grupo--med{display:none}
 
-/* Tarjetas */
-.bifb__grupo{display:flex;align-items:center;gap:14px;margin:34px 0 18px}
-.bifb__grupo i{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(145deg,#477E33,#1F3B17);font-style:normal;font-size:22px;box-shadow:0 12px 22px -12px rgba(71,126,51,.9)}
-.bifb__grupo h2{font-size:24px!important;font-weight:600!important;color:var(--tx)!important;letter-spacing:-.02em!important;line-height:1.2!important}
-.bifb__grupo small{display:block;font-size:13px;color:var(--gr);font-weight:400}
-.bifb__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.bifb__card{position:relative;display:flex;flex-direction:column;padding:26px 24px 22px;border-radius:24px;background:#fff;border:1px solid var(--vl);overflow:hidden;color:var(--tx)!important;transition:transform .5s cubic-bezier(.22,1,.36,1),box-shadow .5s,border-color .3s;animation:bifbEntra .8s cubic-bezier(.22,1,.36,1) both}
-.bifb__card::before{content:'';position:absolute;inset:0 0 auto 0;height:4px;background:linear-gradient(90deg,#477E33,#C9A55A);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.22,1,.36,1)}
-.bifb__card:hover{transform:translateY(-8px);box-shadow:0 30px 50px -28px rgba(31,59,23,.45);border-color:transparent}
-.bifb__card:hover::before{transform:scaleX(1)}
-.bifb__top{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.bifb__emoji{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:var(--vs);font-size:25px;transition:transform .5s cubic-bezier(.22,1,.36,1),background .3s}
-.bifb__card:hover .bifb__emoji{transform:rotate(-8deg) scale(1.1);background:#E3EEDB}
-.bifb__num{font-size:34px;font-weight:700;color:#EEF3EA;line-height:1;letter-spacing:-.04em}
-.bifb__cat{margin-top:18px;font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--v)}
-.bifb__card h3{margin-top:6px!important;font-size:17px!important;font-weight:600!important;line-height:1.4!important;color:var(--tx)!important;letter-spacing:-.01em!important}
-.bifb__card p{margin-top:8px!important;font-size:14px;color:var(--gr);line-height:1.6;flex:1}
-.bifb__btn{margin-top:18px;display:inline-flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 18px;border-radius:14px;background:var(--vs);color:var(--vo);font-size:14px;font-weight:600;transition:background .3s,color .3s}
-.bifb__btn b{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#fff;transition:transform .4s cubic-bezier(.22,1,.36,1)}
-.bifb__card:hover .bifb__btn{background:var(--v);color:#fff}
-.bifb__card:hover .bifb__btn b{transform:translateX(4px);color:var(--v)}
+/* Cabecera */
+.bifb__cab{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:end;padding:28px 0 40px;border-bottom:1px solid var(--vl)}
+.bifb__eti{display:inline-flex;align-items:center;gap:10px;font-size:12px!important;font-weight:600;letter-spacing:.2em!important;text-transform:uppercase!important;color:var(--v)}
+.bifb__eti::before{content:'';width:30px;height:2px;background:var(--v)}
+.bifb__cab h1{margin-top:16px!important;font-size:60px!important;font-weight:600!important;line-height:1.02!important;letter-spacing:-.035em!important;color:var(--tx)!important}
+.bifb__cab h1 em{font-style:normal;color:var(--v)}
+.bifb__cab p{font-size:16px;line-height:1.75;color:var(--gr)}
+.bifb__cifras{display:flex;gap:28px;margin-top:22px}
+.bifb__cifras div{font-size:13px;color:var(--gr);line-height:1.3}
+.bifb__cifras b{display:block;font-size:28px;font-weight:600;color:var(--tx);letter-spacing:-.03em}
+
+/* Destacados */
+.bifb__dest{display:grid;grid-template-columns:1.35fr 1fr;gap:18px;margin-top:40px}
+.bifb__dest-lado{display:grid;gap:18px}
+.bifb__d{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:28px;padding:34px;border-radius:26px;overflow:hidden;border:1px solid var(--vl);background:#fff;transition:transform .5s cubic-bezier(.22,1,.36,1),box-shadow .5s}
+.bifb__d:hover{transform:translateY(-6px);box-shadow:0 30px 60px -34px rgba(31,59,23,.5)}
+.bifb__d--grande{min-height:420px;color:#fff;border:0;background:linear-gradient(135deg,#1F3B17 0%,#35632A 55%,#477E33 100%)}
+.bifb__d--grande::after{content:'';position:absolute;width:520px;height:520px;right:-180px;top:-220px;border-radius:50%;background:radial-gradient(circle,rgba(201,165,90,.35),transparent 62%);animation:bifbFlota 12s ease-in-out infinite}
+.bifb__d-top{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+.bifb__d-top span:last-child{color:var(--gr);font-weight:500;letter-spacing:.04em;text-transform:none}
+.bifb__d--grande .bifb__d-top{color:#CFE3C4}
+.bifb__d--grande .bifb__d-top span:last-child{color:rgba(255,255,255,.7)}
+.bifb__d:not(.bifb__d--grande) .bifb__d-top{color:var(--v)}
+.bifb__d h3{position:relative;z-index:1;font-size:22px!important;font-weight:600!important;line-height:1.3!important;letter-spacing:-.02em!important;color:var(--tx)!important}
+.bifb__d--grande h3{font-size:34px!important;line-height:1.15!important;color:#fff!important;max-width:560px}
+.bifb__d p{position:relative;z-index:1;margin-top:12px!important;font-size:15px;line-height:1.65;color:var(--gr)}
+.bifb__d--grande p{color:rgba(255,255,255,.8);max-width:520px}
+.bifb__leer{position:relative;z-index:1;display:inline-flex;align-items:center;gap:10px;font-size:14.5px;font-weight:600;color:var(--v)}
+.bifb__d--grande .bifb__leer{color:#fff}
+.bifb__leer i{font-style:normal;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1.5px solid currentColor;transition:transform .45s cubic-bezier(.22,1,.36,1),background .3s,color .3s}
+.bifb__d:hover .bifb__leer i{transform:translateX(6px);background:var(--v);border-color:var(--v);color:#fff}
+.bifb__d--grande:hover .bifb__leer i{background:#fff;border-color:#fff;color:var(--vo)}
+.bifb__num-fondo{position:absolute;right:26px;bottom:-26px;font-size:190px;font-weight:700;line-height:1;letter-spacing:-.06em;color:rgba(255,255,255,.07);z-index:0}
+
+/* Índice */
+.bifb__indice{margin-top:64px}
+.bifb__indice-cab{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;padding-bottom:20px;border-bottom:1px solid var(--vl)}
+.bifb__indice-cab h2{font-size:32px!important;font-weight:600!important;letter-spacing:-.03em!important;line-height:1.1!important;color:var(--tx)!important}
+.bifb__tabs{display:inline-flex;gap:4px;padding:5px;border-radius:999px;background:var(--vs)}
+.bifb__tabs label{cursor:pointer;padding:10px 18px;border-radius:999px;font-size:13.5px;font-weight:500;color:var(--gr);transition:background .3s,color .3s,box-shadow .3s}
+.bifb__tabs label:hover{color:var(--tx)}
+#bifb-t:checked ~ .bifb__indice label[for=bifb-t],#bifb-m:checked ~ .bifb__indice label[for=bifb-m],#bifb-p:checked ~ .bifb__indice label[for=bifb-p]{background:#fff;color:var(--vo);box-shadow:0 6px 16px -8px rgba(31,59,23,.35)}
+#bifb-m:checked ~ .bifb__indice .bifb__cat--p,#bifb-p:checked ~ .bifb__indice .bifb__cat--m{display:none}
+
+.bifb__cat{display:grid;grid-template-columns:300px 1fr;gap:48px;padding:44px 0;border-bottom:1px solid var(--vl)}
+.bifb__cat-info{position:sticky;top:120px;align-self:start}
+.bifb__cat-info span{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--v)}
+.bifb__cat-info h3{margin-top:10px!important;font-size:26px!important;font-weight:600!important;line-height:1.2!important;letter-spacing:-.02em!important;color:var(--tx)!important}
+.bifb__cat-info p{margin-top:10px!important;font-size:14.5px;color:var(--gr);line-height:1.65}
+.bifb__lista{display:grid}
+.bifb__fila{display:grid;grid-template-columns:64px 1fr 44px;gap:18px;align-items:center;padding:22px 18px;margin:0 -18px;border-radius:18px;transition:background .35s}
+.bifb__fila + .bifb__fila{border-top:1px solid var(--vl)}
+.bifb__fila:hover{background:var(--vs)}
+.bifb__fila:hover + .bifb__fila{border-top-color:transparent}
+.bifb__fila b{font-size:30px;font-weight:600;color:#C6D4BD;letter-spacing:-.04em;transition:color .35s}
+.bifb__fila:hover b{color:var(--v)}
+.bifb__fila h4{margin:0!important;font-size:17px!important;font-weight:600!important;line-height:1.4!important;color:var(--tx)!important;letter-spacing:-.01em!important}
+.bifb__fila small{display:block;margin-top:4px;font-size:13.5px;color:var(--gr);line-height:1.5}
+.bifb__fila i{font-style:normal;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--vl);color:var(--v);transition:all .4s cubic-bezier(.22,1,.36,1)}
+.bifb__fila:hover i{background:var(--v);border-color:var(--v);color:#fff;transform:translateX(4px)}
 
 /* Cierre */
-.bifb__cierre{margin-top:48px;padding:44px;border-radius:28px;background:var(--vs);text-align:center}
-.bifb__cierre h2{font-size:26px!important;font-weight:600!important;color:var(--tx)!important;line-height:1.25!important}
-.bifb__cierre p{margin-top:10px!important;color:var(--gr);font-size:15px}
-.bifb__wa{display:inline-flex;align-items:center;gap:10px;margin-top:22px;padding:15px 28px;border-radius:999px;background:var(--v);color:#fff!important;font-weight:500;font-size:15px;transition:transform .35s,box-shadow .35s}
-.bifb__wa:hover{transform:translateY(-3px);box-shadow:0 16px 30px -14px rgba(71,126,51,.8)}
-.bifb__aviso{margin-top:18px!important;font-size:12.5px!important;color:var(--gr)}
+.bifb__cierre{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;margin-top:56px;padding:36px 40px;border-radius:26px;background:var(--vo);color:#fff}
+.bifb__cierre h3{font-size:24px!important;font-weight:600!important;color:#fff!important;line-height:1.25!important;letter-spacing:-.02em!important}
+.bifb__cierre p{margin-top:6px!important;font-size:14.5px;color:rgba(255,255,255,.75)}
+.bifb__wa{display:inline-flex;align-items:center;gap:10px;padding:15px 28px;border-radius:999px;background:#fff;color:var(--vo)!important;font-weight:600;font-size:14.5px;transition:transform .35s,box-shadow .35s}
+.bifb__wa:hover{transform:translateY(-3px);box-shadow:0 16px 30px -14px rgba(0,0,0,.6)}
+.bifb__aviso{margin-top:16px!important;font-size:12.5px!important;color:var(--gr);text-align:center}
 
-@keyframes bifbGrad{0%,100%{background-position:0% 40%}50%{background-position:100% 60%}}
-@keyframes bifbFlota{50%{transform:translate(20px,-14px)}}
-@keyframes bifbEntra{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
-@supports (animation-timeline: view()){.bifb__card{animation:bifbEntra linear both;animation-timeline:view();animation-range:entry 0% entry 35%}}
+@keyframes bifbFlota{50%{transform:translate(-20px,16px)}}
+@keyframes bifbEntra{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.bifb__cab,.bifb__d{animation:bifbEntra .9s cubic-bezier(.22,1,.36,1) both}
+.bifb__dest-lado .bifb__d:nth-child(1){animation-delay:.1s}.bifb__dest-lado .bifb__d:nth-child(2){animation-delay:.2s}
+@supports (animation-timeline: view()){.bifb__fila,.bifb__cat-info{animation:bifbEntra linear both;animation-timeline:view();animation-range:entry 0% entry 30%}}
 @media (prefers-reduced-motion:reduce){.bifb *{animation:none!important}}
-@media (max-width:980px){.bifb__grid{grid-template-columns:repeat(2,1fr)}}
+
+@media (max-width:990px){
+  .bifb__cab{grid-template-columns:1fr;gap:18px}
+  .bifb__cab h1{font-size:44px!important}
+  .bifb__dest{grid-template-columns:1fr}
+  .bifb__d--grande{min-height:340px}
+  .bifb__cat{grid-template-columns:1fr;gap:18px}
+  .bifb__cat-info{position:static}
+}
 @media (max-width:640px){
-  .bifb__hero{padding:44px 22px;border-radius:24px}
-  .bifb__hero h1{font-size:30px!important}
-  .bifb__hero p{font-size:15.5px}
-  .bifb__grid{grid-template-columns:1fr}
-  .bifb__filtros label{padding:10px 16px;font-size:13.5px}
-  .bifb__cierre{padding:32px 20px}
+  .bifb__cab h1{font-size:36px!important}
+  .bifb__d{padding:26px}
+  .bifb__d--grande h3{font-size:26px!important}
+  .bifb__num-fondo{font-size:130px}
+  .bifb__indice-cab h2{font-size:26px!important}
+  .bifb__tabs{width:100%;justify-content:space-between}
+  .bifb__tabs label{padding:9px 12px;font-size:12.5px}
+  .bifb__fila{grid-template-columns:42px 1fr;gap:12px}
+  .bifb__fila b{font-size:22px}
+  .bifb__fila i{display:none}
+  .bifb__cierre{padding:30px 24px}
+  .bifb__wa{width:100%;justify-content:center}
 }
 </style>
 <div class="bifb">
-  <input type="radio" name="bifb-filtro" id="bifb-todos" checked>
-  <input type="radio" name="bifb-filtro" id="bifb-med">
-  <input type="radio" name="bifb-filtro" id="bifb-pla">
+  <input type="radio" name="bifb-f" id="bifb-t" checked>
+  <input type="radio" name="bifb-f" id="bifb-m">
+  <input type="radio" name="bifb-f" id="bifb-p">
 
-  <section class="bifb__hero">
-    <span class="bifb__pill">🌿 Blog de bienestar</span>
-    <h1>Aprende a cuidarte <span>de forma natural</span></h1>
-    <p>Artículos claros, investigados y con fuentes confiables sobre medicina natural, plantas y hábitos saludables. Elige un tema y empieza a leer.</p>
-    <div class="bifb__datos"><span><b>20</b> artículos</span><span><b>2</b> categorías</span><span><b>📚</b> con fuentes y libros</span></div>
+  <header class="bifb__cab">
+    <div>
+      <span class="bifb__eti">Blog de bienestar BIF</span>
+      <h1>Aprende a cuidarte <em>de forma natural.</em></h1>
+    </div>
+    <div>
+      <p>Artículos claros e investigados sobre medicina natural, plantas y hábitos saludables, con fuentes de la OMS, institutos de salud y libros especializados.</p>
+      <div class="bifb__cifras"><div><b>20</b>artículos</div><div><b>2</b>categorías</div><div><b>+15</b>fuentes citadas</div></div>
+    </div>
+  </header>
+
+  <section class="bifb__dest">
+    <a class="bifb__d bifb__d--grande" href="/blogs/noticias/que-es-la-medicina-natural">
+      <span class="bifb__num-fondo">01</span>
+      <div class="bifb__d-top"><span>Destacado · Medicina natural</span><span>4 min de lectura</span></div>
+      <div><h3>¿Qué es la medicina natural y cómo puede formar parte de un estilo de vida saludable?</h3><p>Qué dice la Organización Mundial de la Salud y cómo integrarla a tu día a día de forma responsable.</p></div>
+      <span class="bifb__leer"><i>→</i>Leer artículo</span>
+    </a>
+    <div class="bifb__dest-lado">
+      <a class="bifb__d" href="/blogs/noticias/natural-no-siempre-significa-seguro">
+        <div class="bifb__d-top"><span>Seguridad</span><span>4 min</span></div>
+        <div><h3>Natural no siempre significa seguro: lo que debes saber</h3></div>
+        <span class="bifb__leer"><i>→</i>Leer artículo</span>
+      </a>
+      <a class="bifb__d" href="/blogs/noticias/que-es-la-fitoterapia-guia-principiantes">
+        <div class="bifb__d-top"><span>Fitoterapia</span><span>4 min</span></div>
+        <div><h3>¿Qué es la fitoterapia? Guía para principiantes</h3></div>
+        <span class="bifb__leer"><i>→</i>Leer artículo</span>
+      </a>
+    </div>
   </section>
 
-  <div class="bifb__filtros">
-    <label for="bifb-todos">✨ Todos</label>
-    <label for="bifb-med">🧘 Medicina natural y bienestar</label>
-    <label for="bifb-pla">🌱 Plantas y fitoterapia</label>
-  </div>
+  <section class="bifb__indice">
+    <div class="bifb__indice-cab">
+      <h2>Todos los artículos</h2>
+      <div class="bifb__tabs"><label for="bifb-t">Todos</label><label for="bifb-m">Medicina natural</label><label for="bifb-p">Plantas</label></div>
+    </div>
 
-  <div class="bifb__grupo bifb__grupo--med"><i>🧘</i><h2>Medicina natural y bienestar<small>10 artículos para cuidarte de forma integral</small></h2></div>
-  <div class="bifb__grid">
-    <a class="bifb__card" data-cat="med" href="/blogs/noticias/que-es-la-medicina-natural"><div class="bifb__top"><span class="bifb__emoji">🌿</span><span class="bifb__num">01</span></div><span class="bifb__cat">Medicina natural</span><h3>¿Qué es la medicina natural y cómo puede formar parte de un estilo de vida saludable?</h3><p>Qué dice la OMS y cómo integrarla con responsabilidad.</p><span class="bifb__btn">Leer artículo <b>→</b></span></a>
-    <a class="bifb__card" data-cat="med" href="/blogs/noticias/medicina-tradicional-complementaria-integrativa"><div class="bifb__top"><span class="bifb__emoji">🔍</span><span class="bifb__num">02</span></div><span class="bifb__cat">Medicina natural</span><h3>Medicina tradicional, complementaria e integrativa: ¿cuál es la diferencia?</h3><p>Tres términos que parecen iguales, pero no lo son.</p><span class="bifb__btn">Leer artículo <b>→</b></span></a>
-    <a class="bifb__card" data-cat="med" href="/blogs/noticias/enfoque-integral-cuerpo-mente-habitos"><div class="bifb__top"><span class="bifb__emoji">🧠</span><span class="bifb__num">03</span></div><span class="bifb__cat">Bienestar</span><h3>El enfoque integral de la salud: cuerpo, mente y hábitos</h3><p>Cómo se conectan tu cuerpo, tus emociones y tu rutina.</p><span class="bifb__btn">Leer artículo <b>→</b></span></a>
-    <a class="bifb__card" data-cat="med" href="/blogs/noticias/por-que-buscan-alternativas-naturales"><div class="bifb__top"><span class="bifb__emoji">🌎</span><span class="bifb__num">04</span></div><span class="bifb__cat">Tendencias</span><h3>¿Por qué cada vez más personas buscan alternativas naturales para su bienestar?</h3><p>Las razones detrás de un interés que crece en todo el mundo.</p><span class="bifb__btn">Leer artículo <b>→</b></span></a>
-    <a class="bifb__card" data-cat="med" href="/blogs/noticias/salud-preventiva-pequenos-habitos"><div class="bifb__top"><span class="bifb__emoji">🛡️</span><span class="bifb__num">05</span></div><span class="bifb__cat">Prevención</span><h3>Salud preventiva: pequeños hábitos que pueden marcar una diferencia</h3><p>Siete hábitos sencillos respaldados por la OMS.</p><span class="bifb__btn">Leer artículo <b>→</b></span></a>
-    <a class="bifb__card" data-cat="med" href="/blogs/noticias/bienestar-integral-mas-alla-del-sintoma"><div class="bifb__top"><span class="bifb__emoji">💚</span><span class="bifb__num">06</span></div><span class="bifb__cat">Bienestar</span><h3>Bienestar integral: más allá de tratar un síntoma</h3><p>Aprende a escuchar las señales de tu cuerpo.</p><span class="bifb__btn">Leer artículo <b>→</b></span></a>
-    <a class="bifb__card" data-cat="med" href="/blogs/noticias/rutina-de-bienestar-sostenible"><div class="bifb__top"><span class="bifb__emoji">📅</span><span class="bifb__num">07</span></div><span class="bifb__cat">Hábitos</span><h3>Cómo construir una rutina de bienestar sostenible</h3><p>Un método en 5 pasos para empezar hoy y no abandonar.</p><span class="bifb__btn">Leer artículo <b>→</b></span></a>
-    <a class="bifb__card" data-cat="med" href="/blogs/noticias/natural-no-siempre-significa-seguro"><div class="bifb__top"><span class="bifb__emoji">⚠️</span><span class="bifb__num">08</span></div><span class="bifb__cat">Seguridad</span><h3>Natural no siempre significa seguro: lo que debes saber</h3><p>Interacciones, dosis y calidad antes de usar un producto natural.</p><span class="bifb__btn">Leer artículo <b>→</b></span></a>
-    <a class="bifb__card" data-cat="med" href="/blogs/noticias/elegir-productos-naturales-responsable"><div class="bifb__top"><span class="bifb__emoji">✅</span><span class="bifb__num">09</span></div><span class="bifb__cat">Guía de compra</span><h3>Cómo elegir productos naturales de manera responsable</h3><p>Una lista de verificación práctica para comprar con criterio.</p><span class="bifb__btn">Leer artículo <b>→</b></span></a>
-    <a class="bifb__card" data-cat="med" href="/blogs/noticias/orientacion-profesional-antes-de-una-terapia"><div class="bifb__top"><span class="bifb__emoji">👩‍⚕️</span><span class="bifb__num">10</span></div><span class="bifb__cat">Orientación</span><h3>La importancia de recibir orientación profesional antes de iniciar una terapia</h3><p>Por qué consultar primero te protege y te ayuda.</p><span class="bifb__btn">Leer artículo <b>→</b></span></a>
-  </div>
+    <div class="bifb__cat bifb__cat--m">
+      <div class="bifb__cat-info"><span>Categoría 01</span><h3>Medicina natural y bienestar</h3><p>Conceptos, hábitos y consejos para cuidar tu salud de forma integral y responsable.</p></div>
+      <div class="bifb__lista">
+        <a class="bifb__fila" href="/blogs/noticias/que-es-la-medicina-natural"><b>01</b><div><h4>¿Qué es la medicina natural y cómo puede formar parte de un estilo de vida saludable?</h4><small>Qué dice la OMS y cómo integrarla con responsabilidad.</small></div><i>→</i></a>
+        <a class="bifb__fila" href="/blogs/noticias/medicina-tradicional-complementaria-integrativa"><b>02</b><div><h4>Medicina tradicional, complementaria e integrativa: ¿cuál es la diferencia?</h4><small>Tres términos que parecen iguales, pero no lo son.</small></div><i>→</i></a>
+        <a class="bifb__fila" href="/blogs/noticias/enfoque-integral-cuerpo-mente-habitos"><b>03</b><div><h4>El enfoque integral de la salud: cuerpo, mente y hábitos</h4><small>Cómo se conectan tu cuerpo, tus emociones y tu rutina.</small></div><i>→</i></a>
+        <a class="bifb__fila" href="/blogs/noticias/por-que-buscan-alternativas-naturales"><b>04</b><div><h4>¿Por qué cada vez más personas buscan alternativas naturales para su bienestar?</h4><small>Las razones detrás de un interés que crece en todo el mundo.</small></div><i>→</i></a>
+        <a class="bifb__fila" href="/blogs/noticias/salud-preventiva-pequenos-habitos"><b>05</b><div><h4>Salud preventiva: pequeños hábitos que pueden marcar una diferencia</h4><small>Siete hábitos sencillos respaldados por la OMS.</small></div><i>→</i></a>
+        <a class="bifb__fila" href="/blogs/noticias/bienestar-integral-mas-alla-del-sintoma"><b>06</b><div><h4>Bienestar integral: más allá de tratar un síntoma</h4><small>Aprende a escuchar las señales de tu cuerpo.</small></div><i>→</i></a>
+        <a class="bifb__fila" href="/blogs/noticias/rutina-de-bienestar-sostenible"><b>07</b><div><h4>Cómo construir una rutina de bienestar sostenible</h4><small>Un método en 5 pasos para empezar hoy y no abandonar.</small></div><i>→</i></a>
+        <a class="bifb__fila" href="/blogs/noticias/natural-no-siempre-significa-seguro"><b>08</b><div><h4>Natural no siempre significa seguro: lo que debes saber antes de usar un producto natural</h4><small>Interacciones, dosis y calidad.</small></div><i>→</i></a>
+        <a class="bifb__fila" href="/blogs/noticias/elegir-productos-naturales-responsable"><b>09</b><div><h4>Cómo elegir productos naturales de manera responsable</h4><small>Una lista de verificación práctica para comprar con criterio.</small></div><i>→</i></a>
+        <a class="bifb__fila" href="/blogs/noticias/orientacion-profesional-antes-de-una-terapia"><b>10</b><div><h4>La importancia de recibir orientación profesional antes de iniciar una terapia</h4><small>Por qué consultar primero te protege y te ayuda.</small></div><i>→</i></a>
+      </div>
+    </div>
 
-  <div class="bifb__grupo bifb__grupo--pla"><i>🌱</i><h2>Plantas, productos naturales y fitoterapia<small>10 artículos sobre el mundo de las plantas</small></h2></div>
-  <div class="bifb__grid">
-    <a class="bifb__card" data-cat="pla" href="/blogs/noticias/que-es-la-fitoterapia-guia-principiantes"><div class="bifb__top"><span class="bifb__emoji">🌱</span><span class="bifb__num">11</span></div><span class="bifb__cat">Fitoterapia</span><h3>¿Qué es la fitoterapia? Guía para principiantes</h3><p>Seguridad, calidad y eficacia: los pilares de la fitoterapia moderna.</p><span class="bifb__btn">Leer artículo <b>→</b></span></a>
-    <a class="bifb__card" data-cat="pla" href="/blogs/noticias/plantas-medicinales-tradicion-usos-precauciones"><div class="bifb__top"><span class="bifb__emoji">🍃</span><span class="bifb__num">12</span></div><span class="bifb__cat">Plantas</span><h3>Plantas medicinales: tradición, usos y precauciones</h3><p>El valor de la tradición y cómo usarla con cuidado.</p><span class="bifb__btn">Leer artículo <b>→</b></span></a>
-    <a class="bifb__card" data-cat="pla" href="/blogs/noticias/como-conservar-productos-naturales"><div class="bifb__top"><span class="bifb__emoji">🫙</span><span class="bifb__num">13</span></div><span class="bifb__cat">Consejos</span><h3>Cómo conservar correctamente productos naturales</h3><p>Luz, calor y humedad: cómo proteger tus productos.</p><span class="bifb__btn">Leer artículo <b>→</b></span></a>
-    <a class="bifb__card" data-cat="pla" href="/blogs/noticias/infusion-extracto-capsula-o-suplemento"><div class="bifb__top"><span class="bifb__emoji">🍵</span><span class="bifb__num">14</span></div><span class="bifb__cat">Formas de uso</span><h3>¿Infusión, extracto, cápsula o suplemento? Conoce las diferencias</h3><p>La misma planta puede venir en formas muy distintas.</p><span class="bifb__btn">Leer artículo <b>→</b></span></a>
-    <a class="bifb__card" data-cat="pla" href="/blogs/noticias/como-leer-la-etiqueta-producto-natural"><div class="bifb__top"><span class="bifb__emoji">🏷️</span><span class="bifb__num">15</span></div><span class="bifb__cat">Guía de compra</span><h3>Cómo leer la etiqueta de un producto natural</h3><p>7 pasos para entender lo que compras.</p><span class="bifb__btn">Leer artículo <b>→</b></span></a>
-    <a class="bifb__card" data-cat="pla" href="/blogs/noticias/ingredientes-naturales-que-revisar-antes-de-comprar"><div class="bifb__top"><span class="bifb__emoji">🔬</span><span class="bifb__num">16</span></div><span class="bifb__cat">Ingredientes</span><h3>Ingredientes naturales: qué información revisar antes de comprar</h3><p>Las preguntas clave sobre cada ingrediente.</p><span class="bifb__btn">Leer artículo <b>→</b></span></a>
-    <a class="bifb__card" data-cat="pla" href="/blogs/noticias/plantas-tradicionales-bienestar-digestivo"><div class="bifb__top"><span class="bifb__emoji">🌼</span><span class="bifb__num">17</span></div><span class="bifb__cat">Digestión</span><h3>Plantas utilizadas tradicionalmente para el bienestar digestivo</h3><p>Manzanilla, menta y jengibre: qué dice la ciencia.</p><span class="bifb__btn">Leer artículo <b>→</b></span></a>
-    <a class="bifb__card" data-cat="pla" href="/blogs/noticias/plantas-y-habitos-para-la-relajacion"><div class="bifb__top"><span class="bifb__emoji">🌙</span><span class="bifb__num">18</span></div><span class="bifb__cat">Relajación</span><h3>Plantas y hábitos tradicionalmente asociados con la relajación</h3><p>Toronjil, lavanda, valeriana y técnicas para descansar mejor.</p><span class="bifb__btn">Leer artículo <b>→</b></span></a>
-    <a class="bifb__card" data-cat="pla" href="/blogs/noticias/el-papel-de-las-plantas-en-las-tradiciones-de-salud"><div class="bifb__top"><span class="bifb__emoji">🏺</span><span class="bifb__num">19</span></div><span class="bifb__cat">Historia</span><h3>El papel de las plantas en las tradiciones de salud</h3><p>De los saberes ancestrales a los medicamentos modernos.</p><span class="bifb__btn">Leer artículo <b>→</b></span></a>
-    <a class="bifb__card" data-cat="pla" href="/blogs/noticias/de-la-tradicion-a-la-investigacion"><div class="bifb__top"><span class="bifb__emoji">🧪</span><span class="bifb__num">20</span></div><span class="bifb__cat">Ciencia</span><h3>De la tradición a la investigación: cómo se estudian los productos naturales</h3><p>Así pasa una planta del uso tradicional a la evidencia.</p><span class="bifb__btn">Leer artículo <b>→</b></span></a>
-  </div>
+    <div class="bifb__cat bifb__cat--p">
+      <div class="bifb__cat-info"><span>Categoría 02</span><h3>Plantas, productos naturales y fitoterapia</h3><p>Todo sobre el mundo de las plantas: cómo se usan, cómo se estudian y cómo elegirlas bien.</p></div>
+      <div class="bifb__lista">
+        <a class="bifb__fila" href="/blogs/noticias/que-es-la-fitoterapia-guia-principiantes"><b>11</b><div><h4>¿Qué es la fitoterapia? Guía para principiantes</h4><small>Seguridad, calidad y eficacia: los pilares de la fitoterapia moderna.</small></div><i>→</i></a>
+        <a class="bifb__fila" href="/blogs/noticias/plantas-medicinales-tradicion-usos-precauciones"><b>12</b><div><h4>Plantas medicinales: tradición, usos y precauciones</h4><small>El valor de la tradición y cómo usarla con cuidado.</small></div><i>→</i></a>
+        <a class="bifb__fila" href="/blogs/noticias/como-conservar-productos-naturales"><b>13</b><div><h4>Cómo conservar correctamente productos naturales</h4><small>Luz, calor y humedad: cómo proteger tus productos.</small></div><i>→</i></a>
+        <a class="bifb__fila" href="/blogs/noticias/infusion-extracto-capsula-o-suplemento"><b>14</b><div><h4>¿Infusión, extracto, cápsula o suplemento? Conoce las diferencias</h4><small>La misma planta puede venir en formas muy distintas.</small></div><i>→</i></a>
+        <a class="bifb__fila" href="/blogs/noticias/como-leer-la-etiqueta-producto-natural"><b>15</b><div><h4>Cómo leer la etiqueta de un producto natural</h4><small>7 pasos para entender lo que compras.</small></div><i>→</i></a>
+        <a class="bifb__fila" href="/blogs/noticias/ingredientes-naturales-que-revisar-antes-de-comprar"><b>16</b><div><h4>Ingredientes naturales: qué información deberías revisar antes de comprar</h4><small>Las preguntas clave sobre cada ingrediente.</small></div><i>→</i></a>
+        <a class="bifb__fila" href="/blogs/noticias/plantas-tradicionales-bienestar-digestivo"><b>17</b><div><h4>Plantas utilizadas tradicionalmente para el bienestar digestivo</h4><small>Manzanilla, menta y jengibre: qué dice la ciencia.</small></div><i>→</i></a>
+        <a class="bifb__fila" href="/blogs/noticias/plantas-y-habitos-para-la-relajacion"><b>18</b><div><h4>Plantas y hábitos tradicionalmente asociados con la relajación</h4><small>Toronjil, lavanda, valeriana y técnicas para descansar mejor.</small></div><i>→</i></a>
+        <a class="bifb__fila" href="/blogs/noticias/el-papel-de-las-plantas-en-las-tradiciones-de-salud"><b>19</b><div><h4>El papel de las plantas en las tradiciones de salud</h4><small>De los saberes ancestrales a los medicamentos modernos.</small></div><i>→</i></a>
+        <a class="bifb__fila" href="/blogs/noticias/de-la-tradicion-a-la-investigacion"><b>20</b><div><h4>De la tradición a la investigación: cómo se estudian los productos naturales</h4><small>Así pasa una planta del uso tradicional a la evidencia.</small></div><i>→</i></a>
+      </div>
+    </div>
+  </section>
 
   <section class="bifb__cierre">
-    <h2>¿Tienes una pregunta sobre tu bienestar?</h2>
-    <p>Escríbenos y te orientamos de forma personalizada.</p>
-    <a class="bifb__wa" href="https://wa.me/573173570881" target="_blank" rel="noopener">💬 Hablar con BIF por WhatsApp</a>
-    <p class="bifb__aviso">Los artículos de este blog son informativos y no reemplazan la valoración de un profesional de la salud.</p>
+    <div><h3>¿Tienes una pregunta sobre tu bienestar?</h3><p>Escríbenos y te orientamos de forma personalizada.</p></div>
+    <a class="bifb__wa" href="https://wa.me/573173570881" target="_blank" rel="noopener">Hablar con BIF por WhatsApp →</a>
   </section>
+  <p class="bifb__aviso">Los artículos de este blog son informativos y no reemplazan la valoración de un profesional de la salud.</p>
 </div>
