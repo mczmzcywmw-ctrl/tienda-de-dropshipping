@@ -43,7 +43,7 @@
       "settings": {
         "menu": "menu-bif",
         "logo": "shopify://shop_images/bif-logo.png",
-        "logo_ancho": 76
+        "logo_ancho": 75
       }
     },
     "cuenta": {
