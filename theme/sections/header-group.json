@@ -41,7 +41,9 @@
     "bif_header": {
       "type": "bif-header",
       "settings": {
-        "menu": "menu-bif"
+        "menu": "menu-bif",
+        "logo": "shopify://shop_images/bif-logo.png",
+        "logo_ancho": 76
       }
     },
     "cuenta": {

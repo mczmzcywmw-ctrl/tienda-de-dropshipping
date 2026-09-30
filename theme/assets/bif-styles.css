@@ -621,3 +621,7 @@
   .bif-rota, .bif-rota__trazo path, .bif-hero__producto, .bif-hero__raton span { animation: none; opacity: 1; transform: none; filter: none; stroke-dashoffset: 0; }
   .bif-rota__palabra { transition: none; }
 }
+
+/* Logo en imagen */
+.bif-logo img { height: auto; max-width: none; filter: drop-shadow(0 6px 12px rgba(31,59,23,.18)); transition: transform .5s var(--bif-ease); }
+.bif-logo:hover img { transform: rotate(-6deg) scale(1.04); }

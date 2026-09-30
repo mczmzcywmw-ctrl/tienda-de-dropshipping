@@ -6,6 +6,7 @@
     #header-group { position: sticky; top: 0; z-index: 40; }
   {%- endif -%}
   #shopify-section-{{ section.id }} .bif-logo img { width: {{ section.settings.logo_ancho }}px; }
+  @media (max-width: 990px) { #shopify-section-{{ section.id }} .bif-logo img { width: {{ section.settings.logo_ancho | times: 0.78 | round }}px; } }
   #shopify-section-{{ section.id }} .bif-nav a { font-size: {{ section.settings.menu_tamano }}px; }
 {% endstyle %}
 
