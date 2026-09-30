@@ -186,8 +186,8 @@
         "razon_2": {
           "type": "razon",
           "settings": {
-            "titulo": "Asesoría real, no automática",
-            "texto": "Una persona te responde por WhatsApp y te orienta."
+            "titulo": "Asesoría cercana",
+            "texto": "Te orientamos por WhatsApp antes y después de tu compra."
           }
         },
         "razon_3": {
