@@ -45,18 +45,9 @@
         "logo": "shopify://shop_images/bif-logo.png",
         "logo_ancho": 75
       }
-    },
-    "cuenta": {
-      "type": "bif-cuenta",
-      "settings": {
-        "fin": "2026-09-29 15:00",
-        "titulo": "¡30% de descuento en toda la tienda!",
-        "texto": "Aprovecha antes de que se acabe el tiempo."
-      }
     }
   },
   "order": [
-    "cuenta",
     "anuncio",
     "bif_header"
   ]
