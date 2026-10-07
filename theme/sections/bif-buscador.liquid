@@ -1,0 +1,84 @@
+{{ 'bif-styles.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  #shopify-section-{{ section.id }} { padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; }
+{% endstyle %}
+
+<div class="bif-buscador bif-section">
+  <div class="bif-container">
+    <form class="bif-buscador__caja" action="{{ routes.search_url }}" method="get" role="search" data-bif-buscador>
+      <input type="hidden" name="type" value="product">
+      <input type="hidden" name="options[prefix]" value="last">
+      <span class="bif-buscador__lupa" aria-hidden="true">{% render 'bif-icono', nombre: 'buscar' %}</span>
+      <input class="bif-buscador__campo" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ section.settings.placeholder }}" autocomplete="off" aria-label="{{ section.settings.placeholder }}">
+      <button class="bif-buscador__boton" type="submit">{{ section.settings.boton }}</button>
+      <div class="bif-buscador__resultados" hidden></div>
+    </form>
+    {%- assign sugerencias = section.settings.sugerencias | split: ',' -%}
+    {%- if sugerencias.size > 0 -%}
+      <div class="bif-buscador__chips">
+        <span>{{ section.settings.sugerencias_titulo }}</span>
+        {%- for s in sugerencias -%}
+          {%- assign termino = s | strip -%}
+          <a href="{{ routes.search_url }}?type=product&q={{ termino | url_encode }}">{{ termino }}</a>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+<script>
+  (function () {
+    var form = document.currentScript.previousElementSibling.querySelector('[data-bif-buscador]');
+    if (!form || form.dataset.listo) return;
+    form.dataset.listo = '1';
+    var campo = form.querySelector('input[name=q]');
+    var caja = form.querySelector('.bif-buscador__resultados');
+    var raiz = {{ routes.root_url | json }}.replace(/\/$/, '');
+    var temporizador, ultima = '';
+    function esc(t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+    function cerrar() { caja.hidden = true; }
+    campo.addEventListener('input', function () {
+      clearTimeout(temporizador);
+      var q = campo.value.trim();
+      if (q.length < 2) { cerrar(); return; }
+      temporizador = setTimeout(function () {
+        ultima = q;
+        fetch(raiz + '/search/suggest.json?q=' + encodeURIComponent(q) + '&resources[type]=product&resources[limit]=6')
+          .then(function (r) { return r.json(); })
+          .then(function (d) {
+            if (q !== ultima) return;
+            var productos = (d.resources && d.resources.results && d.resources.results.products) || [];
+            if (!productos.length) {
+              caja.innerHTML = '<p class="bif-buscador__vacio">No encontramos productos con “' + esc(q) + '”. Escríbenos y te ayudamos a encontrarlo.</p>';
+            } else {
+              caja.innerHTML = productos.map(function (p) {
+                var img = p.image ? '<img src="' + p.image + (p.image.indexOf('?') > -1 ? '&' : '?') + 'width=120" alt="" loading="lazy">' : '';
+                return '<a class="bif-buscador__item" href="' + p.url + '"><span class="bif-buscador__img">' + img + '</span><span class="bif-buscador__info"><b>' + esc(p.title) + '</b><small>' + esc(p.price ? '$' + Number(p.price).toLocaleString('es-CO') : '') + '</small></span></a>';
+              }).join('') + '<button class="bif-buscador__todos" type="submit">Ver todos los resultados →</button>';
+            }
+            caja.hidden = false;
+          })
+          .catch(cerrar);
+      }, 220);
+    });
+    document.addEventListener('click', function (e) { if (!form.contains(e.target)) cerrar(); });
+    campo.addEventListener('keydown', function (e) { if (e.key === 'Escape') cerrar(); });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "BIF – Buscador",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "placeholder", "label": "Texto dentro del buscador", "default": "Busca un producto: vitamina D, creatina, Centreel…" },
+    { "type": "text", "id": "boton", "label": "Texto del botón", "default": "Buscar" },
+    { "type": "text", "id": "sugerencias_titulo", "label": "Título de las sugerencias", "default": "Lo más buscado:" },
+    { "type": "text", "id": "sugerencias", "label": "Sugerencias (separadas por comas)", "default": "Vitamina D, Boswellia, Centreel, Creatina, Proteína" },
+    { "type": "range", "id": "padding_top", "label": "Espacio superior (px)", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "padding_bottom", "label": "Espacio inferior (px)", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 24 }
+  ],
+  "presets": [ { "name": "BIF – Buscador" } ]
+}
+{% endschema %}

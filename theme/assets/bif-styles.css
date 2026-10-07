@@ -625,3 +625,39 @@
 /* Logo en imagen */
 .bif-logo img { height: auto; max-width: none; filter: drop-shadow(0 6px 12px rgba(31,59,23,.18)); transition: transform .5s var(--bif-ease); }
 .bif-logo:hover img { transform: rotate(-6deg) scale(1.04); }
+
+/* ---------- Buscador de productos ---------- */
+.bif-buscador__caja { position: relative; display: flex; align-items: center; gap: 10px; max-width: 760px; margin: 0 auto; padding: 8px 8px 8px 20px; border-radius: 999px; background: #fff; border: 1.5px solid var(--bif-verde-linea); box-shadow: 0 18px 40px -28px rgba(31,59,23,.45); transition: border-color .3s, box-shadow .3s; }
+.bif-buscador__caja:focus-within { border-color: var(--bif-verde); box-shadow: 0 0 0 4px rgba(71,126,51,.12), 0 18px 40px -28px rgba(31,59,23,.45); }
+.bif-buscador__lupa { color: var(--bif-verde); display: grid; place-items: center; }
+.bif-buscador__lupa svg { width: 20px; height: 20px; }
+.bif-buscador__campo { flex: 1; min-width: 0; border: 0 !important; outline: 0 !important; box-shadow: none !important; background: transparent !important; padding: 10px 4px !important; font-size: 15.5px !important; color: var(--bif-texto) !important; -webkit-appearance: none; appearance: none; }
+.bif-buscador__campo::-webkit-search-cancel-button { -webkit-appearance: none; }
+.bif-buscador__boton { flex-shrink: 0; min-height: 46px; padding: 0 26px; border: 0; border-radius: 999px; background: var(--bif-verde); color: #fff; font-size: 14.5px; font-weight: 600; cursor: pointer; transition: background .3s, transform .3s; }
+.bif-buscador__boton:hover { background: var(--bif-verde-oscuro); transform: translateY(-1px); }
+.bif-buscador__resultados { position: absolute; left: 0; right: 0; top: calc(100% + 10px); z-index: 30; padding: 8px; border-radius: 22px; background: #fff; border: 1px solid var(--bif-verde-linea); box-shadow: 0 30px 60px -24px rgba(31,59,23,.45); }
+.bif-buscador__item { display: flex; align-items: center; gap: 14px; padding: 8px 10px; border-radius: 14px; transition: background .2s; }
+.bif-buscador__item:hover { background: var(--bif-verde-suave); }
+.bif-buscador__img { flex-shrink: 0; width: 52px; height: 52px; border-radius: 12px; overflow: hidden; background: #fff; border: 1px solid var(--bif-verde-linea); display: grid; place-items: center; }
+.bif-buscador__img img { width: 100%; height: 100%; object-fit: contain; }
+.bif-buscador__info { display: flex; flex-direction: column; min-width: 0; }
+.bif-buscador__info b { font-size: 14.5px; font-weight: 600; color: var(--bif-texto); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bif-buscador__info small { font-size: 13px; font-weight: 600; color: var(--bif-verde); }
+.bif-buscador__todos { width: 100%; margin-top: 4px; padding: 12px; border: 0; border-radius: 14px; background: var(--bif-verde-suave); color: var(--bif-verde-oscuro); font-size: 14px; font-weight: 600; cursor: pointer; }
+.bif-buscador__vacio { padding: 14px 12px; font-size: 14px; color: var(--bif-gris); }
+.bif-buscador__chips { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px; margin-top: 16px; }
+.bif-buscador__chips span { font-size: 13px; color: var(--bif-gris); margin-right: 4px; }
+.bif-buscador__chips a { padding: 7px 15px; border-radius: 999px; background: var(--bif-verde-suave); color: var(--bif-verde-oscuro); font-size: 13px; font-weight: 500; transition: background .3s, color .3s; }
+.bif-buscador__chips a:hover { background: var(--bif-verde); color: #fff; }
+@media (max-width: 640px) {
+  .bif-buscador__caja { padding: 6px 6px 6px 16px; }
+  .bif-buscador__boton { padding: 0 18px; min-height: 42px; }
+  .bif-buscador__campo { font-size: 15px !important; }
+}
+
+/* ---------- Tarjetas de producto del tema: todas iguales ---------- */
+.product-grid .card-gallery { border-radius: 18px; background: #fff; border: 1px solid var(--bif-verde-linea); transition: box-shadow .4s var(--bif-ease), transform .4s var(--bif-ease); }
+.product-grid .card-gallery:hover { box-shadow: 0 22px 44px -28px rgba(31,59,23,.45); transform: translateY(-3px); }
+.product-grid .card-gallery .product-media-container,
+.product-grid .card-gallery slideshow-slide { --product-media-fit: contain !important; background: #fff; }
+.product-grid .card-gallery img { object-fit: contain !important; padding: 8%; background: #fff; }
