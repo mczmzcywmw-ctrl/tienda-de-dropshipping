@@ -173,7 +173,12 @@
     "productos": {
       "type": "bif-productos",
       "settings": {
-        "texto": "Productos originales, elegidos por su calidad y con envío a todo el país."
+        "texto": "Productos originales, elegidos por su calidad y con envío a todo el país.",
+        "antetitulo": "Nuestra tienda",
+        "titulo": "Productos para tu bienestar",
+        "cantidad": 8,
+        "padding_top": 64,
+        "padding_bottom": 88
       }
     },
     "confianza": {
@@ -259,9 +264,9 @@
   "order": [
     "hero",
     "cinta",
+    "productos",
     "beneficios",
     "categorias",
-    "productos",
     "pasos",
     "confianza",
     "blog"
