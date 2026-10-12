@@ -136,7 +136,8 @@
             "texto": "Alternativas naturales y suaves para acompañar tu salud día a día.",
             "icono": "gota",
             "color": "#477E33",
-            "boton": "Ver homeopáticos"
+            "boton": "Ver homeopáticos",
+            "coleccion": "homeopaticos"
           }
         },
         "categoria_2": {
@@ -146,7 +147,8 @@
             "texto": "Proteínas, creatina y suplementos para rendir y recuperarte mejor.",
             "icono": "pesa",
             "color": "#3A6B8A",
-            "boton": "Ver suplementos"
+            "boton": "Ver suplementos",
+            "coleccion": "nutricion-deportiva"
           }
         },
         "categoria_3": {
@@ -156,7 +158,8 @@
             "texto": "Vitaminas, minerales y productos de origen natural para tu bienestar.",
             "icono": "hoja",
             "color": "#B08A2E",
-            "boton": "Ver naturales"
+            "boton": "Ver naturales",
+            "coleccion": "naturales-y-vitaminas"
           }
         }
       },
