@@ -5,52 +5,54 @@
   {%- if section.settings.fijo -%}
     #header-group { position: sticky; top: 0; z-index: 40; }
   {%- endif -%}
-  #shopify-section-{{ section.id }} .bif-logo img { width: {{ section.settings.logo_ancho }}px; }
-  @media (max-width: 990px) { #shopify-section-{{ section.id }} .bif-logo img { width: {{ section.settings.logo_ancho | times: 0.78 | round }}px; } }
-  #shopify-section-{{ section.id }} .bif-nav a { font-size: {{ section.settings.menu_tamano }}px; }
+  #shopify-section-{{ section.id }} .bif-cab { --bif-logo: {{ section.settings.logo_ancho }}px; }
+  #shopify-section-{{ section.id }} .bif-cab__nav a { font-size: {{ section.settings.menu_tamano | minus: 2 }}px; }
 {% endstyle %}
 
 {%- assign wa = section.settings.whatsapp | remove: '+' | remove: ' ' -%}
-<header class="bif-header bif-section" data-bif-header>
-  <div class="bif-container bif-header__fila">
-    <a href="{{ routes.root_url }}" class="bif-logo" aria-label="{{ section.settings.nombre | default: shop.name | escape }}">
-      {%- if section.settings.logo != blank -%}
-        <span class="bif-logo__aro"><img src="{{ section.settings.logo | image_url: width: 500 }}" alt="{{ section.settings.logo.alt | default: shop.name | escape }}" width="{{ section.settings.logo.width }}" height="{{ section.settings.logo.height }}"></span>
-      {%- else -%}
-        <span class="bif-logo__marca">{% render 'bif-icono', nombre: 'hoja' %}</span>
+<header class="bif-header bif-cab bif-section" data-bif-header>
+  <div class="bif-container bif-cab__fila">
+    <div class="bif-cab__lado bif-cab__lado--izq">
+      <button type="button" class="bif-hamburguesa" data-bif-abrir-menu aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button>
+      <button type="button" class="bif-cab__enlace bif-cab__enlace--buscar" data-bif-abrir-busqueda aria-label="Buscar productos">{% render 'bif-icono', nombre: 'buscar' %}<span>Buscar</span></button>
+      {%- if wa != blank and section.settings.telefono_texto != blank -%}
+        <a class="bif-cab__enlace bif-cab__enlace--tel" href="https://wa.me/{{ wa }}" target="_blank" rel="noopener">{% render 'bif-icono', nombre: 'whatsapp' %}<span>{{ section.settings.telefono_texto }}</span></a>
       {%- endif -%}
-      <span class="bif-logo__texto">
-        <span class="bif-logo__nombre">{{ section.settings.nombre }}</span>
-        {%- if section.settings.subtitulo != blank -%}<span class="bif-logo__sub">{{ section.settings.subtitulo }}</span>{%- endif -%}
+    </div>
+
+    <a href="{{ routes.root_url }}" class="bif-cab__marca" aria-label="{{ section.settings.nombre | default: shop.name | escape }}">
+      {%- if section.settings.logo != blank -%}
+        <span class="bif-cab__sello"><img src="{{ section.settings.logo | image_url: width: 300 }}" alt="{{ section.settings.logo.alt | default: shop.name | escape }}" width="{{ section.settings.logo_ancho }}" height="{{ section.settings.logo_ancho }}"></span>
+      {%- endif -%}
+      <span class="bif-cab__textos">
+        <span class="bif-cab__nombre">{{ section.settings.nombre }}</span>
+        {%- if section.settings.subtitulo != blank -%}<span class="bif-cab__sub">{{ section.settings.subtitulo }}</span>{%- endif -%}
       </span>
     </a>
 
-    <nav class="bif-nav-wrap" aria-label="Menú principal">
-      <ul class="bif-nav" data-bif-nav>
-        <span class="bif-nav__pastilla" aria-hidden="true"></span>
-        {%- for link in section.settings.menu.links -%}
-          <li><a href="{{ link.url }}" {% if link.current or link.child_active %}aria-current="page"{% endif %}>{{ link.title }}</a></li>
-        {%- endfor -%}
-      </ul>
-    </nav>
-
-    <div class="bif-header__iconos">
-      <button type="button" class="bif-header__buscar" data-bif-abrir-busqueda aria-label="Buscar productos">
-        {% render 'bif-icono', nombre: 'buscar' %}<span>Buscar</span>
-      </button>
+    <div class="bif-cab__lado bif-cab__lado--der">
+      <button type="button" class="bif-icono-btn bif-cab__lupa-movil" data-bif-abrir-busqueda aria-label="Buscar productos">{% render 'bif-icono', nombre: 'buscar' %}</button>
       {%- if shop.customer_accounts_enabled -%}
-        <a href="{{ routes.account_url }}" class="bif-icono-btn bif-icono-btn--cuenta" aria-label="Mi cuenta">{% render 'bif-icono', nombre: 'usuario' %}</a>
+        <a href="{{ routes.account_url }}" class="bif-icono-btn bif-cab__cuenta" aria-label="Mi cuenta">{% render 'bif-icono', nombre: 'usuario' %}</a>
       {%- endif -%}
-      <a href="{{ routes.cart_url }}" class="bif-icono-btn bif-icono-btn--carrito" aria-label="Carrito ({{ cart.item_count }})">
+      <a href="{{ routes.cart_url }}" class="bif-icono-btn bif-cab__carrito" aria-label="Carrito ({{ cart.item_count }})">
         {% render 'bif-icono', nombre: 'bolsa' %}
         {%- if cart.item_count > 0 -%}<span class="bif-burbuja">{{ cart.item_count }}</span>{%- endif -%}
       </a>
       {%- if wa != blank and section.settings.wa_texto != blank -%}
-        <a class="bif-header__wa" href="https://wa.me/{{ wa }}" target="_blank" rel="noopener"><i aria-hidden="true"></i>{% render 'bif-icono', nombre: 'whatsapp' %}<span>{{ section.settings.wa_texto }}</span></a>
+        <a class="bif-cab__asesoria" href="https://wa.me/{{ wa }}" target="_blank" rel="noopener"><span>{{ section.settings.wa_texto }}</span></a>
       {%- endif -%}
-      <button type="button" class="bif-hamburguesa" data-bif-abrir-menu aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
   </div>
+
+  <nav class="bif-cab__menu" aria-label="Menú principal">
+    <ul class="bif-cab__nav" data-bif-nav>
+      <span class="bif-nav__pastilla" aria-hidden="true"></span>
+      {%- for link in section.settings.menu.links -%}
+        <li><a href="{{ link.url }}" {% if link.current or link.child_active %}aria-current="page"{% endif %}>{{ link.title }}</a></li>
+      {%- endfor -%}
+    </ul>
+  </nav>
   <div class="bif-header__progreso" aria-hidden="true"><span></span></div>
 </header>
 
@@ -116,6 +118,7 @@
     { "type": "checkbox", "id": "fijo", "label": "Dejar el encabezado fijo al bajar", "default": true },
     { "type": "text", "id": "whatsapp", "label": "WhatsApp", "default": "573173570881" },
     { "type": "text", "id": "wa_texto", "label": "Texto del botón de WhatsApp", "default": "Asesoría" },
+    { "type": "text", "id": "telefono_texto", "label": "Teléfono que se ve arriba a la izquierda", "default": "+57 317 357 0881" },
     { "type": "text", "id": "busqueda_sugerencias", "label": "Sugerencias en el buscador (separadas por comas)", "default": "Vitamina D, Boswellia, Centreel, Ashwagandha, Dormir mejor" }
   ]
 }

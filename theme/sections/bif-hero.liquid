@@ -118,11 +118,13 @@
             {%- endfor -%}
           </div>
           <div class="bif-orbita__centro">
-            {%- if section.settings.centro_imagen != blank -%}
-              <img src="{{ section.settings.centro_imagen | image_url: width: 500 }}" alt="{{ section.settings.centro_imagen.alt | default: shop.name | escape }}" width="250" height="250" loading="eager">
-            {%- else -%}
-              <strong>{{ section.settings.centro_titulo }}</strong>
-            {%- endif -%}
+            <div class="bif-orbita__disco">
+              {%- if section.settings.centro_imagen != blank -%}
+                <img src="{{ section.settings.centro_imagen | image_url: width: 500 }}" alt="{{ section.settings.centro_imagen.alt | default: shop.name | escape }}" width="250" height="250" loading="eager">
+              {%- else -%}
+                {% render 'bif-arbol' %}
+              {%- endif -%}
+            </div>
           </div>
           {%- if section.settings.orbita_sello != blank -%}
             <span class="bif-orbita__sello" aria-hidden="true">
@@ -213,10 +215,10 @@
     { "type": "text", "id": "boton2_texto", "label": "Botón WhatsApp – texto", "default": "Recibe asesoría" },
     { "type": "text", "id": "whatsapp", "label": "Número de WhatsApp (con indicativo)", "default": "573173570881" },
     { "type": "header", "content": "Productos girando" },
-    { "type": "checkbox", "id": "orbita", "label": "Mostrar productos girando alrededor del logo", "default": true },
+    { "type": "checkbox", "id": "orbita", "label": "Mostrar productos girando alrededor del árbol", "default": true },
     { "type": "collection", "id": "orbita_coleccion", "label": "Colección de productos que giran", "info": "Si la dejas vacía, se usan los productos de toda la tienda." },
     { "type": "range", "id": "orbita_cantidad", "label": "Cantidad de productos que giran", "min": 3, "max": 10, "step": 1, "default": 8 },
-    { "type": "image_picker", "id": "centro_imagen", "label": "Imagen del centro (logo)" },
+    { "type": "image_picker", "id": "centro_imagen", "label": "Imagen del centro (opcional)", "info": "Si la dejas vacía, se muestra el árbol animado." },
     { "type": "text", "id": "orbita_sello", "label": "Texto del sello giratorio", "default": "BIENESTAR NATURAL • DESDE 2017 • CALI • " },
     { "type": "header", "content": "Ilustración" },
     { "type": "image_picker", "id": "imagen", "label": "Foto (opcional)", "info": "Si subes una foto, reemplaza la ilustración animada." },

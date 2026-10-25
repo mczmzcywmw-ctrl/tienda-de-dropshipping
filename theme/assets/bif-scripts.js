@@ -164,6 +164,29 @@
   }
 
   // Encabezado: se encoge al bajar, barra de progreso, píldora del menú, búsqueda y menú móvil.
+  // Productos girando: en celular, el primer toque agranda el producto y el segundo lo abre
+  function iniciarOrbita() {
+    document.querySelectorAll('[data-bif-orbita]').forEach(function (orbita) {
+      if (orbita.dataset.listo) return;
+      orbita.dataset.listo = '1';
+      var tactil = window.matchMedia('(hover: none)');
+      function soltar() {
+        orbita.classList.remove('is-pausa');
+        orbita.querySelectorAll('.bif-orbita__item.is-activo').forEach(function (x) { x.classList.remove('is-activo'); });
+      }
+      orbita.querySelectorAll('.bif-orbita__item').forEach(function (item) {
+        item.addEventListener('click', function (e) {
+          if (!tactil.matches || item.classList.contains('is-activo')) return;
+          e.preventDefault();
+          soltar();
+          item.classList.add('is-activo');
+          orbita.classList.add('is-pausa');
+        });
+      });
+      document.addEventListener('click', function (e) { if (!e.target.closest('.bif-orbita__item')) soltar(); });
+    });
+  }
+
   function iniciarEncabezado() {
     var header = document.querySelector('[data-bif-header]');
     if (!header || header.dataset.listo) return;
@@ -186,7 +209,7 @@
 
     // Píldora que sigue al mouse en el menú
     var nav = header.querySelector('[data-bif-nav]');
-    if (nav) {
+    if (nav && nav.querySelector('.bif-nav__pastilla')) {
       var pastilla = nav.querySelector('.bif-nav__pastilla');
       var activo = nav.querySelector('a[aria-current="page"]');
       var mover = function (a) {
@@ -265,7 +288,7 @@
     });
   }
 
-  function iniciar() { iniciarPalabras(); iniciarReveals(); iniciarAnuncios(); iniciarInclinacion(); iniciarContadores(); iniciarDesplegables(); iniciarRotadores(); iniciarPortadaMouse(); iniciarEncabezado(); iniciarMagneticos(); }
+  function iniciar() { iniciarPalabras(); iniciarReveals(); iniciarAnuncios(); iniciarInclinacion(); iniciarContadores(); iniciarDesplegables(); iniciarRotadores(); iniciarPortadaMouse(); iniciarEncabezado(); iniciarOrbita(); iniciarMagneticos(); }
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', iniciar);
