@@ -875,15 +875,13 @@ html.bif-sin-scroll :is(.bif-whatsapp, .bif-arriba) { opacity: 0; pointer-events
    ===================================================================== */
 .bif-orbita__centro { inset: 29%; }
 .bif-orbita__giro { z-index: 2; }
-.bif-orbita__disco { position: relative; width: 100%; height: 100%; border-radius: 50%; display: grid; place-items: center; background: radial-gradient(circle at 40% 32%, #FFFBF0, #F3E6C8 72%); box-shadow: 0 0 0 6px rgba(255,255,255,.08), 0 0 0 7px rgba(201,165,90,.6), 0 30px 60px -20px rgba(0,0,0,.55), inset 0 -10px 30px rgba(201,165,90,.18); }
-.bif-orbita__disco .bif-arbol { position: absolute; left: 5%; top: 4%; width: 90%; height: 90%; overflow: visible; }
-.bif-arbol__copa { transform-box: view-box; transform-origin: 151px 384px; animation: bif-arbol-viento 6s ease-in-out infinite; }
-@keyframes bif-arbol-viento { 0%, 100% { transform: rotate(-1.4deg); } 50% { transform: rotate(1.4deg); } }
-.bif-arbol__hojas .h { animation: bif-hoja-brilla 4s ease-in-out infinite; animation-delay: var(--d); }
-@keyframes bif-hoja-brilla { 50% { filter: brightness(1.3); } }
-.bif-arbol__caen ellipse { opacity: 0; transform-box: fill-box; transform-origin: center; animation: bif-hoja-cae 7s ease-in infinite; animation-delay: var(--d); }
-@keyframes bif-hoja-cae { 0% { opacity: 0; transform: translate(0, 0) rotate(0); } 12% { opacity: 1; } 85% { opacity: .9; } 100% { opacity: 0; transform: translate(20px, 110px) rotate(220deg); } }
-.bif-orbita:hover .bif-orbita__disco .bif-arbol { transform: none; }
+.bif-orbita__disco { position: relative; width: 100%; height: 100%; border-radius: 50%; display: grid; place-items: center; background: radial-gradient(circle at 45% 38%, #FBF1D8, #EBD5A6 80%); box-shadow: 0 0 0 6px rgba(255,255,255,.08), 0 0 0 7px rgba(201,165,90,.6), 0 30px 60px -20px rgba(0,0,0,.55), inset 0 -10px 30px rgba(201,165,90,.18); }
+.bif-orbita__disco .bif-arbol { position: absolute; left: 6%; top: 3%; width: 88%; height: 92%; }
+.bif-arbol__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; transform-origin: 50% 90%; animation: bif-arbol-viento 6s ease-in-out infinite; }
+@keyframes bif-arbol-viento { 0%, 100% { transform: rotate(-1.2deg); } 50% { transform: rotate(1.2deg); } }
+.bif-arbol__caen { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.bif-arbol__caen path { opacity: 0; transform-box: fill-box; transform-origin: center; animation: bif-hoja-cae 7s ease-in infinite; animation-delay: var(--d); }
+@keyframes bif-hoja-cae { 0% { opacity: 0; transform: translate(0, 0) rotate(0); } 12% { opacity: 1; } 85% { opacity: .9; } 100% { opacity: 0; transform: translate(18px, 110px) rotate(220deg); } }
 
 .bif-orbita__item { transition: z-index 0s .4s; }
 .bif-orbita__item:hover, .bif-orbita__item:focus-visible, .bif-orbita__item.is-activo { z-index: 6; transition: z-index 0s; }
