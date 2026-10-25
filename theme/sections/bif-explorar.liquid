@@ -1,0 +1,148 @@
+{{ 'bif-styles.css' | asset_url | stylesheet_tag }}
+
+{%- comment -%}
+  Banner de la página de productos: categorías arriba y, debajo, "¿Qué necesitas?" con las necesidades
+  (dolor, sueño, defensas…). Cada necesidad es una etiqueta de producto; solo se muestran las que
+  tienen productos en la categoría que se está viendo.
+{%- endcomment -%}
+
+{%- assign col = collection -%}
+{%- assign activa = current_tags.first | default: '' -%}
+{%- assign wa = section.settings.whatsapp | remove: '+' | remove: ' ' -%}
+{%- assign titulo_activa = '' -%}
+{%- for block in section.blocks -%}
+  {%- if block.type == 'necesidad' and block.settings.etiqueta == activa -%}{%- assign titulo_activa = block.settings.titulo -%}{%- endif -%}
+{%- endfor -%}
+
+<div class="bif-explorar bif-section">
+  <div class="bif-explorar__banner">
+    <span class="bif-explorar__brillo" aria-hidden="true"></span>
+    <div class="bif-container bif-explorar__cabeza">
+      {%- if section.settings.antetitulo != blank -%}<p class="bif-explorar__ante">{{ section.settings.antetitulo }}</p>{%- endif -%}
+      <h1 class="bif-explorar__titulo">
+        {%- if col.handle == 'all' or col == blank -%}{{ section.settings.titulo_todos }}{%- else -%}{{ col.title }}{%- endif -%}
+      </h1>
+      <p class="bif-explorar__texto">
+        {%- assign desc = col.description | strip_html | strip -%}
+        {%- if desc != blank and col.handle != 'all' -%}{{ desc | truncatewords: 32 }}{%- else -%}{{ section.settings.texto }}{%- endif -%}
+      </p>
+
+      <nav class="bif-explorar__cats" aria-label="Categorías">
+        <a class="bif-explorar__cat{% if col.handle == 'all' %} is-activa{% endif %}" href="{{ routes.all_products_collection_url }}#bif-necesidades">
+          <span class="bif-explorar__cat-icono">{% render 'bif-icono', nombre: 'todo' %}</span>
+          <span>Todos</span>
+          <small>{{ collections.all.all_products_count }}</small>
+        </a>
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'categoria' and block.settings.coleccion != blank -%}
+            {%- assign c = block.settings.coleccion -%}
+            {%- if c.all_products_count > 0 -%}
+              <a class="bif-explorar__cat{% if col.handle == c.handle %} is-activa{% endif %}" href="{{ c.url }}#bif-necesidades" {{ block.shopify_attributes }}>
+                <span class="bif-explorar__cat-icono">{% render 'bif-icono', nombre: block.settings.icono %}</span>
+                <span>{{ block.settings.titulo | default: c.title }}</span>
+                <small>{{ c.all_products_count }}</small>
+              </a>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </nav>
+    </div>
+  </div>
+
+  <div class="bif-container">
+    <div class="bif-explorar__panel" id="bif-necesidades">
+      <div class="bif-explorar__panel-cab">
+        <div>
+          <h2>{{ section.settings.necesidades_titulo }}</h2>
+          <p>{{ section.settings.necesidades_texto }}</p>
+        </div>
+        {%- if activa != blank -%}
+          <a class="bif-explorar__quitar" href="{{ col.url }}#bif-necesidades">Ver todo {% if col.handle != 'all' %}en {{ col.title }}{% endif %} <span aria-hidden="true">×</span></a>
+        {%- endif -%}
+      </div>
+
+      <div class="bif-explorar__grid">
+        {%- assign n = 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'necesidad' and block.settings.etiqueta != blank and col.all_tags contains block.settings.etiqueta -%}
+            {%- assign etiqueta = block.settings.etiqueta -%}
+            {%- assign es_activa = false -%}
+            {%- if etiqueta == activa -%}{%- assign es_activa = true -%}{%- endif -%}
+            {%- assign cuenta = 0 -%}
+            {%- if activa == blank -%}
+              {%- for p in col.products -%}{%- if p.tags contains etiqueta -%}{%- assign cuenta = cuenta | plus: 1 -%}{%- endif -%}{%- endfor -%}
+            {%- endif -%}
+            <a class="bif-explorar__nec{% if es_activa %} is-activa{% elsif activa != blank %} is-apagada{% endif %}" style="--n: {{ n }}; --c: {{ block.settings.color }}"
+               href="{% if es_activa %}{{ col.url }}{% else %}{{ col.url }}/{{ etiqueta | handle }}{% endif %}#bif-necesidades" {{ block.shopify_attributes }}>
+              <span class="bif-explorar__nec-icono">{% render 'bif-icono', nombre: block.settings.icono %}</span>
+              <span class="bif-explorar__nec-txt">
+                <b>{{ block.settings.titulo }}</b>
+                <span>{{ block.settings.texto }}</span>
+              </span>
+              {%- if cuenta > 0 -%}<small class="bif-explorar__nec-num">{{ cuenta }} {% if cuenta == 1 %}producto{% else %}productos{% endif %}</small>{%- endif -%}
+              {%- if es_activa -%}<small class="bif-explorar__nec-num">Viendo ahora ✓</small>{%- endif -%}
+            </a>
+            {%- assign n = n | plus: 1 -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      <div class="bif-explorar__pie">
+        {%- if activa != blank -%}
+          <p class="bif-explorar__mostrando">Mostrando <b>{{ col.products_count }} {% if col.products_count == 1 %}producto{% else %}productos{% endif %}</b> para <b>{{ titulo_activa | default: activa }}</b>{% if col.handle != 'all' %} en {{ col.title }}{% endif %}.</p>
+        {%- else -%}
+          <p class="bif-explorar__mostrando">Toca una necesidad para ver solo los productos que te sirven.</p>
+        {%- endif -%}
+        {%- if wa != blank and section.settings.ayuda != blank -%}
+          <a class="bif-explorar__ayuda" href="https://wa.me/{{ wa }}" target="_blank" rel="noopener">{% render 'bif-icono', nombre: 'whatsapp' %} {{ section.settings.ayuda }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "BIF – Explorar productos",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "antetitulo", "label": "Texto pequeño de arriba", "default": "Nuestra tienda" },
+    { "type": "text", "id": "titulo_todos", "label": "Título en la página de todos los productos", "default": "Encuentra lo que necesitas" },
+    { "type": "textarea", "id": "texto", "label": "Texto del banner", "default": "Productos homeopáticos, naturales y vitaminas organizados por categoría y por lo que quieres cuidar: dolor, sueño, defensas, digestión y más." },
+    { "type": "text", "id": "necesidades_titulo", "label": "Título de las necesidades", "default": "¿Qué necesitas?" },
+    { "type": "text", "id": "necesidades_texto", "label": "Texto de las necesidades", "default": "Elige lo que quieres cuidar y te mostramos los productos indicados." },
+    { "type": "text", "id": "ayuda", "label": "Texto del botón de ayuda", "default": "¿No sabes cuál elegir? Te asesoramos" },
+    { "type": "text", "id": "whatsapp", "label": "WhatsApp", "default": "573173570881" }
+  ],
+  "blocks": [
+    {
+      "type": "categoria",
+      "name": "Categoría",
+      "settings": [
+        { "type": "collection", "id": "coleccion", "label": "Colección", "info": "Si la colección no tiene productos, no se muestra." },
+        { "type": "text", "id": "titulo", "label": "Nombre (opcional)" },
+        { "type": "select", "id": "icono", "label": "Ícono", "default": "gota", "options": [
+          { "value": "gota", "label": "Gota" }, { "value": "hoja", "label": "Hoja" }, { "value": "pesa", "label": "Pesa" }, { "value": "frasco", "label": "Frasco" }, { "value": "corazon", "label": "Corazón" }, { "value": "estrella", "label": "Estrella" }
+        ] }
+      ]
+    },
+    {
+      "type": "necesidad",
+      "name": "Necesidad",
+      "settings": [
+        { "type": "text", "id": "etiqueta", "label": "Etiqueta de los productos", "info": "Ponle esta misma etiqueta a los productos que sirven para esto. Ej: sueno" },
+        { "type": "text", "id": "titulo", "label": "Título", "default": "Sueño y descanso" },
+        { "type": "text", "id": "texto", "label": "Texto corto", "default": "Para dormir más tranquilo." },
+        { "type": "select", "id": "icono", "label": "Ícono", "default": "hoja", "options": [
+          { "value": "curita", "label": "Dolor" }, { "value": "luna", "label": "Luna" }, { "value": "mente", "label": "Mente" }, { "value": "rayo", "label": "Energía" },
+          { "value": "escudo", "label": "Escudo" }, { "value": "estomago", "label": "Estómago" }, { "value": "pesa", "label": "Pesa" }, { "value": "hueso", "label": "Hueso" },
+          { "value": "espiral", "label": "Mareo" }, { "value": "flor", "label": "Flor" }, { "value": "corazon", "label": "Corazón" }, { "value": "mano", "label": "Mano" },
+          { "value": "sol", "label": "Sol" }, { "value": "hoja", "label": "Hoja" }, { "value": "gota", "label": "Gota" }
+        ] },
+        { "type": "color", "id": "color", "label": "Color", "default": "#477E33" }
+      ]
+    }
+  ],
+  "presets": [ { "name": "BIF – Explorar productos" } ]
+}
+{% endschema %}
