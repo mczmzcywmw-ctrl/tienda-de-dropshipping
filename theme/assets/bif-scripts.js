@@ -163,7 +163,109 @@
     });
   }
 
-  function iniciar() { iniciarPalabras(); iniciarReveals(); iniciarAnuncios(); iniciarInclinacion(); iniciarContadores(); iniciarDesplegables(); iniciarRotadores(); iniciarPortadaMouse(); }
+  // Encabezado: se encoge al bajar, barra de progreso, píldora del menú, búsqueda y menú móvil.
+  function iniciarEncabezado() {
+    var header = document.querySelector('[data-bif-header]');
+    if (!header || header.dataset.listo) return;
+    header.dataset.listo = '1';
+    var arriba = document.querySelector('[data-bif-arriba]');
+    var raiz = document.documentElement;
+    var pendiente = false;
+    function alBajar() {
+      pendiente = false;
+      var y = window.scrollY;
+      var alto = document.documentElement.scrollHeight - window.innerHeight;
+      var p = alto > 0 ? Math.min(y / alto, 1) : 0;
+      header.classList.toggle('is-scrolled', y > 24);
+      raiz.style.setProperty('--bif-progreso', p.toFixed(4));
+      if (arriba) arriba.classList.toggle('is-visible', y > 700);
+    }
+    window.addEventListener('scroll', function () { if (!pendiente) { pendiente = true; requestAnimationFrame(alBajar); } }, { passive: true });
+    alBajar();
+    if (arriba) arriba.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+    // Píldora que sigue al mouse en el menú
+    var nav = header.querySelector('[data-bif-nav]');
+    if (nav) {
+      var pastilla = nav.querySelector('.bif-nav__pastilla');
+      var activo = nav.querySelector('a[aria-current="page"]');
+      var mover = function (a) {
+        if (!a) { pastilla.style.opacity = 0; return; }
+        var rn = nav.getBoundingClientRect(), ra = a.getBoundingClientRect();
+        pastilla.style.width = ra.width + 'px';
+        pastilla.style.transform = 'translateX(' + (ra.left - rn.left) + 'px)';
+        pastilla.style.opacity = 1;
+      };
+      nav.querySelectorAll('a').forEach(function (a) { a.addEventListener('mouseenter', function () { mover(a); }); });
+      nav.addEventListener('mouseleave', function () { mover(activo); });
+      requestAnimationFrame(function () { mover(activo); });
+      window.addEventListener('resize', function () { mover(activo); });
+    }
+
+    // Menú móvil
+    var menu = document.querySelector('[data-bif-menu]');
+    var boton = header.querySelector('[data-bif-abrir-menu]');
+    function cerrarMenu() { if (!menu) return; menu.hidden = true; raiz.classList.remove('bif-sin-scroll'); if (boton) boton.setAttribute('aria-expanded', 'false'); }
+    if (boton && menu) {
+      boton.addEventListener('click', function () { menu.hidden = false; raiz.classList.add('bif-sin-scroll'); boton.setAttribute('aria-expanded', 'true'); });
+      menu.querySelectorAll('[data-bif-cerrar-menu]').forEach(function (b) { b.addEventListener('click', cerrarMenu); });
+    }
+
+    // Búsqueda con resultados en vivo
+    var busqueda = document.querySelector('[data-bif-busqueda]');
+    if (!busqueda) return;
+    var campo = busqueda.querySelector('[data-bif-busqueda-campo]');
+    var caja = busqueda.querySelector('[data-bif-busqueda-resultados]');
+    var inicial = caja.innerHTML;
+    var raizUrl = (window.Shopify && Shopify.routes && Shopify.routes.root) || '/';
+    var t, ultima = '';
+    function esc(x) { var d = document.createElement('div'); d.textContent = x; return d.innerHTML; }
+    function abrir() { cerrarMenu(); busqueda.hidden = false; raiz.classList.add('bif-sin-scroll'); setTimeout(function () { campo.focus(); }, 60); }
+    function cerrar() { busqueda.hidden = true; raiz.classList.remove('bif-sin-scroll'); }
+    document.querySelectorAll('[data-bif-abrir-busqueda]').forEach(function (b) { b.addEventListener('click', abrir); });
+    busqueda.querySelectorAll('[data-bif-cerrar-busqueda]').forEach(function (b) { b.addEventListener('click', cerrar); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { cerrar(); cerrarMenu(); }
+      if (e.key === '/' && busqueda.hidden && !/input|textarea/i.test(document.activeElement.tagName)) { e.preventDefault(); abrir(); }
+    });
+    campo.addEventListener('input', function () {
+      clearTimeout(t);
+      var q = campo.value.trim();
+      if (q.length < 2) { caja.innerHTML = inicial; return; }
+      t = setTimeout(function () {
+        ultima = q;
+        fetch(raizUrl + 'search/suggest.json?q=' + encodeURIComponent(q) + '&resources[type]=product&resources[limit]=8')
+          .then(function (r) { return r.json(); })
+          .then(function (d) {
+            if (q !== ultima) return;
+            var ps = (d.resources && d.resources.results && d.resources.results.products) || [];
+            if (!ps.length) { caja.innerHTML = '<p class="bif-busqueda__vacio">No encontramos “' + esc(q) + '”. Escríbenos por WhatsApp y te ayudamos a encontrarlo.</p>' + inicial; return; }
+            caja.innerHTML = '<p class="bif-busqueda__sub">Productos</p><div class="bif-busqueda__lista">' + ps.map(function (p, i) {
+              var img = p.image ? '<img src="' + p.image + (p.image.indexOf('?') > -1 ? '&' : '?') + 'width=160" alt="" loading="lazy">' : '';
+              return '<a class="bif-busqueda__item" style="--n:' + i + '" href="' + p.url + '"><span class="bif-busqueda__img">' + img + '</span><span><b>' + esc(p.title) + '</b><small>' + (p.price ? '$' + Math.round(Number(p.price)).toLocaleString('es-CO') : '') + '</small></span></a>';
+            }).join('') + '</div><a class="bif-busqueda__todos" href="' + raizUrl + 'search?type=product&q=' + encodeURIComponent(q) + '">Ver todos los resultados →</a>';
+          })
+          .catch(function () {});
+      }, 200);
+    });
+  }
+
+  // Botones que se acercan un poco al mouse.
+  function iniciarMagneticos() {
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    document.querySelectorAll('.bif-btn:not([data-mag]), .bif-header__wa:not([data-mag])').forEach(function (b) {
+      b.dataset.mag = '1';
+      b.addEventListener('mousemove', function (e) {
+        var r = b.getBoundingClientRect();
+        var x = (e.clientX - r.left - r.width / 2) * 0.18, y = (e.clientY - r.top - r.height / 2) * 0.28;
+        b.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px)';
+      });
+      b.addEventListener('mouseleave', function () { b.style.transform = ''; });
+    });
+  }
+
+  function iniciar() { iniciarPalabras(); iniciarReveals(); iniciarAnuncios(); iniciarInclinacion(); iniciarContadores(); iniciarDesplegables(); iniciarRotadores(); iniciarPortadaMouse(); iniciarEncabezado(); iniciarMagneticos(); }
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', iniciar);

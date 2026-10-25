@@ -88,7 +88,50 @@
     </div>
 
     <div class="bif-hero__visual bif-reveal" style="--bif-delay:.25s">
-      {%- if section.settings.imagen != blank -%}
+      {%- liquid
+        assign orbita_col = section.settings.orbita_coleccion | default: collections.all
+        assign orbita_n = 0
+        for p in orbita_col.products limit: section.settings.orbita_cantidad
+          if p.featured_image
+            assign orbita_n = orbita_n | plus: 1
+          endif
+        endfor
+      -%}
+      {%- if section.settings.orbita and orbita_n > 2 -%}
+        <div class="bif-orbita" style="--n: {{ orbita_n }}" data-bif-orbita>
+          <span class="bif-orbita__aro bif-orbita__aro--1" aria-hidden="true"></span>
+          <span class="bif-orbita__aro bif-orbita__aro--2" aria-hidden="true"></span>
+          <span class="bif-orbita__aro bif-orbita__aro--3" aria-hidden="true"></span>
+          <span class="bif-orbita__halo" aria-hidden="true"></span>
+          <div class="bif-orbita__giro">
+            {%- assign i = 0 -%}
+            {%- for p in orbita_col.products limit: section.settings.orbita_cantidad -%}
+              {%- if p.featured_image -%}
+                <a class="bif-orbita__item" href="{{ p.url }}" style="--i: {{ i }}" aria-label="{{ p.title | escape }}">
+                  <span class="bif-orbita__burbuja">
+                    <img src="{{ p.featured_image | image_url: width: 300 }}" alt="{{ p.featured_image.alt | default: p.title | escape }}" width="150" height="150" loading="eager">
+                    <span class="bif-orbita__info"><b>{{ p.title }}</b>{{ p.price | money_without_trailing_zeros }}</span>
+                  </span>
+                </a>
+                {%- assign i = i | plus: 1 -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+          <div class="bif-orbita__centro">
+            {%- if section.settings.centro_imagen != blank -%}
+              <img src="{{ section.settings.centro_imagen | image_url: width: 500 }}" alt="{{ section.settings.centro_imagen.alt | default: shop.name | escape }}" width="250" height="250" loading="eager">
+            {%- else -%}
+              <strong>{{ section.settings.centro_titulo }}</strong>
+            {%- endif -%}
+          </div>
+          {%- if section.settings.orbita_sello != blank -%}
+            <span class="bif-orbita__sello" aria-hidden="true">
+              <svg viewBox="0 0 120 120"><defs><path id="bifSello" d="M60 60 m-44 0 a44 44 0 1 1 88 0 a44 44 0 1 1 -88 0"/></defs><text><textPath href="#bifSello">{{ section.settings.orbita_sello }}</textPath></text></svg>
+              {% render 'bif-icono', nombre: 'hoja' %}
+            </span>
+          {%- endif -%}
+        </div>
+      {%- elsif section.settings.imagen != blank -%}
         <div class="bif-hero__foto">
           <img src="{{ section.settings.imagen | image_url: width: 1200 }}" alt="{{ section.settings.imagen.alt | escape }}" width="{{ section.settings.imagen.width }}" height="{{ section.settings.imagen.height }}" loading="eager" fetchpriority="high">
         </div>
@@ -169,6 +212,12 @@
     { "type": "url", "id": "boton1_enlace", "label": "Botón principal – enlace" },
     { "type": "text", "id": "boton2_texto", "label": "Botón WhatsApp – texto", "default": "Recibe asesoría" },
     { "type": "text", "id": "whatsapp", "label": "Número de WhatsApp (con indicativo)", "default": "573173570881" },
+    { "type": "header", "content": "Productos girando" },
+    { "type": "checkbox", "id": "orbita", "label": "Mostrar productos girando alrededor del logo", "default": true },
+    { "type": "collection", "id": "orbita_coleccion", "label": "Colección de productos que giran", "info": "Si la dejas vacía, se usan los productos de toda la tienda." },
+    { "type": "range", "id": "orbita_cantidad", "label": "Cantidad de productos que giran", "min": 3, "max": 10, "step": 1, "default": 8 },
+    { "type": "image_picker", "id": "centro_imagen", "label": "Imagen del centro (logo)" },
+    { "type": "text", "id": "orbita_sello", "label": "Texto del sello giratorio", "default": "BIENESTAR NATURAL • DESDE 2017 • CALI • " },
     { "type": "header", "content": "Ilustración" },
     { "type": "image_picker", "id": "imagen", "label": "Foto (opcional)", "info": "Si subes una foto, reemplaza la ilustración animada." },
     { "type": "text", "id": "centro_titulo", "label": "Texto central", "default": "Bienestar natural" },

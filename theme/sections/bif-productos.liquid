@@ -32,7 +32,7 @@
     <div class="bif-productos__grid">
       {%- for product in coleccion.products limit: section.settings.cantidad -%}
         {%- assign variante = product.selected_or_first_available_variant -%}
-        <article class="bif-card bif-reveal" style="--bif-delay: {{ forloop.index0 | modulo: 4 | times: 0.08 }}s">
+        <article data-bif-inclinar class="bif-card bif-reveal" style="--bif-delay: {{ forloop.index0 | modulo: 4 | times: 0.08 }}s">
           <a href="{{ product.url }}" class="bif-card__media" aria-label="{{ product.title | escape }}">
             {%- unless product.available -%}
               <span class="bif-card__etiqueta bif-card__etiqueta--agotado">Agotado</span>
