@@ -985,7 +985,7 @@ html.bif-sin-scroll :is(.bif-whatsapp, .bif-arriba) { opacity: 0; pointer-events
 .bif-hero__blob--3, .bif-hero__blob--4 { display: none; }
 .bif-hero--vidrio .bif-hero__blob--3 { display: block; width: 440px; height: 440px; left: 30%; top: -160px; background: radial-gradient(circle, rgba(46,160,140,.45), transparent 62%); animation-delay: -3s; animation-duration: 18s; }
 .bif-hero--vidrio .bif-hero__blob--4 { display: block; width: 380px; height: 380px; left: 42%; bottom: -160px; background: radial-gradient(circle, rgba(255,255,255,.22), transparent 62%); animation-delay: -10s; animation-duration: 20s; }
-.bif-hero__fondo-foto { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; animation: bif-foto-zoom 24s ease-in-out infinite alternate; }
+.bif-hero__fondo-foto { position: absolute; inset: 0; width: 100% !important; height: 100% !important; max-width: none !important; object-fit: cover; object-position: 50% 40%; z-index: 0; animation: bif-foto-zoom 24s ease-in-out infinite alternate; }
 @keyframes bif-foto-zoom { to { transform: scale(1.08); } }
 .bif-hero--foto::before { content: ''; position: absolute; inset: 0; z-index: 0; background: linear-gradient(100deg, rgba(20,40,15,.72) 0%, rgba(20,40,15,.35) 55%, rgba(20,40,15,.2) 100%); }
 .bif-hero--foto .bif-hero__blob { opacity: .45; }
