@@ -19,9 +19,14 @@
   }
 {% endstyle %}
 
-<section class="bif-hero bif-section" data-bif-hero>
+<section class="bif-hero bif-section{% if section.settings.vidrio %} bif-hero--vidrio{% endif %}{% if section.settings.imagen_fondo != blank %} bif-hero--foto{% endif %}" data-bif-hero>
+  {%- if section.settings.imagen_fondo != blank -%}
+    <img class="bif-hero__fondo-foto" src="{{ section.settings.imagen_fondo | image_url: width: 2400 }}" alt="" width="{{ section.settings.imagen_fondo.width }}" height="{{ section.settings.imagen_fondo.height }}" loading="eager" fetchpriority="high">
+  {%- endif -%}
   <div class="bif-hero__blob bif-hero__blob--1"></div>
   <div class="bif-hero__blob bif-hero__blob--2"></div>
+  <div class="bif-hero__blob bif-hero__blob--3"></div>
+  <div class="bif-hero__blob bif-hero__blob--4"></div>
   <div class="bif-hero__particulas" aria-hidden="true">
     {%- for i in (1..9) -%}
       <span class="bif-particula" style="--i: {{ i }}">{% render 'bif-icono', nombre: 'hoja' %}</span>
@@ -30,7 +35,7 @@
 
   <div class="bif-hero__luz" aria-hidden="true"></div>
   <div class="bif-container bif-hero__grid">
-    <div>
+    <div class="bif-hero__vidrio">
       {%- if section.settings.antetitulo != blank -%}
         <span class="bif-hero__pildora bif-reveal">
           <span class="bif-hero__punto"></span>{{ section.settings.antetitulo }}
@@ -214,6 +219,9 @@
     { "type": "url", "id": "boton1_enlace", "label": "Botón principal – enlace" },
     { "type": "text", "id": "boton2_texto", "label": "Botón WhatsApp – texto", "default": "Recibe asesoría" },
     { "type": "text", "id": "whatsapp", "label": "Número de WhatsApp (con indicativo)", "default": "573173570881" },
+    { "type": "header", "content": "Efecto vidrio" },
+    { "type": "checkbox", "id": "vidrio", "label": "Usar efecto vidrio (glassmorphism)", "default": true },
+    { "type": "image_picker", "id": "imagen_fondo", "label": "Foto de fondo (opcional)", "info": "Una foto de naturaleza o de tus productos detrás del vidrio. Si no pones foto, se ven luces de colores en movimiento." },
     { "type": "header", "content": "Productos girando" },
     { "type": "checkbox", "id": "orbita", "label": "Mostrar productos girando alrededor del árbol", "default": true },
     { "type": "collection", "id": "orbita_coleccion", "label": "Colección de productos que giran", "info": "Si la dejas vacía, se usan los productos de toda la tienda." },

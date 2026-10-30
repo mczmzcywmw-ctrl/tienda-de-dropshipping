@@ -967,3 +967,107 @@ html.bif-sin-scroll :is(.bif-whatsapp, .bif-arriba) { opacity: 0; pointer-events
   .bif-explorar__pie { flex-direction: column; align-items: flex-start; }
 }
 @media (prefers-reduced-motion: reduce) { .bif-explorar__nec, .bif-explorar .bif-explorar__titulo { animation: none; opacity: 1; transform: none; } }
+
+/* =====================================================================
+   v13 – Glassmorphism (efecto vidrio) en el inicio
+   ===================================================================== */
+:root {
+  --bif-vidrio: linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,.06));
+  --bif-vidrio-borde: rgba(255,255,255,.26);
+  --bif-vidrio-claro: linear-gradient(135deg, rgba(255,255,255,.78), rgba(255,255,255,.48));
+  --bif-vidrio-claro-borde: rgba(255,255,255,.9);
+}
+
+/* Portada: luces de colores en movimiento detrás del vidrio */
+.bif-hero--vidrio .bif-hero__blob { filter: blur(40px); opacity: .95; }
+.bif-hero--vidrio .bif-hero__blob--1 { width: 560px; height: 560px; right: 2%; top: -120px; background: radial-gradient(circle, rgba(232,200,114,.55), transparent 62%); }
+.bif-hero--vidrio .bif-hero__blob--2 { width: 520px; height: 520px; left: -120px; bottom: -200px; background: radial-gradient(circle, rgba(140,198,63,.5), transparent 62%); }
+.bif-hero__blob--3, .bif-hero__blob--4 { display: none; }
+.bif-hero--vidrio .bif-hero__blob--3 { display: block; width: 440px; height: 440px; left: 30%; top: -160px; background: radial-gradient(circle, rgba(46,160,140,.45), transparent 62%); animation-delay: -3s; animation-duration: 18s; }
+.bif-hero--vidrio .bif-hero__blob--4 { display: block; width: 380px; height: 380px; left: 42%; bottom: -160px; background: radial-gradient(circle, rgba(255,255,255,.22), transparent 62%); animation-delay: -10s; animation-duration: 20s; }
+.bif-hero__fondo-foto { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; animation: bif-foto-zoom 24s ease-in-out infinite alternate; }
+@keyframes bif-foto-zoom { to { transform: scale(1.08); } }
+.bif-hero--foto::before { content: ''; position: absolute; inset: 0; z-index: 0; background: linear-gradient(100deg, rgba(20,40,15,.72) 0%, rgba(20,40,15,.35) 55%, rgba(20,40,15,.2) 100%); }
+.bif-hero--foto .bif-hero__blob { opacity: .45; }
+.bif-hero__grid { position: relative; z-index: 1; }
+
+/* Panel de vidrio con el texto */
+.bif-hero--vidrio .bif-hero__vidrio { position: relative; padding: 42px 42px 38px; border-radius: 34px; background: var(--bif-vidrio); border: 1px solid var(--bif-vidrio-borde); -webkit-backdrop-filter: blur(22px) saturate(150%); backdrop-filter: blur(22px) saturate(150%); box-shadow: 0 40px 80px -40px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.35), inset 0 -1px 0 rgba(255,255,255,.06); overflow: hidden; isolation: isolate; }
+.bif-hero--vidrio .bif-hero__vidrio::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.16) 45%, transparent 60%); transform: translateX(-120%); animation: bif-vidrio-brillo 9s ease-in-out 2s infinite; pointer-events: none; }
+@keyframes bif-vidrio-brillo { 0%, 70% { transform: translateX(-120%); } 100% { transform: translateX(120%); } }
+.bif-hero--vidrio .bif-hero__pildora { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.3); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.bif-hero--vidrio .bif-hero__garantias li { padding: 7px 14px 7px 10px; border-radius: 999px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18); }
+.bif-hero--vidrio .bif-hero__garantias { gap: 8px; }
+.bif-hero--vidrio .bif-hero__cifras { gap: 10px; border-top: 0; padding-top: 0; max-width: none; }
+.bif-hero--vidrio .bif-hero__cifra { padding: 16px 18px; border-radius: 20px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); transition: transform .5s var(--bif-ease), background .3s; }
+.bif-hero--vidrio .bif-hero__cifra + .bif-hero__cifra { border-left: 1px solid rgba(255,255,255,.2); }
+.bif-hero--vidrio .bif-hero__cifra:first-child { padding-left: 18px; }
+.bif-hero--vidrio .bif-hero__cifra:hover { transform: translateY(-4px); background: rgba(255,255,255,.16); }
+.bif-hero--vidrio .bif-btn--linea-blanca { background: rgba(255,255,255,.08); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+
+/* Tarjetas flotantes y detalle del producto en vidrio */
+.bif-hero--vidrio .bif-flota { background: rgba(255,255,255,.16); color: #fff; border: 1px solid rgba(255,255,255,.3); -webkit-backdrop-filter: blur(18px) saturate(150%); backdrop-filter: blur(18px) saturate(150%); box-shadow: 0 24px 44px -22px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.35); }
+.bif-hero--vidrio .bif-flota strong { color: #fff; }
+.bif-hero--vidrio .bif-flota__icono { background: rgba(255,255,255,.2); color: #fff; }
+.bif-hero--vidrio .bif-orbita__burbuja img { box-shadow: 0 18px 34px -14px rgba(0,0,0,.55), 0 0 0 6px rgba(255,255,255,.16), 0 0 0 7px rgba(255,255,255,.3); }
+.bif-hero--vidrio .bif-orbita__info { background: rgba(255,255,255,.82); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border: 1px solid #fff; }
+.bif-hero--vidrio .bif-orbita__aro--2 { background: radial-gradient(circle, rgba(255,255,255,.1), transparent 70%); -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px); }
+
+/* Encabezado: vidrio al bajar */
+.bif-cab.is-scrolled { background: rgba(251,248,241,.72); -webkit-backdrop-filter: blur(18px) saturate(170%); backdrop-filter: blur(18px) saturate(170%); }
+
+/* Secciones del inicio: fondo con luces suaves para que el vidrio se note */
+.shopify-section:has(> .bif-productos), .shopify-section:has(> .bif-beneficios), .shopify-section:has(> .bif-pasos), .shopify-section:has(> .bif-confianza), .shopify-section:has(> .bif-blog), .shopify-section:has(> .bif-categorias) {
+  position: relative; overflow: hidden;
+  background-image: radial-gradient(520px 380px at var(--l1x, 8%) var(--l1y, 18%), rgba(140,198,63,.34), transparent 65%), radial-gradient(480px 360px at var(--l2x, 92%) var(--l2y, 70%), rgba(232,200,114,.34), transparent 65%), radial-gradient(420px 420px at var(--l3x, 55%) var(--l3y, 105%), rgba(46,160,140,.2), transparent 65%) !important;
+}
+.shopify-section:has(> .bif-beneficios) { --l1x: 90%; --l1y: 10%; --l2x: 6%; --l2y: 85%; }
+.shopify-section:has(> .bif-pasos) { --l1x: 15%; --l1y: 80%; --l2x: 85%; --l2y: 15%; }
+.shopify-section:has(> .bif-confianza) { --l1x: 95%; --l1y: 20%; --l2x: 40%; --l2y: 95%; }
+.shopify-section:has(> .bif-blog) { --l1x: 80%; --l1y: 85%; --l2x: 10%; --l2y: 15%; }
+
+/* Tarjetas de vidrio claro */
+.bif-productos .bif-card, .bif-beneficio, .bif-paso, .bif-razon, .bif-articulo {
+  background: var(--bif-vidrio-claro) !important; border: 1px solid var(--bif-vidrio-claro-borde) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%);
+  box-shadow: 0 24px 50px -32px rgba(31,59,23,.45), inset 0 1px 0 #fff;
+}
+.bif-productos .bif-card { padding: 12px 12px 14px; border-radius: 26px; transition: transform .5s var(--bif-ease), box-shadow .5s var(--bif-ease); }
+.bif-productos .bif-card:hover { box-shadow: 0 34px 60px -30px rgba(31,59,23,.55), inset 0 1px 0 #fff; }
+.bif-productos .bif-card__media { border-radius: 18px; background: rgba(255,255,255,.85); border-color: rgba(255,255,255,.95); }
+.bif-productos .bif-card__cuerpo { padding-left: 4px; padding-right: 4px; }
+
+.bif-beneficios__fila { gap: 16px; }
+.bif-beneficio { padding: 26px 18px; border-radius: 24px; transition: transform .5s var(--bif-ease), box-shadow .5s; }
+.bif-beneficio + .bif-beneficio { border-left: 1px solid var(--bif-vidrio-claro-borde); }
+.bif-beneficio:hover { transform: translateY(-6px); }
+.bif-beneficio__icono, .bif-paso__icono { background: rgba(255,255,255,.7); border: 1px solid #fff; box-shadow: 0 10px 24px -14px rgba(31,59,23,.5); }
+
+.bif-pasos__fila { gap: 22px; }
+.bif-paso { padding: 30px 22px 26px; border-radius: 28px; }
+.bif-paso__icono { box-shadow: 0 0 0 8px rgba(255,255,255,.55), 0 10px 24px -14px rgba(31,59,23,.5); }
+
+.bif-razon { padding: 20px 22px; border-radius: 22px; transition: transform .5s var(--bif-ease); }
+.bif-razon:hover { transform: translateX(6px); }
+.bif-razon__num { background: rgba(255,255,255,.75); border: 1px solid #fff; }
+.bif-confianza__caja { box-shadow: 0 40px 70px -40px rgba(31,59,23,.6), inset 0 1px 0 rgba(255,255,255,.25); }
+.bif-confianza__caja::before { content: ''; position: absolute; inset: 18px; border-radius: 20px; border: 1px solid rgba(255,255,255,.18); background: linear-gradient(135deg, rgba(255,255,255,.1), rgba(255,255,255,0) 60%); pointer-events: none; }
+
+.bif-articulo { border-radius: 26px; }
+.bif-categoria__cuerpo { position: relative; margin: 14px; padding: 22px 24px; border-radius: 22px; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.3); -webkit-backdrop-filter: blur(16px) saturate(150%); backdrop-filter: blur(16px) saturate(150%); box-shadow: inset 0 1px 0 rgba(255,255,255,.3); }
+.bif-categoria__icono { background: rgba(255,255,255,.16); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+
+@media (max-width: 990px) {
+  .bif-hero--vidrio .bif-hero__vidrio { padding: 28px 22px 26px; border-radius: 28px; }
+  .bif-hero--vidrio .bif-hero__cifra { padding: 12px 10px; }
+  .bif-hero--vidrio .bif-hero__cifra:first-child { padding-left: 10px; }
+  .bif-hero--vidrio .bif-hero__garantias { justify-content: center; }
+  .bif-hero--vidrio .bif-flota { color: #fff; }
+}
+@media (max-width: 640px) {
+  .bif-beneficio + .bif-beneficio { border-left: 1px solid var(--bif-vidrio-claro-borde); }
+  .bif-productos .bif-card { padding: 8px 8px 10px; border-radius: 20px; }
+  .bif-hero--vidrio .bif-hero__cifra strong { font-size: 24px; }
+  .bif-hero--vidrio .bif-hero__pildora { padding: 7px 12px; font-size: 11px; white-space: nowrap; letter-spacing: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .bif-hero__fondo-foto, .bif-hero--vidrio .bif-hero__vidrio::before { animation: none; } }
