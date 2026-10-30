@@ -1072,3 +1072,13 @@ html.bif-sin-scroll :is(.bif-whatsapp, .bif-arriba) { opacity: 0; pointer-events
   .bif-hero--vidrio .bif-hero__pildora { padding: 7px 12px; font-size: 11px; white-space: nowrap; letter-spacing: 0; }
 }
 @media (prefers-reduced-motion: reduce) { .bif-hero__fondo-foto, .bif-hero--vidrio .bif-hero__vidrio::before { animation: none; } }
+
+/* Celular: la página nunca se mueve para los lados */
+html, body { overflow-x: clip; max-width: 100%; }
+@supports not (overflow: clip) { body { overflow-x: hidden; } }
+.bif-footer__grid > * { min-width: 0; }
+@media (max-width: 640px) {
+  .bif-footer__grid { grid-template-columns: minmax(0, 1fr); }
+  .bif-footer__contacto a { white-space: normal; overflow-wrap: anywhere; }
+  .bif-footer h3 { white-space: normal; }
+}
