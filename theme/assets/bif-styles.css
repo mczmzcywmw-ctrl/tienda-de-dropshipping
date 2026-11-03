@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Raleway:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 :root {
   --bif-verde: #477E33;
@@ -1167,3 +1167,57 @@ body:has(.bif-explorar) .bif-cap.is-scrolled .bif-cap__barra { background: linea
   body:has(.bif-explorar) .shopify-section:has(> .bif-cap) { margin-bottom: -84px; }
   body:has(.bif-explorar) .bif-explorar__banner { padding-top: 120px; }
 }
+
+/* =====================================================================
+   v17 – Letra Plus Jakarta Sans, fondo verde borroso, solo logo y barra de atajos
+   ===================================================================== */
+:root { --bif-fuente: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; --bif-fuente-titulos: var(--bif-fuente); --bif-fuente-menu: var(--bif-fuente); }
+.bif-section :is(h1, h2) { font-weight: 700 !important; letter-spacing: -0.025em !important; }
+.bif-hero h1, .bif-hero .bif-rota { letter-spacing: -0.02em !important; line-height: 1.08; }
+.bif-hero h1 { font-size: clamp(34px, 4.6vw, 60px) !important; }
+.bif-btn { letter-spacing: 0; }
+.bif-movil__links a { font-size: 22px; letter-spacing: -0.01em; font-weight: 600; }
+
+/* Encabezado: menú en letra normal (no todo en mayúscula) y solo el logo */
+.bif-cap__nav a { font-size: 14.5px !important; font-weight: 600; letter-spacing: 0; text-transform: none; }
+.bif-cap__asesoria { font-size: 14px; letter-spacing: 0; text-transform: none; }
+.bif-cap__sello { width: 62px; height: 62px; }
+.bif-cap.is-scrolled .bif-cap__sello { width: 50px; height: 50px; }
+.bif-cap__sello img { filter: drop-shadow(0 6px 14px rgba(0,0,0,.35)); }
+.bif-cap__nombre { letter-spacing: .04em; }
+@media (max-width: 990px) {
+  .bif-cap__sello { width: 50px; height: 50px; }
+  .bif-cap.is-scrolled .bif-cap__sello { width: 44px; height: 44px; }
+}
+
+/* Portada: foto verde y borrosa (efecto bokeh) */
+.bif-hero__fondo-foto { filter: blur(18px) saturate(1.3) brightness(.9); transform: scale(1.15); }
+.bif-hero--foto::before { background: linear-gradient(135deg, rgba(28,66,22,.62) 0%, rgba(36,84,28,.38) 50%, rgba(18,44,14,.55) 100%); }
+.bif-hero--foto .bif-hero__blob { opacity: .7; }
+
+/* Barra de arriba: "¿Qué quieres cuidar hoy?" con atajos */
+.shopify-section:has(> .bif-atajos) { padding-top: 0 !important; padding-bottom: 0 !important; background: linear-gradient(90deg, #17310F, #1F3B17 50%, #17310F) !important; }
+.bif-atajos { color: #F6F1E4; font-size: 13px; }
+.bif-atajos__fila { display: flex; align-items: center; gap: 16px; height: 46px; }
+.bif-atajos__pregunta { flex-shrink: 0; display: inline-flex; align-items: center; gap: 9px; font-weight: 700; color: #E8C872; white-space: nowrap; }
+.bif-atajos__pregunta i { width: 8px; height: 8px; border-radius: 50%; background: #8CD867; box-shadow: 0 0 0 0 rgba(140,216,103,.7); animation: bif-atajo-pulso 2s infinite; }
+@keyframes bif-atajo-pulso { 70% { box-shadow: 0 0 0 8px rgba(140,216,103,0); } 100% { box-shadow: 0 0 0 0 rgba(140,216,103,0); } }
+.bif-atajos__corto { display: none; }
+.bif-atajos__cinta { flex: 1; min-width: 0; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent); mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent); }
+.bif-atajos__pista { display: flex; width: max-content; animation: bif-atajos var(--bif-anuncio-vel, 48s) linear infinite; }
+.bif-atajos__cinta:hover .bif-atajos__pista, .bif-atajos__cinta:focus-within .bif-atajos__pista { animation-play-state: paused; }
+@keyframes bif-atajos { to { transform: translateX(-50%); } }
+.bif-atajos__grupo { display: flex; gap: 8px; padding-right: 8px; }
+.bif-atajos__chip { display: inline-flex; align-items: center; gap: 7px; height: 30px; padding: 0 14px 0 10px; border-radius: 999px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.16); color: #F6F1E4 !important; font-weight: 600; white-space: nowrap; transition: background .3s, color .3s, border-color .3s, transform .3s var(--bif-ease); }
+.bif-atajos__chip span { font-size: 15px; line-height: 1; }
+.bif-atajos__chip:hover { background: #E8C872; border-color: #E8C872; color: #1F3B17 !important; transform: translateY(-1px); }
+.bif-atajos__wa { flex-shrink: 0; display: inline-flex; align-items: center; gap: 7px; color: #F6F1E4 !important; font-weight: 600; white-space: nowrap; opacity: .9; transition: opacity .3s, color .3s; }
+.bif-atajos__wa svg { width: 16px; height: 16px; color: #8CD867; }
+.bif-atajos__wa:hover { opacity: 1; color: #E8C872 !important; }
+@media (max-width: 990px) {
+  .bif-atajos__fila { gap: 10px; height: 42px; }
+  .bif-atajos__largo, .bif-atajos__wa { display: none; }
+  .bif-atajos__corto { display: inline; }
+  .bif-atajos { font-size: 12.5px; }
+}
+@media (prefers-reduced-motion: reduce) { .bif-atajos__pista { animation: none; } .bif-atajos__cinta { overflow-x: auto; } }

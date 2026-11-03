@@ -10,13 +10,38 @@
   #shopify-section-{{ section.id }} .bif-anuncio { color: {{ section.settings.texto_color }}; font-size: {{ section.settings.tamano }}px; }
 {% endstyle %}
 
-{%- if section.blocks.size > 0 -%}
+{%- assign atajos = section.blocks | where: 'type', 'atajo' -%}
+{%- assign frases = section.blocks | where: 'type', 'frase' -%}
+{%- assign wa = section.settings.whatsapp | remove: '+' | remove: ' ' -%}
+{%- if atajos.size > 0 -%}
+  <div class="bif-atajos bif-section" style="--bif-anuncio-vel: {{ section.settings.segundos | times: 8 }}s">
+    <div class="bif-container bif-atajos__fila">
+      <span class="bif-atajos__pregunta"><i aria-hidden="true"></i><span class="bif-atajos__largo">{{ section.settings.pregunta }}</span><span class="bif-atajos__corto">{{ section.settings.pregunta_corta }}</span></span>
+      <nav class="bif-atajos__cinta" aria-label="{{ section.settings.pregunta | escape }}">
+        <div class="bif-atajos__pista">
+          {%- for vuelta in (1..2) -%}
+            <div class="bif-atajos__grupo" {% if vuelta > 1 %}aria-hidden="true"{% endif %}>
+              {%- for block in atajos -%}
+                <a class="bif-atajos__chip" href="{{ block.settings.enlace | default: routes.all_products_collection_url }}" {% if vuelta > 1 %}tabindex="-1"{% endif %} {% if vuelta == 1 %}{{ block.shopify_attributes }}{% endif %}>
+                  <span aria-hidden="true">{{ block.settings.emoji }}</span>{{ block.settings.texto }}
+                </a>
+              {%- endfor -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      </nav>
+      {%- if wa != blank and section.settings.wa_texto != blank -%}
+        <a class="bif-atajos__wa" href="https://wa.me/{{ wa }}" target="_blank" rel="noopener">{% render 'bif-icono', nombre: 'whatsapp' %}<span>{{ section.settings.wa_texto }}</span></a>
+      {%- endif -%}
+    </div>
+  </div>
+{%- elsif frases.size > 0 -%}
   <div class="bif-anuncio bif-section" style="--bif-anuncio-vel: {{ section.settings.segundos | times: 8 }}s">
-    <div class="bif-anuncio__cinta" aria-label="{% for block in section.blocks %}{{ block.settings.texto | escape }}{% unless forloop.last %} · {% endunless %}{% endfor %}">
+    <div class="bif-anuncio__cinta">
       <div class="bif-anuncio__pista">
         {%- for vuelta in (1..4) -%}
           <div class="bif-anuncio__grupo" {% if vuelta > 1 %}aria-hidden="true"{% endif %}>
-            {%- for block in section.blocks -%}
+            {%- for block in frases -%}
               <span class="bif-anuncio__frase" {% if vuelta == 1 %}{{ block.shopify_attributes }}{% endif %}>
                 {%- if block.settings.enlace != blank -%}<a href="{{ block.settings.enlace }}">{{ block.settings.texto }}</a>{%- else -%}{{ block.settings.texto }}{%- endif -%}
               </span>
@@ -38,9 +63,23 @@
     { "type": "color", "id": "texto_color", "label": "Color del texto", "default": "#FFFFFF" },
     { "type": "range", "id": "tamano", "label": "Tamaño del texto (px)", "min": 11, "max": 17, "step": 1, "unit": "px", "default": 13 },
     { "type": "range", "id": "segundos", "label": "Velocidad del movimiento (más alto = más lento)", "min": 2, "max": 10, "step": 1, "unit": "s", "default": 5 },
-    { "type": "range", "id": "padding", "label": "Espacio arriba y abajo (px)", "min": 4, "max": 20, "step": 1, "unit": "px", "default": 10 }
+    { "type": "range", "id": "padding", "label": "Espacio arriba y abajo (px)", "min": 4, "max": 20, "step": 1, "unit": "px", "default": 10 },
+    { "type": "header", "content": "Atajos por necesidad" },
+    { "type": "text", "id": "pregunta", "label": "Pregunta (computador)", "default": "¿Qué quieres cuidar hoy?" },
+    { "type": "text", "id": "pregunta_corta", "label": "Pregunta (celular)", "default": "¿Qué cuidas hoy?" },
+    { "type": "text", "id": "wa_texto", "label": "Texto del enlace de WhatsApp", "default": "¿Dudas? Te asesoramos" },
+    { "type": "text", "id": "whatsapp", "label": "WhatsApp", "default": "573173570881" }
   ],
   "blocks": [
+    {
+      "type": "atajo",
+      "name": "Atajo",
+      "settings": [
+        { "type": "text", "id": "emoji", "label": "Emoji", "default": "🌿" },
+        { "type": "text", "id": "texto", "label": "Texto", "default": "Dormir mejor" },
+        { "type": "url", "id": "enlace", "label": "Enlace", "info": "Ej: /collections/all/sueno" }
+      ]
+    },
     {
       "type": "frase",
       "name": "Frase",

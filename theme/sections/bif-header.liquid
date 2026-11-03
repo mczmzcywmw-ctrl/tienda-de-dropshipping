@@ -5,7 +5,7 @@
   {%- if section.settings.fijo -%}
     #header-group { position: sticky; top: 0; z-index: 40; }
   {%- endif -%}
-  #shopify-section-{{ section.id }} .bif-cap { --bif-logo: {{ section.settings.logo_ancho | times: 0.8 | round }}px; }
+  #shopify-section-{{ section.id }} .bif-cap { --bif-logo: {{ section.settings.logo_ancho }}px; }
   #shopify-section-{{ section.id }} .bif-cap__nav a { font-size: {{ section.settings.menu_tamano | minus: 2 }}px; }
 {% endstyle %}
 
@@ -17,12 +17,11 @@
 
       <a href="{{ routes.root_url }}" class="bif-cap__marca" aria-label="{{ section.settings.nombre | default: shop.name | escape }}">
         {%- if section.settings.logo != blank -%}
-          <span class="bif-cap__sello"><img src="{{ section.settings.logo | image_url: width: 240 }}" alt="{{ section.settings.logo.alt | default: shop.name | escape }}" width="{{ section.settings.logo_ancho }}" height="{{ section.settings.logo_ancho }}"></span>
+          <span class="bif-cap__sello"><img src="{{ section.settings.logo | image_url: width: 300 }}" alt="{{ section.settings.logo.alt | default: shop.name | escape }}" width="{{ section.settings.logo_ancho }}" height="{{ section.settings.logo_ancho }}"></span>
         {%- endif -%}
-        <span class="bif-cap__textos">
-          <span class="bif-cap__nombre">{{ section.settings.nombre }}</span>
-          {%- if section.settings.subtitulo != blank -%}<span class="bif-cap__sub">{{ section.settings.subtitulo }}</span>{%- endif -%}
-        </span>
+        {%- if section.settings.logo == blank -%}
+          <span class="bif-cap__textos"><span class="bif-cap__nombre">{{ section.settings.nombre }}</span></span>
+        {%- endif -%}
       </a>
 
       <nav class="bif-cap__menu" aria-label="Menú principal">

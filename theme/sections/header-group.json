@@ -5,38 +5,84 @@
     "anuncio": {
       "type": "bif-anuncio",
       "blocks": {
-        "frase_1": {
-          "type": "frase",
+        "atajo_1": {
+          "type": "atajo",
           "settings": {
-            "texto": "🌿 Bienestar natural para ti y tu familia"
+            "emoji": "😴",
+            "texto": "Dormir mejor",
+            "enlace": "/collections/all/sueno"
           }
         },
-        "frase_2": {
-          "type": "frase",
+        "atajo_2": {
+          "type": "atajo",
           "settings": {
-            "texto": "🚚 Envíos a todo el país"
+            "emoji": "🩹",
+            "texto": "Dolor y golpes",
+            "enlace": "/collections/all/dolor"
           }
         },
-        "frase_3": {
-          "type": "frase",
+        "atajo_3": {
+          "type": "atajo",
           "settings": {
-            "texto": "🔒 Pagos 100% seguros"
+            "emoji": "🛡️",
+            "texto": "Defensas y gripa",
+            "enlace": "/collections/all/defensas"
           }
         },
-        "frase_4": {
-          "type": "frase",
+        "atajo_4": {
+          "type": "atajo",
           "settings": {
-            "texto": "💬 Asesoría personalizada por WhatsApp: +57 317 357 0881"
+            "emoji": "🧘",
+            "texto": "Estrés y ánimo",
+            "enlace": "/collections/all/estres"
+          }
+        },
+        "atajo_5": {
+          "type": "atajo",
+          "settings": {
+            "emoji": "⚡",
+            "texto": "Más energía",
+            "enlace": "/collections/all/energia"
+          }
+        },
+        "atajo_6": {
+          "type": "atajo",
+          "settings": {
+            "emoji": "🍃",
+            "texto": "Digestión",
+            "enlace": "/collections/all/digestion"
+          }
+        },
+        "atajo_7": {
+          "type": "atajo",
+          "settings": {
+            "emoji": "🦴",
+            "texto": "Huesos y articulaciones",
+            "enlace": "/collections/all/huesos"
+          }
+        },
+        "atajo_8": {
+          "type": "atajo",
+          "settings": {
+            "emoji": "🌸",
+            "texto": "Salud femenina",
+            "enlace": "/collections/all/mujer"
           }
         }
       },
       "block_order": [
-        "frase_1",
-        "frase_2",
-        "frase_3",
-        "frase_4"
+        "atajo_1",
+        "atajo_2",
+        "atajo_3",
+        "atajo_4",
+        "atajo_5",
+        "atajo_6",
+        "atajo_7",
+        "atajo_8"
       ],
-      "settings": {}
+      "settings": {
+        "segundos": 6
+      }
     },
     "bif_header": {
       "type": "bif-header",
