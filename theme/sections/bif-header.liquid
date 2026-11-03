@@ -5,55 +5,51 @@
   {%- if section.settings.fijo -%}
     #header-group { position: sticky; top: 0; z-index: 40; }
   {%- endif -%}
-  #shopify-section-{{ section.id }} .bif-cab { --bif-logo: {{ section.settings.logo_ancho }}px; }
-  #shopify-section-{{ section.id }} .bif-cab__nav a { font-size: {{ section.settings.menu_tamano | minus: 2 }}px; }
+  #shopify-section-{{ section.id }} .bif-cap { --bif-logo: {{ section.settings.logo_ancho | times: 0.8 | round }}px; }
+  #shopify-section-{{ section.id }} .bif-cap__nav a { font-size: {{ section.settings.menu_tamano | minus: 2 }}px; }
 {% endstyle %}
 
 {%- assign wa = section.settings.whatsapp | remove: '+' | remove: ' ' -%}
-<header class="bif-header bif-cab bif-section" data-bif-header>
-  <div class="bif-container bif-cab__fila">
-    <div class="bif-cab__lado bif-cab__lado--izq">
+<header class="bif-header bif-cap bif-section" data-bif-header>
+  <div class="bif-container">
+    <div class="bif-cap__barra">
       <button type="button" class="bif-hamburguesa" data-bif-abrir-menu aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button>
-      <button type="button" class="bif-cab__enlace bif-cab__enlace--buscar" data-bif-abrir-busqueda aria-label="Buscar productos">{% render 'bif-icono', nombre: 'buscar' %}<span>Buscar</span></button>
-      {%- if wa != blank and section.settings.telefono_texto != blank -%}
-        <a class="bif-cab__enlace bif-cab__enlace--tel" href="https://wa.me/{{ wa }}" target="_blank" rel="noopener">{% render 'bif-icono', nombre: 'whatsapp' %}<span>{{ section.settings.telefono_texto }}</span></a>
-      {%- endif -%}
-    </div>
 
-    <a href="{{ routes.root_url }}" class="bif-cab__marca" aria-label="{{ section.settings.nombre | default: shop.name | escape }}">
-      {%- if section.settings.logo != blank -%}
-        <span class="bif-cab__sello"><img src="{{ section.settings.logo | image_url: width: 300 }}" alt="{{ section.settings.logo.alt | default: shop.name | escape }}" width="{{ section.settings.logo_ancho }}" height="{{ section.settings.logo_ancho }}"></span>
-      {%- endif -%}
-      <span class="bif-cab__textos">
-        <span class="bif-cab__nombre">{{ section.settings.nombre }}</span>
-        {%- if section.settings.subtitulo != blank -%}<span class="bif-cab__sub">{{ section.settings.subtitulo }}</span>{%- endif -%}
-      </span>
-    </a>
-
-    <div class="bif-cab__lado bif-cab__lado--der">
-      <button type="button" class="bif-icono-btn bif-cab__lupa-movil" data-bif-abrir-busqueda aria-label="Buscar productos">{% render 'bif-icono', nombre: 'buscar' %}</button>
-      {%- if shop.customer_accounts_enabled -%}
-        <a href="{{ routes.account_url }}" class="bif-icono-btn bif-cab__cuenta" aria-label="Mi cuenta">{% render 'bif-icono', nombre: 'usuario' %}</a>
-      {%- endif -%}
-      <a href="{{ routes.cart_url }}" class="bif-icono-btn bif-cab__carrito" aria-label="Carrito ({{ cart.item_count }})">
-        {% render 'bif-icono', nombre: 'bolsa' %}
-        {%- if cart.item_count > 0 -%}<span class="bif-burbuja">{{ cart.item_count }}</span>{%- endif -%}
+      <a href="{{ routes.root_url }}" class="bif-cap__marca" aria-label="{{ section.settings.nombre | default: shop.name | escape }}">
+        {%- if section.settings.logo != blank -%}
+          <span class="bif-cap__sello"><img src="{{ section.settings.logo | image_url: width: 240 }}" alt="{{ section.settings.logo.alt | default: shop.name | escape }}" width="{{ section.settings.logo_ancho }}" height="{{ section.settings.logo_ancho }}"></span>
+        {%- endif -%}
+        <span class="bif-cap__textos">
+          <span class="bif-cap__nombre">{{ section.settings.nombre }}</span>
+          {%- if section.settings.subtitulo != blank -%}<span class="bif-cap__sub">{{ section.settings.subtitulo }}</span>{%- endif -%}
+        </span>
       </a>
-      {%- if wa != blank and section.settings.wa_texto != blank -%}
-        <a class="bif-cab__asesoria" href="https://wa.me/{{ wa }}" target="_blank" rel="noopener"><span>{{ section.settings.wa_texto }}</span></a>
-      {%- endif -%}
+
+      <nav class="bif-cap__menu" aria-label="Menú principal">
+        <ul class="bif-cap__nav" data-bif-nav>
+          <span class="bif-nav__pastilla" aria-hidden="true"></span>
+          {%- for link in section.settings.menu.links -%}
+            <li><a href="{{ link.url }}" {% if link.current or link.child_active %}aria-current="page"{% endif %}>{{ link.title }}</a></li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+
+      <div class="bif-cap__acciones">
+        <button type="button" class="bif-icono-btn" data-bif-abrir-busqueda aria-label="Buscar productos">{% render 'bif-icono', nombre: 'buscar' %}</button>
+        {%- if shop.customer_accounts_enabled -%}
+          <a href="{{ routes.account_url }}" class="bif-icono-btn bif-cap__cuenta" aria-label="Mi cuenta">{% render 'bif-icono', nombre: 'usuario' %}</a>
+        {%- endif -%}
+        <a href="{{ routes.cart_url }}" class="bif-icono-btn" aria-label="Carrito ({{ cart.item_count }})">
+          {% render 'bif-icono', nombre: 'bolsa' %}
+          {%- if cart.item_count > 0 -%}<span class="bif-burbuja">{{ cart.item_count }}</span>{%- endif -%}
+        </a>
+        {%- if wa != blank and section.settings.wa_texto != blank -%}
+          <a class="bif-cap__asesoria" href="https://wa.me/{{ wa }}" target="_blank" rel="noopener">{% render 'bif-icono', nombre: 'whatsapp' %}<span>{{ section.settings.wa_texto }}</span></a>
+        {%- endif -%}
+      </div>
+      <div class="bif-header__progreso" aria-hidden="true"><span></span></div>
     </div>
   </div>
-
-  <nav class="bif-cab__menu" aria-label="Menú principal">
-    <ul class="bif-cab__nav" data-bif-nav>
-      <span class="bif-nav__pastilla" aria-hidden="true"></span>
-      {%- for link in section.settings.menu.links -%}
-        <li><a href="{{ link.url }}" {% if link.current or link.child_active %}aria-current="page"{% endif %}>{{ link.title }}</a></li>
-      {%- endfor -%}
-    </ul>
-  </nav>
-  <div class="bif-header__progreso" aria-hidden="true"><span></span></div>
 </header>
 
 <div class="bif-movil bif-section" data-bif-menu hidden>
