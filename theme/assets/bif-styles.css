@@ -1221,3 +1221,29 @@ body:has(.bif-explorar) .bif-cap.is-scrolled .bif-cap__barra { background: linea
   .bif-atajos { font-size: 12.5px; }
 }
 @media (prefers-reduced-motion: reduce) { .bif-atajos__pista { animation: none; } .bif-atajos__cinta { overflow-x: auto; } }
+
+/* =====================================================================
+   v18 – Categorías del inicio: tarjetas claras, más separadas y livianas
+   ===================================================================== */
+.bif-categorias__grid { gap: 32px; }
+.bif-categoria { --c: var(--bif-verde); min-height: 0 !important; justify-content: flex-start; gap: 18px; padding: 30px 30px 28px; border-radius: 28px; background: linear-gradient(155deg, color-mix(in srgb, var(--c) 13%, #fff) 0%, #fff 62%) !important; border: 1px solid color-mix(in srgb, var(--c) 20%, #fff); color: var(--bif-texto) !important; box-shadow: 0 26px 50px -38px color-mix(in srgb, var(--c) 80%, #000); transition: transform .5s var(--bif-ease), box-shadow .5s var(--bif-ease), border-color .4s; }
+.bif-categoria::before { display: none; }
+.bif-categoria::after { content: ''; position: absolute; z-index: -1; right: -60px; top: -60px; width: 190px; height: 190px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--c) 16%, transparent), transparent 70%); transition: transform .8s var(--bif-ease); }
+.bif-categoria:hover { transform: translateY(-6px); border-color: color-mix(in srgb, var(--c) 45%, #fff); box-shadow: 0 34px 60px -36px color-mix(in srgb, var(--c) 85%, #000); }
+.bif-categoria:hover::after { transform: scale(1.25); }
+.bif-categoria__fondo { display: none; }
+.bif-categoria__icono { position: static; width: 56px; height: 56px; border: 0; border-radius: 18px; background: var(--c) !important; color: #fff; box-shadow: 0 14px 26px -14px var(--c); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.bif-categoria__icono svg { width: 26px; height: 26px; }
+.bif-categoria__cuerpo { margin: 0; padding: 0; border: 0; border-radius: 0; background: none; -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: none; }
+.bif-categoria h3 { font-size: 21px; color: var(--bif-verde-profundo); }
+.bif-categoria p { margin-top: 8px !important; font-size: 14.5px; line-height: 1.6; color: var(--bif-gris); }
+.bif-categoria__link { margin-top: 18px; padding: 9px 16px; border: 0; border-radius: 999px; background: color-mix(in srgb, var(--c) 12%, #fff); color: var(--c); font-weight: 700; transition: background .3s, color .3s; }
+.bif-categoria:hover .bif-categoria__link { background: var(--c); color: #fff; }
+@media (max-width: 990px) {
+  .bif-categorias__grid { gap: 18px; }
+  .bif-categoria { flex-direction: row; align-items: flex-start; gap: 16px; padding: 22px; border-radius: 24px; }
+  .bif-categoria__icono { flex-shrink: 0; width: 48px; height: 48px; border-radius: 15px; }
+  .bif-categoria h3 { font-size: 18px; }
+  .bif-categoria p { font-size: 13.5px; }
+  .bif-categoria__link { margin-top: 12px; padding: 7px 14px; font-size: 13px; }
+}
