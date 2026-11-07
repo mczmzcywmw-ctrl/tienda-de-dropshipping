@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+/* La fuente Plus Jakarta Sans se carga desde layout/theme.liquid (con preconnect) para no bloquear la página. */
 
 :root {
   --bif-verde: #477E33;

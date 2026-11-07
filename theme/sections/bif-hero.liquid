@@ -20,7 +20,8 @@
 {% endstyle %}
 
 <section class="bif-hero bif-section{% if section.settings.vidrio %} bif-hero--vidrio{% endif %}{% if section.settings.imagen_fondo != blank %} bif-hero--foto{% endif %}" data-bif-hero>
-  {%- if section.settings.imagen_fondo != blank -%}
+  {%- comment -%} Con el efecto vidrio la foto queda oculta por CSS: no se descarga para no frenar la carga. {%- endcomment -%}
+  {%- if section.settings.imagen_fondo != blank and section.settings.vidrio == false -%}
     <img class="bif-hero__fondo-foto" src="{{ section.settings.imagen_fondo | image_url: width: 2400 }}" alt="" width="{{ section.settings.imagen_fondo.width }}" height="{{ section.settings.imagen_fondo.height }}" loading="eager" fetchpriority="high">
   {%- endif -%}
   <div class="bif-hero__blob bif-hero__blob--1"></div>

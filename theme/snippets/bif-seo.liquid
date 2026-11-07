@@ -1,0 +1,125 @@
+{%- comment -%}
+  Datos estructurados (Schema.org, JSON-LD) de BIF.
+  - Organization: en todas las páginas.
+  - WebSite + buscador: solo en la portada.
+  - BreadcrumbList: en productos, colecciones, blog, artículos y páginas.
+  Product y Article ya los genera el tema (structured_data) en sus secciones.
+  Solo usa datos reales del negocio: nombre, logo, correo, WhatsApp y ciudad de la tienda.
+{%- endcomment -%}
+{%- liquid
+  assign raiz = request.origin | append: '/'
+  assign logo = images['bif-logo.png']
+  assign inicio = 'Inicio'
+-%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": {{ raiz | append: '#organizacion' | json }},
+      "name": {{ shop.name | json }},
+      "alternateName": "BIF Tienda de Bienestar",
+      "url": {{ raiz | json }},
+      {%- if logo != blank %}
+      "logo": {
+        "@type": "ImageObject",
+        "url": {{ logo | image_url: width: 512 | prepend: 'https:' | json }}
+      },
+      {%- endif %}
+      "description": "Tienda de productos homeopáticos, naturales, vitaminas y nutrición deportiva, con asesoría personalizada.",
+      "foundingDate": "2017",
+      "email": {{ shop.email | json }},
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": {{ shop.address.city | default: 'Cali' | json }},
+        "addressRegion": {{ shop.address.province | default: 'Valle del Cauca' | json }},
+        "addressCountry": "CO"
+      },
+      "areaServed": { "@type": "Country", "name": "Colombia" },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+57-317-357-0881",
+        "contactType": "customer service",
+        "areaServed": "CO",
+        "availableLanguage": "es"
+      }
+    }
+    {%- if request.page_type == 'index' -%},
+    {
+      "@type": "WebSite",
+      "@id": {{ raiz | append: '#sitio' | json }},
+      "url": {{ raiz | json }},
+      "name": {{ shop.name | json }},
+      "inLanguage": "es-CO",
+      "publisher": { "@id": {{ raiz | append: '#organizacion' | json }} },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": {{ request.origin | append: routes.search_url | append: '?q={search_term_string}' | json }}
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+    {%- endif -%}
+
+    {%- liquid
+      assign miga2_nombre = ''
+      assign miga2_url = ''
+      assign miga3_nombre = ''
+      assign miga3_url = ''
+      case request.page_type
+        when 'product'
+          if collection
+            assign miga2_nombre = collection.title
+            assign miga2_url = collection.url
+          endif
+          assign miga3_nombre = product.title
+          assign miga3_url = product.url
+        when 'collection'
+          assign miga3_nombre = collection.title
+          assign miga3_url = collection.url
+        when 'blog'
+          assign miga3_nombre = blog.title
+          assign miga3_url = blog.url
+        when 'article'
+          assign miga2_nombre = blog.title
+          assign miga2_url = blog.url
+          assign miga3_nombre = article.title
+          assign miga3_url = article.url
+        when 'page'
+          assign miga3_nombre = page.title
+          assign miga3_url = page.url
+      endcase
+    -%}
+    {%- if miga3_nombre != blank -%},
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": {{ inicio | json }},
+          "item": {{ raiz | json }}
+        },
+        {%- if miga2_nombre != blank %}
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": {{ miga2_nombre | json }},
+          "item": {{ request.origin | append: miga2_url | json }}
+        },
+        {%- endif %}
+        {
+          "@type": "ListItem",
+          "position": {% if miga2_nombre != blank %}3{% else %}2{% endif %},
+          "name": {{ miga3_nombre | json }},
+          "item": {{ request.origin | append: miga3_url | json }}
+        }
+      ]
+    }
+    {%- endif %}
+  ]
+}
+</script>
