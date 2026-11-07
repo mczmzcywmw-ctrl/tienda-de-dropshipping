@@ -1247,3 +1247,10 @@ body:has(.bif-explorar) .bif-cap.is-scrolled .bif-cap__barra { background: linea
   .bif-categoria p { font-size: 13.5px; }
   .bif-categoria__link { margin-top: 12px; padding: 7px 14px; font-size: 13px; }
 }
+
+/* v19 – Tarjetas flotantes quietas y más arriba; sello "Desde 2017" sin girar */
+.bif-hero__visual:has(.bif-orbita) .bif-flota { animation: none !important; }
+.bif-orbita__sello svg:first-child { animation: none !important; }
+@media (min-width: 991px) {
+  .bif-hero__visual:has(.bif-orbita) .bif-flota--1 { left: -14%; top: -19%; }
+}
