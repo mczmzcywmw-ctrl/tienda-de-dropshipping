@@ -10,6 +10,7 @@
   assign raiz = request.origin | append: '/'
   assign logo = images['bif-logo.png']
   assign inicio = 'Inicio'
+  assign buscar_plantilla = request.origin | append: routes.search_url | append: '?q={search_term_string}'
 -%}
 <script type="application/ld+json">
 {
@@ -57,7 +58,7 @@
         "@type": "SearchAction",
         "target": {
           "@type": "EntryPoint",
-          "urlTemplate": {{ request.origin | append: routes.search_url | append: '?q={search_term_string}' | json }}
+          "urlTemplate": {{ buscar_plantilla | json }}
         },
         "query-input": "required name=search_term_string"
       }
