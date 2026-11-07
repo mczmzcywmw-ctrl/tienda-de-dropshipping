@@ -1251,52 +1251,42 @@ body:has(.bif-explorar) .bif-cap.is-scrolled .bif-cap__barra { background: linea
 /* v19 – Tarjetas flotantes quietas y más arriba; sello "Desde 2017" sin girar */
 .bif-hero__visual:has(.bif-orbita) .bif-flota { animation: none !important; }
 .bif-orbita__sello svg:first-child { animation: none !important; }
-@media (min-width: 991px) {
-  .bif-hero__visual:has(.bif-orbita) .bif-flota--1 { left: -14%; top: -19%; }
-}
 
 /* =====================================================================
-   v19 – Portada en crema cálido (menos verde): combina con el logo
+   v20 – Portada verde desvanecido, menú blanco, tarjetas juntas arriba
    ===================================================================== */
-.bif-hero--vidrio { color: var(--bif-verde-profundo); background: linear-gradient(135deg, #FBF7EE 0%, #F4ECDB 48%, #EEF1E4 100%) !important; animation: none; }
-.bif-hero--vidrio::after { opacity: .05; mix-blend-mode: multiply; }
+.bif-hero--vidrio { background: radial-gradient(1100px 700px at 85% 0%, rgba(176,204,146,.55), transparent 62%), radial-gradient(900px 620px at 0% 100%, rgba(232,200,114,.22), transparent 60%), linear-gradient(165deg, #1E3A16 0%, #2C5421 42%, #4C773A 78%, #7FA367 100%) !important; animation: none; }
 .bif-hero--vidrio .bif-hero__fondo-foto, .bif-hero--vidrio.bif-hero--foto::before { display: none; }
-.bif-hero--vidrio .bif-hero__blob { opacity: 1 !important; filter: blur(50px); }
-.bif-hero--vidrio .bif-hero__blob--1 { background: radial-gradient(circle, rgba(232,200,114,.55), transparent 62%); }
-.bif-hero--vidrio .bif-hero__blob--2 { background: radial-gradient(circle, rgba(168,198,140,.45), transparent 62%); }
-.bif-hero--vidrio .bif-hero__blob--3 { background: radial-gradient(circle, rgba(240,190,150,.35), transparent 62%); }
-.bif-hero--vidrio .bif-hero__blob--4 { background: radial-gradient(circle, rgba(201,165,90,.25), transparent 62%); }
-.bif-hero--vidrio .bif-particula { color: rgba(71,126,51,.22); }
-.bif-hero--vidrio .bif-hero__luz { background: radial-gradient(460px circle at var(--lx, 50%) var(--ly, 40%), rgba(255,255,255,.55), transparent 62%); }
+.bif-hero--vidrio .bif-hero__blob { opacity: .8 !important; }
 
-/* Panel de vidrio claro */
-.bif-hero--vidrio .bif-hero__vidrio { background: linear-gradient(135deg, rgba(255,255,255,.72), rgba(255,255,255,.42)); border-color: rgba(255,255,255,.95); box-shadow: 0 40px 80px -46px rgba(90,70,30,.45), inset 0 1px 0 #fff; }
-.bif-hero--vidrio .bif-hero__vidrio::before { background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.7) 45%, transparent 60%); }
-.bif-hero--vidrio .bif-hero__pildora { background: rgba(255,255,255,.75); border-color: rgba(201,165,90,.35); color: var(--bif-verde-profundo); }
-.bif-hero--vidrio h1 { color: var(--bif-verde-profundo) !important; }
-.bif-hero--vidrio .bif-rota { color: var(--bif-verde); }
-.bif-hero--vidrio .bif-hero__texto { color: #4F5B49; font-weight: 400; }
-.bif-hero--vidrio .bif-btn--blanco { background: var(--bif-verde-profundo); color: #fff !important; }
-.bif-hero--vidrio .bif-btn--blanco:hover { background: var(--bif-verde); }
-.bif-hero--vidrio .bif-btn--linea-blanca { border-color: rgba(31,59,23,.35); color: var(--bif-verde-profundo) !important; background: rgba(255,255,255,.5); }
-.bif-hero--vidrio .bif-btn--linea-blanca:hover { border-color: var(--bif-verde-profundo); background: #fff; }
-.bif-hero--vidrio .bif-hero__garantias li { color: var(--bif-verde-profundo); background: rgba(255,255,255,.65); border-color: rgba(201,165,90,.3); }
-.bif-hero--vidrio .bif-hero__garantias svg { color: var(--bif-verde); }
-.bif-hero--vidrio .bif-hero__cifra { background: rgba(255,255,255,.65); border-color: rgba(201,165,90,.3) !important; }
-.bif-hero--vidrio .bif-hero__cifra:hover { background: #fff; }
-.bif-hero--vidrio .bif-hero__cifra strong { color: var(--bif-verde-profundo); }
-.bif-hero--vidrio .bif-hero__cifra > span { color: #66705F; }
-.bif-hero--vidrio .bif-hero__bajar { color: rgba(31,59,23,.6); }
-.bif-hero--vidrio .bif-hero__raton { border-color: rgba(31,59,23,.4); }
-.bif-hero--vidrio .bif-hero__raton span { background: var(--bif-verde-profundo); }
+/* Tarjetas "Envíos" y "Compra segura": juntas, en fila, arriba de la órbita */
+.bif-hero__visual:has(.bif-orbita) { display: flex; flex-direction: column; align-items: stretch; }
+.bif-hero__visual:has(.bif-orbita) .bif-hero__tarjetas { order: -1; position: static !important; inset: auto; display: grid !important; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0 0 66px !important; pointer-events: auto; }
+.bif-hero__visual:has(.bif-orbita) .bif-flota { position: static !important; width: auto !important; inset: auto !important; padding: 12px 14px 12px 12px; }
+.bif-hero__visual:has(.bif-orbita) .bif-flota strong { font-size: 13.5px; }
 
-/* Órbita y tarjetas sobre fondo claro */
-.bif-hero--vidrio .bif-orbita__aro--1 { border-color: rgba(120,95,40,.25); }
-.bif-hero--vidrio .bif-orbita__aro--2 { border-color: rgba(120,95,40,.14); background: radial-gradient(circle, rgba(255,255,255,.5), transparent 70%); }
-.bif-hero--vidrio .bif-orbita__halo { background: radial-gradient(circle, rgba(232,200,114,.45), transparent 65%); }
-.bif-hero--vidrio .bif-orbita__burbuja img { box-shadow: 0 18px 34px -16px rgba(90,70,30,.45), 0 0 0 6px rgba(255,255,255,.7), 0 0 0 7px rgba(201,165,90,.35); }
-.bif-hero--vidrio .bif-orbita__disco { box-shadow: 0 0 0 6px rgba(255,255,255,.7), 0 0 0 7px rgba(201,165,90,.6), 0 30px 60px -24px rgba(90,70,30,.45), inset 0 -10px 30px rgba(201,165,90,.18); }
-.bif-hero--vidrio .bif-flota { background: rgba(255,255,255,.78); color: var(--bif-texto); border-color: rgba(255,255,255,.95); box-shadow: 0 24px 44px -26px rgba(90,70,30,.5), inset 0 1px 0 #fff; }
-.bif-hero--vidrio .bif-flota strong { color: var(--bif-verde-profundo); }
-.bif-hero--vidrio .bif-flota__icono { background: var(--bif-verde-suave); color: var(--bif-verde); }
-body:has(.bif-hero--vidrio) .bif-cap__barra { background: linear-gradient(135deg, rgba(31,59,23,.93), rgba(24,48,18,.9)); box-shadow: 0 24px 50px -30px rgba(31,59,23,.55), inset 0 1px 0 rgba(255,255,255,.14); }
+/* Sello "Desde 2017": más arriba y por fuera del camino de los productos */
+.bif-orbita__sello { top: -9%; right: -9%; width: 21%; }
+
+@media (max-width: 990px) {
+  .bif-hero__visual:has(.bif-orbita) .bif-hero__tarjetas { margin-bottom: 44px !important; gap: 8px; }
+  .bif-hero__visual:has(.bif-orbita) .bif-flota { text-align: left; }
+  .bif-hero__visual:has(.bif-orbita) .bif-flota { padding: 9px 10px 9px 9px; gap: 8px; font-size: 10.5px; }
+  .bif-hero__visual:has(.bif-orbita) .bif-flota strong { font-size: 11.5px; }
+  .bif-hero__visual:has(.bif-orbita) .bif-flota__icono { width: 30px; height: 30px; flex-shrink: 0; }
+  .bif-orbita__sello { top: -7%; right: -5%; width: 24%; }
+}
+
+/* Barra del menú blanca (misma forma) */
+.bif-cap .bif-cap__barra, .bif-cap.is-scrolled .bif-cap__barra, body:has(.bif-hero) .bif-cap__barra, body:not(:has(.bif-hero)) .bif-cap__barra, body:has(.bif-explorar) .bif-cap__barra, body:has(.bif-explorar) .bif-cap.is-scrolled .bif-cap__barra { background: rgba(255,255,255,.94) !important; border-color: rgba(255,255,255,.95); color: var(--bif-verde-profundo); box-shadow: 0 22px 46px -28px rgba(20,40,14,.55), inset 0 1px 0 #fff; }
+.bif-cap__nav { background: rgba(31,59,23,.05); border-color: rgba(31,59,23,.08); }
+.bif-cap__nav a { color: rgba(31,59,23,.72) !important; }
+.bif-cap__nav a:hover, .bif-cap__nav a[aria-current="page"] { color: var(--bif-verde-profundo) !important; }
+.bif-cap__nav .bif-nav__pastilla { background: rgba(71,126,51,.12); border-color: rgba(71,126,51,.22); box-shadow: none; }
+.bif-cap__nav a[aria-current="page"]::after { background: var(--bif-dorado); }
+.bif-cap .bif-icono-btn { color: var(--bif-verde-profundo) !important; }
+.bif-cap .bif-icono-btn:hover { background: var(--bif-verde-suave); color: var(--bif-verde) !important; }
+.bif-cap .bif-burbuja { background: var(--bif-verde); color: #fff; }
+.bif-cap .bif-hamburguesa { background: var(--bif-verde-suave); border-color: rgba(31,59,23,.1); }
+.bif-cap .bif-hamburguesa span { background: var(--bif-verde-profundo); }
+.bif-cap__nombre { color: var(--bif-verde-profundo); }
