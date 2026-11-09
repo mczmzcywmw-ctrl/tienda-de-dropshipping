@@ -26,9 +26,10 @@
 - Colección "Página de inicio" (`frontpage`) oculta de Google y del sitemap (`seo.hidden`).
 
 ## Pendiente
-- Publicar la versión v19 del tema.
 - Verificar en vivo (robots, sitemap, etiquetas) desde el entorno `tienda-de-dropshipping`, que sí tiene acceso a la tienda.
 - Marca real de 9 productos que siguen como "Mi tienda".
 - Enlaces reales de Instagram y TikTok (hoy el pie de página apunta a instagram.com y tiktok.com genéricos).
-- Código de verificación de Google Search Console.
-- Confirmar si se atiende en persona en Cali (dirección y horario) para agregar LocalBusiness.
+
+## Decisiones
+- La v19 está publicada y tiene la etiqueta de verificación de Google Search Console.
+- BIF es solo tienda online (no atiende en persona): no se usa LocalBusiness ni Perfil de Empresa en Google. El schema Organization solo indica la ciudad (Cali) y que se envía a toda Colombia.
