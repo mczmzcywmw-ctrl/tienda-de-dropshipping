@@ -1290,3 +1290,90 @@ body:has(.bif-explorar) .bif-cap.is-scrolled .bif-cap__barra { background: linea
 .bif-cap .bif-hamburguesa { background: var(--bif-verde-suave); border-color: rgba(31,59,23,.1); }
 .bif-cap .bif-hamburguesa span { background: var(--bif-verde-profundo); }
 .bif-cap__nombre { color: var(--bif-verde-profundo); }
+
+/* ==========================================================================
+   v21 · Rediseño integral: historia, invitación final, ficha de producto,
+   pie de página y ajustes de lectura. Misma paleta y tipografía de la marca.
+   ========================================================================== */
+.bif-oculto { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.bif-section :is(a, button, input):focus-visible { outline: 2.5px solid var(--bif-verde); outline-offset: 3px; }
+
+/* Tarjetas de producto: laboratorio en vez de etiqueta vacía */
+.bif-card__tipo { display: block; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Nuestra historia */
+.bif-historia { padding: 104px 0; background: var(--bif-crema); }
+.bif-historia__grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 72px; align-items: center; }
+.bif-historia__foto { position: relative; border-radius: 28px; overflow: hidden; aspect-ratio: 4 / 3.4; background: var(--bif-verde-suave); }
+.bif-historia__foto img { width: 100%; height: 100%; object-fit: cover; }
+.bif-historia__sello { position: absolute; left: 22px; bottom: 22px; padding: 10px 18px; border-radius: 999px; background: rgba(255,255,255,.92); color: var(--bif-verde-profundo); font-size: 13px; font-weight: 700; letter-spacing: .04em; backdrop-filter: blur(8px); }
+.bif-historia__texto h2 { margin-top: 6px; font-size: 40px; max-width: 520px; }
+.bif-historia__cuerpo { margin-top: 18px; color: var(--bif-gris); font-size: 16.5px; max-width: 520px; }
+.bif-historia__linea { list-style: none; margin: 30px 0 34px; padding: 0; display: grid; gap: 0; max-width: 520px; }
+.bif-historia__linea li { display: grid; grid-template-columns: 64px 1fr; gap: 16px; padding: 14px 0; border-top: 1px solid var(--bif-verde-linea); font-size: 14.5px; color: var(--bif-texto); }
+.bif-historia__linea li:last-child { border-bottom: 1px solid var(--bif-verde-linea); }
+.bif-historia__linea b { color: var(--bif-verde); font-weight: 700; letter-spacing: -.01em; }
+
+/* Invitación final */
+.bif-cta { padding: 24px 0 104px; background: #fff; }
+.bif-cta__caja { position: relative; overflow: hidden; display: grid; grid-template-columns: 1fr auto; gap: 32px 48px; align-items: center; padding: 56px 64px 56px 240px; border-radius: 32px; background: linear-gradient(135deg, var(--bif-verde-profundo), var(--bif-verde-oscuro)); color: #fff; }
+.bif-cta__caja .bif-arbol { position: absolute; left: 40px; bottom: -18px; width: 170px; aspect-ratio: 340 / 440; opacity: .95; }
+.bif-cta__texto h2 { color: #fff; font-size: 34px; max-width: 560px; }
+.bif-cta__texto p { margin-top: 12px; color: rgba(255,255,255,.78); font-size: 16px; max-width: 520px; }
+.bif-cta .bif-antetitulo { color: #CFE3C4; }
+.bif-cta__botones { display: flex; flex-direction: column; gap: 12px; }
+.bif-cta__botones .bif-btn { width: 100%; }
+
+/* Pie de página: logo real */
+.bif-logo__marca--img { width: 56px; height: 56px; padding: 0; overflow: hidden; border-radius: 50%; background: #fff; }
+.bif-logo__marca--img img { width: 100%; height: 100%; object-fit: cover; }
+
+@media (max-width: 990px) {
+  .bif-historia { padding: 72px 0; }
+  .bif-historia__grid { grid-template-columns: 1fr; gap: 36px; }
+  .bif-historia__texto h2 { font-size: 30px; }
+  .bif-cta__caja { grid-template-columns: 1fr; padding: 44px 32px 150px; text-align: left; }
+  .bif-cta__caja .bif-arbol { left: auto; right: 24px; width: 104px; }
+  .bif-cta__texto h2 { font-size: 27px; }
+}
+@media (max-width: 640px) {
+  .bif-orbita { width: 84%; margin-inline: auto; }
+  .bif-historia__linea li { grid-template-columns: 52px 1fr; }
+  .bif-cta { padding: 8px 0 72px; }
+}
+
+/* ---------- Ficha de producto (tema Horizon) ---------- */
+main[data-template^="product"] { --bif-pd-borde: var(--bif-verde-linea); }
+main[data-template^="product"] .product-details h1 { font-family: var(--bif-fuente) !important; font-size: clamp(28px, 3vw, 38px); font-weight: 700; letter-spacing: -.025em; line-height: 1.12; color: var(--bif-texto); }
+main[data-template^="product"] .product-details .price { font-family: var(--bif-fuente) !important; font-size: 24px; font-weight: 700; color: var(--bif-verde-profundo); }
+main[data-template^="product"] .product-details .compare-at-price { font-size: 16px; font-weight: 500; color: var(--bif-gris); }
+main[data-template^="product"] .add-to-cart-button { min-height: 54px; border-radius: 999px !important; background: var(--bif-verde) !important; border-color: var(--bif-verde) !important; color: #fff !important; font-family: var(--bif-fuente) !important; font-weight: 600; transition: background .3s, transform .3s var(--bif-ease); }
+main[data-template^="product"] .add-to-cart-button:hover { background: var(--bif-verde-oscuro) !important; }
+main[data-template^="product"] .product-media img { border-radius: 20px; }
+
+.bif-pd-marca { margin: 0; font-family: var(--bif-fuente); font-size: 12.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--bif-verde); }
+
+.bif-pd-compra { display: grid; gap: 12px; font-family: var(--bif-fuente); }
+.bif-pd-compra__lista { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 22px; }
+.bif-pd-compra__lista li { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: var(--bif-texto); }
+.bif-pd-compra__lista svg { width: 20px; height: 20px; color: var(--bif-verde); flex: none; }
+.bif-pd-compra__wa { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border-radius: 18px; border: 1px solid var(--bif-pd-borde, #DCE6D5); background: var(--bif-verde-suave); color: var(--bif-texto) !important; text-decoration: none !important; transition: border-color .3s, background .3s; }
+.bif-pd-compra__wa:hover { border-color: var(--bif-verde); background: #fff; }
+.bif-pd-compra__wa svg { width: 30px; height: 30px; color: #1FA855; flex: none; }
+.bif-pd-compra__wa span { display: grid; gap: 2px; font-size: 13.5px; color: var(--bif-gris); line-height: 1.45; }
+.bif-pd-compra__wa b { color: var(--bif-texto); font-size: 14.5px; font-weight: 600; }
+.bif-pd-compra__wa:focus-visible { outline: 2.5px solid var(--bif-verde); outline-offset: 3px; }
+
+.bif-pd-desc { font-family: var(--bif-fuente); font-size: 15.5px; line-height: 1.7; color: var(--bif-texto); padding-top: 8px; border-top: 1px solid var(--bif-pd-borde, #DCE6D5); }
+.bif-pd-desc__titulo { margin: 18px 0 8px !important; font-family: var(--bif-fuente) !important; font-size: 20px !important; font-weight: 700 !important; letter-spacing: -.015em; color: var(--bif-texto); }
+.bif-pd-desc p { margin: 16px 0 0; }
+.bif-pd-desc p > strong:first-child { display: block; margin-bottom: 4px; font-size: 12.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--bif-verde); }
+.bif-pd-desc ul { margin: 10px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.bif-pd-desc li { position: relative; padding-left: 28px; }
+.bif-pd-desc li::before { content: ''; position: absolute; left: 0; top: .32em; width: 18px; height: 18px; border-radius: 50%; background: var(--bif-verde-suave) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23477E33' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 11px no-repeat; }
+.bif-pd-desc .bif-pd-aviso { margin-top: 22px; padding: 16px 18px; border-radius: 16px; background: #FBF6E9; border: 1px solid #EADFC2; font-size: 14.5px; color: #4A4330; }
+.bif-pd-desc .bif-pd-aviso > strong:first-child { color: #8A6A1F; }
+/* v21: .bif-section anula el padding; estas secciones lo necesitan */
+.bif-historia.bif-section { padding: 104px 0 !important; }
+.bif-cta.bif-section { padding: 0 0 104px !important; background: var(--bif-crema); }
+@media (max-width: 990px) { .bif-historia.bif-section { padding: 72px 0 !important; } .bif-cta.bif-section { padding: 0 0 72px !important; } }

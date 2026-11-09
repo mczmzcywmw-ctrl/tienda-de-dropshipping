@@ -1,0 +1,35 @@
+{%- comment -%}
+  Recuadro de confianza debajo del botón de compra: envío, pago y asesoría por WhatsApp
+  con un mensaje que ya incluye el nombre del producto.
+{%- endcomment -%}
+{%- liquid
+  assign producto = closest.product
+  assign wa = block.settings.whatsapp | remove: '+' | remove: ' '
+  assign mensaje = 'Hola BIF, quiero información sobre ' | append: producto.title | append: '.'
+-%}
+<div class="bif-pd-compra" {{ block.shopify_attributes }}>
+  <ul class="bif-pd-compra__lista">
+    {%- if block.settings.envio != blank -%}<li>{% render 'bif-icono', nombre: 'camion' %}<span>{{ block.settings.envio }}</span></li>{%- endif -%}
+    {%- if block.settings.pago != blank -%}<li>{% render 'bif-icono', nombre: 'candado' %}<span>{{ block.settings.pago }}</span></li>{%- endif -%}
+  </ul>
+  {%- if wa != blank -%}
+    <a class="bif-pd-compra__wa" href="https://wa.me/{{ wa }}?text={{ mensaje | url_encode }}" target="_blank" rel="noopener">
+      {% render 'bif-icono', nombre: 'whatsapp' %}
+      <span><b>{{ block.settings.wa_titulo }}</b>{{ block.settings.wa_texto }}</span>
+    </a>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "BIF – Compra segura",
+  "settings": [
+    { "type": "text", "id": "envio", "label": "Texto de envío", "default": "Envío a toda Colombia" },
+    { "type": "text", "id": "pago", "label": "Texto de pago", "default": "Pago seguro en la plataforma de Shopify" },
+    { "type": "text", "id": "wa_titulo", "label": "WhatsApp – título", "default": "¿Tienes dudas sobre este producto?" },
+    { "type": "text", "id": "wa_texto", "label": "WhatsApp – texto", "default": "Escríbenos y te orientamos antes de comprar." },
+    { "type": "text", "id": "whatsapp", "label": "WhatsApp", "default": "573173570881" }
+  ],
+  "presets": [{ "name": "BIF – Compra segura" }]
+}
+{% endschema %}

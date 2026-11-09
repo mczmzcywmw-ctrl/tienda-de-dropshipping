@@ -84,7 +84,16 @@
         <div class="bif-cifras__fila" style="--bif-cols: {{ cifras.size | at_most: 4 }}">
           {%- for block in cifras -%}
             <div class="bif-cifra bif-reveal" style="--bif-delay: {{ forloop.index0 | times: 0.1 }}s" {{ block.shopify_attributes }}>
-              <strong><span>{{ block.settings.prefijo }}</span><span{% if block.settings.contar %} data-bif-contar="{{ block.settings.numero }}"{% endif %}>{{ block.settings.numero }}</span><span>{{ block.settings.sufijo }}</span></strong>
+              {%- liquid
+              assign num = block.settings.numero
+              if num >= 1000 and block.settings.contar
+                assign miles = num | divided_by: 1000
+                assign resto = num | modulo: 1000 | prepend: '00' | slice: -3, 3
+                assign num_txt = miles | append: '.' | append: resto
+              else
+                assign num_txt = num
+              endif
+              -%}<strong><span>{{ block.settings.prefijo }}</span><span{% if block.settings.contar %} data-bif-contar="{{ block.settings.numero }}"{% endif %}>{{ num_txt }}</span><span>{{ block.settings.sufijo }}</span></strong>
               <p>{{ block.settings.texto }}</p>
             </div>
           {%- endfor -%}

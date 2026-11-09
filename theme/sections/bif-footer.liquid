@@ -20,7 +20,12 @@
     <div class="bif-footer__grid">
       <div>
         <a href="{{ routes.root_url }}" class="bif-logo">
-          <span class="bif-logo__marca">{% render 'bif-icono', nombre: 'hoja' %}</span>
+          {%- assign logo_pie = section.settings.logo | default: images['bif-logo.png'] -%}
+          {%- if logo_pie != blank -%}
+            <span class="bif-logo__marca bif-logo__marca--img"><img src="{{ logo_pie | image_url: width: 160 }}" alt="{{ shop.name | escape }}" width="56" height="56" loading="lazy"></span>
+          {%- else -%}
+            <span class="bif-logo__marca">{% render 'bif-icono', nombre: 'hoja' %}</span>
+          {%- endif -%}
           <span class="bif-logo__texto">
             <span class="bif-logo__nombre">{{ section.settings.nombre }}</span>
             <span class="bif-logo__sub">{{ section.settings.subtitulo }}</span>
@@ -73,8 +78,12 @@
           {%- endif -%}
         </ul>
         <div class="bif-redes">
-          <a href="{{ section.settings.instagram | default: 'https://www.instagram.com/' }}" target="_blank" rel="noopener" aria-label="Instagram">{% render 'bif-icono', nombre: 'instagram' %}</a>
-          <a href="{{ section.settings.tiktok | default: 'https://www.tiktok.com/' }}" target="_blank" rel="noopener" aria-label="TikTok">{% render 'bif-icono', nombre: 'tiktok' %}</a>
+          {%- if section.settings.instagram != blank -%}
+            <a href="{{ section.settings.instagram }}" target="_blank" rel="noopener" aria-label="Instagram de BIF">{% render 'bif-icono', nombre: 'instagram' %}</a>
+          {%- endif -%}
+          {%- if section.settings.tiktok != blank -%}
+            <a href="{{ section.settings.tiktok }}" target="_blank" rel="noopener" aria-label="TikTok de BIF">{% render 'bif-icono', nombre: 'tiktok' %}</a>
+          {%- endif -%}
           {%- if section.settings.facebook != blank -%}
             <a href="{{ section.settings.facebook }}" target="_blank" rel="noopener" aria-label="Facebook">{% render 'bif-icono', nombre: 'facebook' %}</a>
           {%- endif -%}
@@ -91,7 +100,7 @@
     {%- endif -%}
 
     <div class="bif-footer__base">
-      <span>{{ section.settings.copyright }}</span>
+      <span>© {{ 'now' | date: '%Y' }} {{ section.settings.copyright | remove: '© 2025 ' | remove: '© 2026 ' }}</span>
       {%- if section.settings.mostrar_pagos -%}
         <div class="bif-pagos">
           <span class="bif-pagos__texto">{% render 'bif-icono', nombre: 'candado' %} Pagos seguros</span>
@@ -120,6 +129,7 @@
   "tag": "div",
   "settings": [
     { "type": "header", "content": "Marca" },
+    { "type": "image_picker", "id": "logo", "label": "Logo (si no eliges, se usa bif-logo.png)" },
     { "type": "text", "id": "nombre", "label": "Nombre", "default": "BIF" },
     { "type": "text", "id": "subtitulo", "label": "Subtítulo", "default": "Tienda de Bienestar" },
     { "type": "textarea", "id": "lema", "label": "Frase de la marca", "default": "Salud natural, suplementos y bienestar para toda la familia." },
@@ -141,7 +151,7 @@
     { "type": "url", "id": "facebook", "label": "Enlace de Facebook (opcional)" },
     { "type": "header", "content": "Parte inferior" },
     { "type": "link_list", "id": "menu_abajo", "label": "Enlaces de abajo del todo" },
-    { "type": "text", "id": "copyright", "label": "Texto de derechos", "default": "© 2025 BIF Tienda de Bienestar. Todos los derechos reservados." },
+    { "type": "text", "id": "copyright", "label": "Texto de derechos", "default": "BIF Tienda de Bienestar. Todos los derechos reservados." },
     { "type": "checkbox", "id": "mostrar_pagos", "label": "Mostrar íconos de pago", "default": true },
     { "type": "checkbox", "id": "boton_flotante", "label": "Botón flotante de WhatsApp", "default": true },
     { "type": "header", "content": "Diseño" },

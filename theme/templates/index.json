@@ -3,31 +3,13 @@
     "hero": {
       "type": "bif-hero",
       "settings": {
-        "antetitulo": "Bienvenido a BIF · Tienda de Bienestar",
+        "antetitulo": "Homeopáticos · Naturales · Vitaminas",
         "titulo": "Tu bienestar, en manos de la naturaleza",
-        "texto": "Productos homeopáticos, naturales y suplementos elegidos con cuidado para que te sientas bien cada día. Compra con la tranquilidad de estar en buenas manos.",
+        "texto": "Medicamentos homeopáticos, productos naturales, vitaminas y nutrición deportiva de laboratorios reconocidos, con la asesoría de quienes acompañan pacientes desde 2017.",
         "mostrar_producto": false,
         "imagen_fondo": "shopify://shop_images/bif-fondo-naturaleza.png"
       },
       "blocks": {
-        "garantia_1": {
-          "type": "garantia",
-          "settings": {
-            "texto": "Asesoría por WhatsApp"
-          }
-        },
-        "garantia_2": {
-          "type": "garantia",
-          "settings": {
-            "texto": "Envíos a toda Colombia"
-          }
-        },
-        "garantia_3": {
-          "type": "garantia",
-          "settings": {
-            "texto": "Pago seguro"
-          }
-        },
         "cifra_1": {
           "type": "cifra",
           "settings": {
@@ -43,7 +25,7 @@
             "prefijo": "+",
             "numero": 5,
             "contar": true,
-            "texto": "Años de experiencia"
+            "texto": "Años de desarrollo y estudio"
           }
         },
         "cifra_3": {
@@ -57,9 +39,6 @@
         }
       },
       "block_order": [
-        "garantia_1",
-        "garantia_2",
-        "garantia_3",
         "cifra_1",
         "cifra_2",
         "cifra_3"
@@ -125,7 +104,8 @@
         "beneficio_5",
         "beneficio_6"
       ],
-      "settings": {}
+      "settings": {},
+      "disabled": true
     },
     "categorias": {
       "type": "bif-categorias",
@@ -145,7 +125,7 @@
           "type": "categoria",
           "settings": {
             "titulo": "Nutrición deportiva",
-            "texto": "Proteínas, creatina y suplementos para rendir y recuperarte mejor.",
+            "texto": "Creatina y suplementos para rendir y recuperarte mejor.",
             "icono": "pesa",
             "color": "#3A6B8A",
             "boton": "Ver suplementos",
@@ -202,8 +182,8 @@
         "razon_3": {
           "type": "razon",
           "settings": {
-            "titulo": "Compra segura y envío garantizado",
-            "texto": "Pagos protegidos y seguimiento de tu pedido hasta tu casa."
+            "titulo": "Compra segura y envío a toda Colombia",
+            "texto": "Pagas en una plataforma protegida y recibes tu pedido en la puerta de tu casa."
           }
         }
       },
@@ -222,7 +202,8 @@
     },
     "cinta": {
       "type": "bif-cinta",
-      "settings": {}
+      "settings": {},
+      "disabled": true
     },
     "pasos": {
       "type": "bif-pasos",
@@ -260,16 +241,56 @@
         "paso_2",
         "paso_3"
       ]
+    },
+    "historia": {
+      "type": "bif-historia",
+      "settings": {
+        "imagen": "shopify://shop_images/bif-sede-cali.webp"
+      },
+      "blocks": {
+        "h1": {
+          "type": "hito",
+          "settings": {
+            "anio": "2017",
+            "texto": "Nace como Tips Saludables.doc, con consejos de alimentación y salud."
+          }
+        },
+        "h2": {
+          "type": "hito",
+          "settings": {
+            "anio": "2021",
+            "texto": "Adoptamos el nombre BIF: Biorreguladora Integrativa Funcional."
+          }
+        },
+        "h3": {
+          "type": "hito",
+          "settings": {
+            "anio": "2025",
+            "texto": "Abrimos la tienda virtual para llegar a toda Colombia."
+          }
+        }
+      },
+      "block_order": [
+        "h1",
+        "h2",
+        "h3"
+      ]
+    },
+    "cta": {
+      "type": "bif-cta",
+      "settings": {}
     }
   },
   "order": [
     "hero",
     "cinta",
+    "categorias",
     "productos",
     "beneficios",
-    "categorias",
-    "pasos",
     "confianza",
-    "blog"
+    "pasos",
+    "historia",
+    "blog",
+    "cta"
   ]
 }

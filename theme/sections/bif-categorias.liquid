@@ -37,6 +37,9 @@
           if img == blank and col != blank
             assign img = col.featured_image
           endif
+          if img == blank and col != blank
+            assign img = col.products.first.featured_image
+          endif
         -%}
         <a href="{{ enlace }}" data-bif-inclinar class="bif-categoria bif-reveal" style="--bif-delay: {{ forloop.index0 | times: 0.1 }}s; --c: {{ block.settings.color }};" {{ block.shopify_attributes }}>
           {%- if img != blank -%}

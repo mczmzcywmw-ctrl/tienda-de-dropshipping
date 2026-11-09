@@ -1,0 +1,45 @@
+{{ 'bif-styles.css' | asset_url | stylesheet_tag }}
+
+{%- comment -%} Cierre de la portada: invitación a ver el catálogo o pedir asesoría por WhatsApp. {%- endcomment -%}
+{%- assign wa = section.settings.whatsapp | remove: '+' | remove: ' ' -%}
+
+<section class="bif-cta bif-section">
+  <div class="bif-container">
+    <div class="bif-cta__caja bif-reveal">
+      {%- render 'bif-arbol' -%}
+      <div class="bif-cta__texto">
+        {%- if section.settings.antetitulo != blank -%}<span class="bif-antetitulo">{{ section.settings.antetitulo }}</span>{%- endif -%}
+        <h2>{{ section.settings.titulo }}</h2>
+        {%- if section.settings.texto != blank -%}<p>{{ section.settings.texto }}</p>{%- endif -%}
+      </div>
+      <div class="bif-cta__botones">
+        <a class="bif-btn bif-btn--blanco" href="{{ section.settings.boton_enlace | default: routes.all_products_collection_url }}">
+          {{ section.settings.boton_texto }} {% render 'bif-icono', nombre: 'flecha' %}
+        </a>
+        {%- if wa != blank -%}
+          <a class="bif-btn bif-btn--linea-blanca" href="https://wa.me/{{ wa }}?text={{ section.settings.wa_mensaje | url_encode }}" target="_blank" rel="noopener">
+            {% render 'bif-icono', nombre: 'whatsapp' %} {{ section.settings.wa_texto }}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "BIF – Invitación final",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "antetitulo", "label": "Texto pequeño", "default": "Estamos para ayudarte" },
+    { "type": "text", "id": "titulo", "label": "Título", "default": "¿No sabes cuál elegir? Te ayudamos a encontrarlo" },
+    { "type": "textarea", "id": "texto", "label": "Texto", "default": "Cuéntanos qué quieres cuidar y te orientamos por WhatsApp antes de comprar." },
+    { "type": "text", "id": "boton_texto", "label": "Botón principal – texto", "default": "Ver todos los productos" },
+    { "type": "url", "id": "boton_enlace", "label": "Botón principal – enlace" },
+    { "type": "text", "id": "wa_texto", "label": "Botón WhatsApp – texto", "default": "Pedir asesoría" },
+    { "type": "text", "id": "wa_mensaje", "label": "Mensaje de WhatsApp", "default": "Hola BIF, quiero asesoría para elegir un producto." },
+    { "type": "text", "id": "whatsapp", "label": "WhatsApp", "default": "573173570881" }
+  ],
+  "presets": [{ "name": "BIF – Invitación final" }]
+}
+{% endschema %}

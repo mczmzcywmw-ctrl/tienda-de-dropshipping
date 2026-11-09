@@ -43,7 +43,7 @@
           {%- if cart.item_count > 0 -%}<span class="bif-burbuja">{{ cart.item_count }}</span>{%- endif -%}
         </a>
         {%- if wa != blank and section.settings.wa_texto != blank -%}
-          <a class="bif-cap__asesoria" href="https://wa.me/{{ wa }}" target="_blank" rel="noopener">{% render 'bif-icono', nombre: 'whatsapp' %}<span>{{ section.settings.wa_texto }}</span></a>
+          <a class="bif-cap__asesoria" href="https://wa.me/{{ wa }}?text={{ 'Hola BIF, quiero asesoría para elegir un producto.' | url_encode }}" target="_blank" rel="noopener">{% render 'bif-icono', nombre: 'whatsapp' %}<span>{{ section.settings.wa_texto }}</span></a>
         {%- endif -%}
       </div>
       <div class="bif-header__progreso" aria-hidden="true"><span></span></div>

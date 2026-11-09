@@ -51,11 +51,17 @@
             {%- endif -%}
           </a>
           <div class="bif-card__cuerpo">
-            {%- if product.type != blank -%}<span class="bif-card__tipo">{{ product.type }}</span>{%- endif -%}
+            {%- liquid
+              assign marca = product.vendor
+              if marca == 'Mi tienda' or marca == shop.name
+                assign marca = product.type
+              endif
+            -%}
+            {%- if marca != blank -%}<span class="bif-card__tipo">{{ marca }}</span>{%- endif -%}
             <h3 class="bif-card__titulo"><a href="{{ product.url }}">{{ product.title }}</a></h3>
             <div class="bif-card__precio">
-              <span>{%- if product.price_varies -%}Desde {% endif -%}{{ product.price | money }}</span>
-              {%- if product.compare_at_price > product.price -%}<s>{{ product.compare_at_price | money }}</s>{%- endif -%}
+              <span>{%- if product.price_varies -%}Desde {% endif -%}{{ product.price | money_without_trailing_zeros }}</span>
+              {%- if product.compare_at_price > product.price -%}<s><span class="bif-oculto">Antes </span>{{ product.compare_at_price | money_without_trailing_zeros }}</s>{%- endif -%}
             </div>
             {%- if product.available and product.has_only_default_variant and section.settings.mostrar_agregar -%}
               <form method="post" action="{{ routes.cart_add_url }}">

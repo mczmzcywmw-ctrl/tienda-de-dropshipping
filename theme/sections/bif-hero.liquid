@@ -69,7 +69,7 @@
           <a class="bif-btn bif-btn--blanco bif-btn--brillo" href="{{ section.settings.boton1_enlace | default: routes.all_products_collection_url }}">{{ section.settings.boton1_texto }} {% render 'bif-icono', nombre: 'flecha' %}</a>
         {%- endif -%}
         {%- if section.settings.boton2_texto != blank and section.settings.whatsapp != blank -%}
-          <a class="bif-btn bif-btn--linea-blanca" href="https://wa.me/{{ section.settings.whatsapp | remove: '+' | remove: ' ' }}" target="_blank" rel="noopener">{% render 'bif-icono', nombre: 'whatsapp' %} {{ section.settings.boton2_texto }}</a>
+          <a class="bif-btn bif-btn--linea-blanca" href="https://wa.me/{{ section.settings.whatsapp | remove: '+' | remove: ' ' }}?text={{ 'Hola BIF, quiero asesoría para elegir un producto.' | url_encode }}" target="_blank" rel="noopener">{% render 'bif-icono', nombre: 'whatsapp' %} {{ section.settings.boton2_texto }}</a>
         {%- endif -%}
       </div>
       {%- assign garantias = section.blocks | where: 'type', 'garantia' -%}
@@ -85,7 +85,17 @@
         <div class="bif-hero__cifras bif-reveal" style="--bif-delay:.95s">
           {%- for block in cifras -%}
             <div class="bif-hero__cifra" {{ block.shopify_attributes }}>
-              <strong>{{ block.settings.prefijo }}<span{% if block.settings.contar %} data-bif-contar="{{ block.settings.numero }}"{% endif %}>{% if block.settings.contar %}0{% else %}{{ block.settings.numero }}{% endif %}</span>{{ block.settings.sufijo }}</strong>
+              {%- liquid
+                assign num = block.settings.numero
+                if num >= 1000 and block.settings.contar
+                  assign miles = num | divided_by: 1000
+                  assign resto = num | modulo: 1000 | prepend: '00' | slice: -3, 3
+                  assign num_txt = miles | append: '.' | append: resto
+                else
+                  assign num_txt = num
+                endif
+              -%}
+              <strong>{{ block.settings.prefijo }}<span{% if block.settings.contar %} data-bif-contar="{{ block.settings.numero }}"{% endif %}>{{ num_txt }}</span>{{ block.settings.sufijo }}</strong>
               <span>{{ block.settings.texto }}</span>
             </div>
           {%- endfor -%}

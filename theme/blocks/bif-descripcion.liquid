@@ -1,0 +1,26 @@
+{%- comment -%}
+  Descripción del producto con mejor lectura. No cambia el texto:
+  solo resalta el párrafo "Importante" (advertencias) en un recuadro.
+{%- endcomment -%}
+{%- liquid
+  assign producto = closest.product
+  assign desc = producto.description
+  assign desc = desc | replace: '<p dir="ltr"><strong>Importante', '<p class="bif-pd-aviso"><strong>Importante'
+  assign desc = desc | replace: '<p><strong>Importante', '<p class="bif-pd-aviso"><strong>Importante'
+-%}
+{%- if desc != blank -%}
+  <div class="bif-pd-desc rte" {{ block.shopify_attributes }}>
+    {%- if block.settings.titulo != blank -%}<h2 class="bif-pd-desc__titulo">{{ block.settings.titulo }}</h2>{%- endif -%}
+    {{ desc }}
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "BIF – Descripción",
+  "settings": [
+    { "type": "text", "id": "titulo", "label": "Título", "default": "Sobre este producto" }
+  ],
+  "presets": [{ "name": "BIF – Descripción" }]
+}
+{% endschema %}

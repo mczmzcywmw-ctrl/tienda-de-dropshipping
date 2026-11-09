@@ -1,0 +1,14 @@
+{%- comment -%} Laboratorio o marca del producto, encima del nombre. No se muestra si la marca no es real ("Mi tienda"). {%- endcomment -%}
+{%- assign producto = closest.product -%}
+{%- assign marca = producto.vendor -%}
+{%- if marca != blank and marca != 'Mi tienda' and marca != shop.name -%}
+  <p class="bif-pd-marca" {{ block.shopify_attributes }}>{{ marca }}</p>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "BIF – Laboratorio",
+  "settings": [],
+  "presets": [{ "name": "BIF – Laboratorio" }]
+}
+{% endschema %}

@@ -1,0 +1,78 @@
+{{ 'bif-styles.css' | asset_url | stylesheet_tag }}
+
+{%- comment -%}
+  Nuestra historia (portada): foto real de BIF, un resumen de la trayectoria
+  tomado de la página Acerca de nosotros y un enlace para leer la historia completa.
+{%- endcomment -%}
+
+<section class="bif-historia bif-section">
+  <div class="bif-container bif-historia__grid">
+    <div class="bif-historia__foto bif-reveal">
+      {%- if section.settings.imagen != blank -%}
+        <img
+          src="{{ section.settings.imagen | image_url: width: 1100 }}"
+          srcset="{{ section.settings.imagen | image_url: width: 600 }} 600w, {{ section.settings.imagen | image_url: width: 1100 }} 1100w"
+          sizes="(max-width: 900px) 100vw, 50vw"
+          alt="{{ section.settings.imagen.alt | default: section.settings.imagen_alt | escape }}"
+          width="{{ section.settings.imagen.width }}"
+          height="{{ section.settings.imagen.height }}"
+          loading="lazy"
+        >
+      {%- endif -%}
+      {%- if section.settings.sello != blank -%}
+        <span class="bif-historia__sello">{{ section.settings.sello }}</span>
+      {%- endif -%}
+    </div>
+
+    <div class="bif-historia__texto bif-reveal" style="--bif-delay:.1s">
+      {%- if section.settings.antetitulo != blank -%}<span class="bif-antetitulo">{{ section.settings.antetitulo }}</span>{%- endif -%}
+      <h2>{{ section.settings.titulo }}</h2>
+      <div class="bif-historia__cuerpo">{{ section.settings.texto }}</div>
+
+      {%- if section.blocks.size > 0 -%}
+        <ol class="bif-historia__linea">
+          {%- for block in section.blocks -%}
+            <li {{ block.shopify_attributes }}>
+              <b>{{ block.settings.anio }}</b>
+              <span>{{ block.settings.texto }}</span>
+            </li>
+          {%- endfor -%}
+        </ol>
+      {%- endif -%}
+
+      {%- if section.settings.boton_texto != blank -%}
+        <a class="bif-btn bif-btn--verde" href="{{ section.settings.boton_enlace | default: '/pages/acerca-de-nosotros' }}">
+          {{ section.settings.boton_texto }} {% render 'bif-icono', nombre: 'flecha' %}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "BIF – Nuestra historia",
+  "tag": "div",
+  "settings": [
+    { "type": "image_picker", "id": "imagen", "label": "Foto" },
+    { "type": "text", "id": "imagen_alt", "label": "Descripción de la foto", "default": "Sede de BIF en Santiago de Cali" },
+    { "type": "text", "id": "sello", "label": "Sello sobre la foto", "default": "Desde 2017" },
+    { "type": "text", "id": "antetitulo", "label": "Texto pequeño", "default": "Nuestra historia" },
+    { "type": "text", "id": "titulo", "label": "Título", "default": "De una consulta en casa a una tienda para toda Colombia" },
+    { "type": "richtext", "id": "texto", "label": "Texto", "default": "<p>BIF nació en 2017 compartiendo recomendaciones de alimentación y salud. Desde entonces hemos acompañado a más de 1.000 pacientes en Cali, y hoy llevamos esa experiencia a todo el país con nuestra tienda virtual.</p>" },
+    { "type": "text", "id": "boton_texto", "label": "Botón – texto", "default": "Conoce nuestra historia" },
+    { "type": "url", "id": "boton_enlace", "label": "Botón – enlace" }
+  ],
+  "blocks": [
+    {
+      "type": "hito",
+      "name": "Hito",
+      "settings": [
+        { "type": "text", "id": "anio", "label": "Año", "default": "2017" },
+        { "type": "text", "id": "texto", "label": "Texto", "default": "Comenzamos" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "BIF – Nuestra historia" }]
+}
+{% endschema %}
