@@ -1377,3 +1377,17 @@ main[data-template^="product"] .product-media img { border-radius: 20px; }
 .bif-historia.bif-section { padding: 104px 0 !important; }
 .bif-cta.bif-section { padding: 0 0 104px !important; background: var(--bif-crema); }
 @media (max-width: 990px) { .bif-historia.bif-section { padding: 72px 0 !important; } .bif-cta.bif-section { padding: 0 0 72px !important; } }
+
+/* ==========================================================================
+   v22 · Rendimiento (sin cambios visuales)
+   ========================================================================== */
+/* Animaciones en pausa mientras su sección no está en pantalla (lo activa bif-scripts.js) */
+.bif-fuera, .bif-fuera *, .bif-fuera *::before, .bif-fuera *::after { animation-play-state: paused !important; }
+
+/* Lo que se mueve todo el tiempo va en su propia capa: el navegador lo mueve sin redibujar */
+.bif-hero__blob, .bif-orbita__giro, .bif-orbita__burbuja, .bif-orbita__halo, .bif-cinta__pista, .bif-arbol__img { will-change: transform; }
+.bif-hero { contain: paint; }
+
+/* Luz que sigue al mouse: misma luz, pero se desplaza en vez de redibujarse en cada movimiento */
+.bif-hero__luz { overflow: hidden; background: none !important; }
+.bif-hero__luz::before { content: ''; position: absolute; left: 0; top: 0; width: 920px; height: 920px; margin: -460px 0 0 -460px; background: radial-gradient(circle 460px at center, rgba(255,255,255,.10), transparent 62%); transform: translate3d(var(--lx, 50vw), var(--ly, 40vh), 0); will-change: transform; }

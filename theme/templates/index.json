@@ -202,8 +202,9 @@
     },
     "cinta": {
       "type": "bif-cinta",
-      "settings": {},
-      "disabled": true
+      "settings": {
+        "palabras": "Homeopáticos, Vitaminas, Suplementos, Creatina, Esencias florales, Plantas medicinales, Bienestar"
+      }
     },
     "pasos": {
       "type": "bif-pasos",

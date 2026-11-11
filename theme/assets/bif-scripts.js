@@ -142,23 +142,25 @@
     document.querySelectorAll('[data-bif-hero]:not([data-listo])').forEach(function (hero) {
       hero.dataset.listo = '1';
       var pendiente = null;
+      var moviles = hero.querySelectorAll('.bif-orbita, .bif-arte, .bif-hero__foto, .bif-hero__producto');
+      var luz = hero.querySelector('.bif-hero__luz');
       hero.addEventListener('mousemove', function (e) {
         var r = hero.getBoundingClientRect();
         var x = e.clientX - r.left, y = e.clientY - r.top;
         if (pendiente) return;
         pendiente = requestAnimationFrame(function () {
           pendiente = null;
-          hero.style.setProperty('--mx', ((x / r.width) * 2 - 1).toFixed(3));
-          hero.style.setProperty('--my', ((y / r.height) * 2 - 1).toFixed(3));
-          hero.style.setProperty('--lx', x + 'px');
-          hero.style.setProperty('--ly', y + 'px');
-          hero.classList.add('is-luz');
+          // Las variables se ponen solo en los elementos que se mueven (no en toda la portada):
+          // así el navegador no recalcula toda la sección en cada movimiento del mouse.
+          var mx = ((x / r.width) * 2 - 1).toFixed(3), my = ((y / r.height) * 2 - 1).toFixed(3);
+          moviles.forEach(function (el) { el.style.setProperty('--mx', mx); el.style.setProperty('--my', my); });
+          if (luz) { luz.style.setProperty('--lx', x + 'px'); luz.style.setProperty('--ly', y + 'px'); }
+          if (!hero.classList.contains('is-luz')) hero.classList.add('is-luz');
         });
       });
       hero.addEventListener('mouseleave', function () {
         hero.classList.remove('is-luz');
-        hero.style.setProperty('--mx', 0);
-        hero.style.setProperty('--my', 0);
+        moviles.forEach(function (el) { el.style.setProperty('--mx', 0); el.style.setProperty('--my', 0); });
       });
     });
   }
@@ -273,6 +275,20 @@
     });
   }
 
+  // Rendimiento: las animaciones de una sección se pausan mientras no está en pantalla
+  // (se ven exactamente igual cuando vuelves a ella, pero no gastan el computador mientras tanto).
+  function iniciarPausaFueraDePantalla() {
+    if (!('IntersectionObserver' in window)) return;
+    var obs = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) { e.target.classList.toggle('bif-fuera', !e.isIntersecting); });
+    }, { rootMargin: '150px 0px' });
+    document.querySelectorAll('main .shopify-section:not([data-bif-pausa])').forEach(function (sec) {
+      if (!sec.querySelector('.bif-section')) return;
+      sec.dataset.bifPausa = '1';
+      obs.observe(sec);
+    });
+  }
+
   // Botones que se acercan un poco al mouse.
   function iniciarMagneticos() {
     if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
@@ -288,7 +304,7 @@
     });
   }
 
-  function iniciar() { iniciarPalabras(); iniciarReveals(); iniciarAnuncios(); iniciarInclinacion(); iniciarContadores(); iniciarDesplegables(); iniciarRotadores(); iniciarPortadaMouse(); iniciarEncabezado(); iniciarOrbita(); iniciarMagneticos(); }
+  function iniciar() { iniciarPalabras(); iniciarReveals(); iniciarAnuncios(); iniciarInclinacion(); iniciarContadores(); iniciarDesplegables(); iniciarRotadores(); iniciarPortadaMouse(); iniciarEncabezado(); iniciarOrbita(); iniciarMagneticos(); iniciarPausaFueraDePantalla(); }
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', iniciar);
