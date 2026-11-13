@@ -1423,3 +1423,26 @@ main[data-template^="product"] .product-media img { border-radius: 20px; }
 .bif-orbita--solo-arbol .bif-orbita__centro { inset: 16%; animation: none; }
 .bif-orbita--solo-arbol .bif-orbita__aro--1 { inset: 4%; }
 .bif-orbita--solo-arbol:hover .bif-orbita__centro img { transform: none; }
+
+/* ==========================================================================
+   v24 · La portada cabe completa en la pantalla del computador
+   ========================================================================== */
+@media (min-width: 991px) {
+  body:has(.bif-hero) .bif-hero__grid { margin-top: 104px; padding-top: 0 !important; padding-bottom: 24px !important; gap: 48px; }
+  .bif-hero--vidrio .bif-hero__vidrio { padding: 30px 34px 28px; }
+  .bif-hero h1.bif-hero__titulo--fijo { font-size: clamp(26px, min(2.9vw, 5.2vh), 44px) !important; }
+  .bif-hero .bif-hero__pildora { margin-bottom: 14px; }
+  .bif-hero .bif-hero__texto { margin-top: 12px; font-size: 15.5px !important; line-height: 1.6; }
+  .bif-hero .bif-hero__botones { margin-top: 20px; }
+  .bif-hero--vidrio .bif-hero__cifras { margin-top: 20px; }
+  .bif-hero--vidrio .bif-hero__cifra { padding: 12px 16px; }
+  .bif-hero .bif-hero__cifra strong { font-size: 26px; }
+  .bif-hero__visual:has(.bif-orbita) { max-width: 500px; }
+  .bif-hero__visual:has(.bif-orbita) .bif-hero__tarjetas { margin-bottom: 22px !important; }
+  .bif-hero__visual:has(.bif-orbita) .bif-flota { white-space: nowrap; }
+  .bif-hero__visual .bif-orbita { width: min(100%, 50vh); margin-inline: auto; }
+  .bif-hero .bif-hero__bajar { display: none; }
+}
+/* Tarjetas de productos del tema (carrito, relacionados, catálogo): fotos del mismo tamaño, centradas y sobre fondo claro */
+.product-card .product-media, .product-card__image, .product-grid__item .product-media { background: #F7F7F3; }
+.product-card .product-media img, .product-grid__item .product-media img { object-fit: contain !important; }
