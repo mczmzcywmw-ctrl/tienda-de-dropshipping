@@ -16,4 +16,6 @@
 - No se puede escribir en el tema publicado (MAIN). Editar la última versión sin publicar; si la última es MAIN, duplicarla. Crear las menos versiones posibles.
 - Después de subir archivos al tema, comprobar con `checksumMd5` que se guardaron (Shopify a veces rechaza archivos sin avisar).
 - En Liquid no se pueden escribir llaves `{}` dentro de `{{ }}`: guardarlas antes en una variable.
+- Un ajuste de texto en `{% schema %}` no puede tener `"default": ""` (Shopify rechaza el archivo sin avisar).
+- Subir primero la sección y después la plantilla JSON: si la sección todavía no tiene un ajuste nuevo, Shopify lo borra del JSON.
 - Estado general: `ESTADO.md`. SEO: `SEO.md`.
