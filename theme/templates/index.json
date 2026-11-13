@@ -3,12 +3,12 @@
     "hero": {
       "type": "bif-hero",
       "settings": {
-        "antetitulo": "Homeopáticos · Naturales · Vitaminas",
-        "titulo": "Cuidamos tu bienestar de forma natural",
-        "texto": "Medicamentos homeopáticos, productos naturales, vitaminas y nutrición deportiva de laboratorios reconocidos, con asesoría personalizada por WhatsApp antes y después de tu compra.",
+        "antetitulo": "BIF · Tienda de Bienestar",
+        "titulo": "Homeopatía, medicina natural y suplementos para tu bienestar integral.",
+        "texto": "Productos de laboratorios reconocidos, elegidos con cuidado y con asesoría personalizada por WhatsApp antes y después de tu compra.",
         "mostrar_producto": false,
         "imagen_fondo": "shopify://shop_images/bif-fondo-naturaleza.png",
-        "titulo_acento": "desde 2017",
+        "titulo_acento": "",
         "palabras_rotan": ""
       },
       "blocks": {

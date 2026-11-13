@@ -1411,3 +1411,5 @@ main[data-template^="product"] .product-media img { border-radius: 20px; }
 .bif-hero::after { mix-blend-mode: normal; opacity: .035; }
 /* El círculo de productos ya no se desplaza con el mouse */
 .bif-orbita, .bif-arte, .bif-hero__foto, .bif-hero__producto { translate: none !important; }
+/* Título descriptivo de la portada: más fino y sobrio */
+.bif-hero h1.bif-hero__titulo--fijo { font-weight: 500 !important; letter-spacing: -0.01em; line-height: 1.14; font-size: clamp(30px, 3.4vw, 48px) !important; }
