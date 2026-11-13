@@ -7,11 +7,17 @@
   dir="{{ request.locale.direction | default: 'ltr' }}"
 >
   <head>
-    {%- if settings.favicon != blank -%}
+    {%- comment -%} BIF: si no se eligió favicon en el editor, se usa el logo (bif-logo.png de Archivos). {%- endcomment -%}
+    {%- assign icono = settings.favicon | default: images['bif-logo.png'] -%}
+    {%- if icono != blank -%}
       <link
         rel="icon"
         type="image/png"
-        href="{{ settings.favicon | image_url: width: 32, height: 32 }}"
+        href="{{ icono | image_url: width: 32, height: 32 }}"
+      >
+      <link
+        rel="apple-touch-icon"
+        href="{{ icono | image_url: width: 180, height: 180 }}"
       >
     {%- endif -%}
 
