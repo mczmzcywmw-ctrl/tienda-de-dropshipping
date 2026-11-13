@@ -4,10 +4,12 @@
       "type": "bif-hero",
       "settings": {
         "antetitulo": "Homeopáticos · Naturales · Vitaminas",
-        "titulo": "Tu bienestar, en manos de la naturaleza",
-        "texto": "Medicamentos homeopáticos, productos naturales, vitaminas y nutrición deportiva de laboratorios reconocidos, con la asesoría de quienes acompañan pacientes desde 2017.",
+        "titulo": "Cuidamos tu bienestar de forma natural",
+        "texto": "Medicamentos homeopáticos, productos naturales, vitaminas y nutrición deportiva de laboratorios reconocidos, con asesoría personalizada por WhatsApp antes y después de tu compra.",
         "mostrar_producto": false,
-        "imagen_fondo": "shopify://shop_images/bif-fondo-naturaleza.png"
+        "imagen_fondo": "shopify://shop_images/bif-fondo-naturaleza.png",
+        "titulo_acento": "desde 2017",
+        "palabras_rotan": ""
       },
       "blocks": {
         "cifra_1": {

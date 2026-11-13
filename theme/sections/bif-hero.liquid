@@ -59,14 +59,15 @@
           </span>
         </h1>
       {%- else -%}
-        <h1 class="bif-palabras">{{ section.settings.titulo }}</h1>
+        {%- comment -%} Título fijo: no se mueve ni cambia de palabras. {%- endcomment -%}
+        <h1 class="bif-hero__titulo bif-hero__titulo--fijo">{{ section.settings.titulo }}{% if section.settings.titulo_acento != blank %} <em>{{ section.settings.titulo_acento }}</em>{% endif %}</h1>
       {%- endif -%}
       {%- if section.settings.texto != blank -%}
         <p class="bif-hero__texto bif-reveal" style="--bif-delay:.5s">{{ section.settings.texto | newline_to_br }}</p>
       {%- endif -%}
       <div class="bif-hero__botones bif-reveal" style="--bif-delay:.65s">
         {%- if section.settings.boton1_texto != blank -%}
-          <a class="bif-btn bif-btn--blanco bif-btn--brillo" href="{{ section.settings.boton1_enlace | default: routes.all_products_collection_url }}">{{ section.settings.boton1_texto }} {% render 'bif-icono', nombre: 'flecha' %}</a>
+          <a class="bif-btn bif-btn--blanco" href="{{ section.settings.boton1_enlace | default: routes.all_products_collection_url }}">{{ section.settings.boton1_texto }} {% render 'bif-icono', nombre: 'flecha' %}</a>
         {%- endif -%}
         {%- if section.settings.boton2_texto != blank and section.settings.whatsapp != blank -%}
           <a class="bif-btn bif-btn--linea-blanca" href="https://wa.me/{{ section.settings.whatsapp | remove: '+' | remove: ' ' }}?text={{ 'Hola BIF, quiero asesoría para elegir un producto.' | url_encode }}" target="_blank" rel="noopener">{% render 'bif-icono', nombre: 'whatsapp' %} {{ section.settings.boton2_texto }}</a>
@@ -223,6 +224,7 @@
     { "type": "header", "content": "Textos" },
     { "type": "text", "id": "antetitulo", "label": "Texto pequeño superior", "default": "Bienvenido a BIF · Tienda de Bienestar" },
     { "type": "text", "id": "titulo", "label": "Título", "default": "Tu bienestar, en manos de la naturaleza" },
+    { "type": "text", "id": "titulo_acento", "label": "Final del título en color (opcional)", "default": "" },
     { "type": "text", "id": "palabras_rotan", "label": "Palabras que cambian al final del título", "info": "Separadas por comas. Reemplazan la última palabra del título. Déjalo vacío para un título fijo.", "default": "naturaleza, confianza, tradición" },
     { "type": "textarea", "id": "texto", "label": "Frase de confianza", "default": "Productos homeopáticos, naturales y suplementos seleccionados con cuidado para acompañarte en cada etapa de tu salud." },
     { "type": "header", "content": "Botones" },

@@ -1391,3 +1391,23 @@ main[data-template^="product"] .product-media img { border-radius: 20px; }
 /* Luz que sigue al mouse: misma luz, pero se desplaza en vez de redibujarse en cada movimiento */
 .bif-hero__luz { overflow: hidden; background: none !important; }
 .bif-hero__luz::before { content: ''; position: absolute; left: 0; top: 0; width: 920px; height: 920px; margin: -460px 0 0 -460px; background: radial-gradient(circle 460px at center, rgba(255,255,255,.10), transparent 62%); transform: translate3d(var(--lx, 50vw), var(--ly, 40vh), 0); will-change: transform; }
+
+/* ==========================================================================
+   v23 · Portada más liviana y título fijo
+   ========================================================================== */
+/* Título fijo, sin palabras que cambian ni aparecen una a una */
+.bif-hero__titulo--fijo { margin: 0; }
+.bif-hero__titulo--fijo em { font-style: normal; color: #CFE8BE; }
+
+/* Sin brillos blancos: luz que seguía al mouse y destello que recorría el panel de vidrio */
+.bif-hero__luz, .bif-hero__luz::before { display: none !important; }
+.bif-hero--vidrio .bif-hero__vidrio::before { animation: none !important; display: none; }
+.bif-btn--brillo::after { animation: none !important; display: none; }
+
+/* Fondo de la portada quieto: las manchas de luz difuminadas no se mueven
+   (se veían casi iguales y obligaban a redibujar el efecto vidrio en cada cuadro) */
+.bif-hero--vidrio .bif-hero__blob { animation: none !important; will-change: auto; }
+/* Textura del fondo sin mezcla de capas (mismo grano, mucho menos trabajo) */
+.bif-hero::after { mix-blend-mode: normal; opacity: .035; }
+/* El círculo de productos ya no se desplaza con el mouse */
+.bif-orbita, .bif-arte, .bif-hero__foto, .bif-hero__producto { translate: none !important; }

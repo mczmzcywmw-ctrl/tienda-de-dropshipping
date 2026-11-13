@@ -56,13 +56,22 @@
     if (!window.matchMedia('(hover: hover)').matches) return;
     document.querySelectorAll('[data-bif-inclinar]:not([data-listo])').forEach(function (tarjeta) {
       tarjeta.dataset.listo = '1';
+      var pendiente = null, ultimo = null;
       tarjeta.addEventListener('mousemove', function (e) {
-        var r = tarjeta.getBoundingClientRect();
-        var x = (e.clientX - r.left) / r.width - 0.5;
-        var y = (e.clientY - r.top) / r.height - 0.5;
-        tarjeta.style.transform = 'perspective(900px) rotateX(' + (-y * 6) + 'deg) rotateY(' + (x * 6) + 'deg) translateY(-4px)';
+        ultimo = e;
+        if (pendiente) return; // un solo cálculo por cuadro
+        pendiente = requestAnimationFrame(function () {
+          pendiente = null;
+          var r = tarjeta.getBoundingClientRect();
+          var x = (ultimo.clientX - r.left) / r.width - 0.5;
+          var y = (ultimo.clientY - r.top) / r.height - 0.5;
+          tarjeta.style.transform = 'perspective(900px) rotateX(' + (-y * 6) + 'deg) rotateY(' + (x * 6) + 'deg) translateY(-4px)';
+        });
       });
-      tarjeta.addEventListener('mouseleave', function () { tarjeta.style.transform = ''; });
+      tarjeta.addEventListener('mouseleave', function () {
+        if (pendiente) { cancelAnimationFrame(pendiente); pendiente = null; }
+        tarjeta.style.transform = '';
+      });
     });
   }
 
@@ -304,7 +313,8 @@
     });
   }
 
-  function iniciar() { iniciarPalabras(); iniciarReveals(); iniciarAnuncios(); iniciarInclinacion(); iniciarContadores(); iniciarDesplegables(); iniciarRotadores(); iniciarPortadaMouse(); iniciarEncabezado(); iniciarOrbita(); iniciarMagneticos(); iniciarPausaFueraDePantalla(); }
+  function iniciar() { iniciarPalabras(); iniciarReveals(); iniciarAnuncios(); iniciarInclinacion(); iniciarContadores(); iniciarDesplegables(); iniciarRotadores(); iniciarEncabezado(); iniciarOrbita(); iniciarPausaFueraDePantalla(); }
+  // Desactivados por rendimiento: iniciarPortadaMouse (luz y movimiento con el mouse) e iniciarMagneticos (botones que siguen al mouse).
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', iniciar);
