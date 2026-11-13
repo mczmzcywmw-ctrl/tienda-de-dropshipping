@@ -115,11 +115,12 @@
         endfor
       -%}
       {%- if section.settings.orbita and orbita_n > 2 -%}
-        <div class="bif-orbita" style="--n: {{ orbita_n }}" data-bif-orbita>
+        <div class="bif-orbita{% unless section.settings.orbita_productos %} bif-orbita--solo-arbol{% endunless %}" style="--n: {{ orbita_n }}" data-bif-orbita>
           <span class="bif-orbita__aro bif-orbita__aro--1" aria-hidden="true"></span>
           <span class="bif-orbita__aro bif-orbita__aro--2" aria-hidden="true"></span>
           <span class="bif-orbita__aro bif-orbita__aro--3" aria-hidden="true"></span>
           <span class="bif-orbita__halo" aria-hidden="true"></span>
+          {%- if section.settings.orbita_productos -%}
           <div class="bif-orbita__giro">
             {%- assign i = 0 -%}
             {%- for p in orbita_col.products limit: section.settings.orbita_cantidad -%}
@@ -134,6 +135,7 @@
               {%- endif -%}
             {%- endfor -%}
           </div>
+          {%- endif -%}
           <div class="bif-orbita__centro">
             <div class="bif-orbita__disco">
               {%- if section.settings.centro_imagen != blank -%}
@@ -225,6 +227,7 @@
     { "type": "text", "id": "antetitulo", "label": "Texto pequeño superior", "default": "Bienvenido a BIF · Tienda de Bienestar" },
     { "type": "text", "id": "titulo", "label": "Título", "default": "Tu bienestar, en manos de la naturaleza" },
     { "type": "text", "id": "titulo_acento", "label": "Final del título en color (opcional)", "default": "" },
+    { "type": "checkbox", "id": "orbita_productos", "label": "Mostrar productos girando alrededor del árbol", "default": true },
     { "type": "text", "id": "palabras_rotan", "label": "Palabras que cambian al final del título", "info": "Separadas por comas. Reemplazan la última palabra del título. Déjalo vacío para un título fijo.", "default": "naturaleza, confianza, tradición" },
     { "type": "textarea", "id": "texto", "label": "Frase de confianza", "default": "Productos homeopáticos, naturales y suplementos seleccionados con cuidado para acompañarte en cada etapa de tu salud." },
     { "type": "header", "content": "Botones" },

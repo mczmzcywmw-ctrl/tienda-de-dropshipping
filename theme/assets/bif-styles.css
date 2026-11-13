@@ -1413,3 +1413,13 @@ main[data-template^="product"] .product-media img { border-radius: 20px; }
 .bif-orbita, .bif-arte, .bif-hero__foto, .bif-hero__producto { translate: none !important; }
 /* Título descriptivo de la portada: más fino y sobrio */
 .bif-hero h1.bif-hero__titulo--fijo { font-weight: 500 !important; letter-spacing: -0.01em; line-height: 1.14; font-size: clamp(30px, 3.4vw, 48px) !important; }
+/* Barra de atajos quieta (antes se desplazaba sola y mareaba) e íconos de línea en vez de emojis */
+.bif-atajos__cinta { overflow-x: auto; scrollbar-width: none; -webkit-mask-image: linear-gradient(90deg, #000 92%, transparent); mask-image: linear-gradient(90deg, #000 92%, transparent); }
+.bif-atajos__cinta::-webkit-scrollbar { display: none; }
+.bif-atajos__pista--fija { animation: none !important; gap: 8px; padding-right: 32px; }
+.bif-atajos__chip svg { width: 15px; height: 15px; flex: none; color: #E8C872; transition: color .3s; }
+.bif-atajos__chip:hover svg { color: #1F3B17; }
+/* Portada solo con el árbol (sin productos girando): árbol más grande y quieto */
+.bif-orbita--solo-arbol .bif-orbita__centro { inset: 16%; animation: none; }
+.bif-orbita--solo-arbol .bif-orbita__aro--1 { inset: 4%; }
+.bif-orbita--solo-arbol:hover .bif-orbita__centro img { transform: none; }

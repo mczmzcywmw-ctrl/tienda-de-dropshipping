@@ -18,15 +18,35 @@
     <div class="bif-container bif-atajos__fila">
       <span class="bif-atajos__pregunta"><i aria-hidden="true"></i><span class="bif-atajos__largo">{{ section.settings.pregunta }}</span><span class="bif-atajos__corto">{{ section.settings.pregunta_corta }}</span></span>
       <nav class="bif-atajos__cinta" aria-label="{{ section.settings.pregunta | escape }}">
-        <div class="bif-atajos__pista">
-          {%- for vuelta in (1..2) -%}
-            <div class="bif-atajos__grupo" {% if vuelta > 1 %}aria-hidden="true"{% endif %}>
-              {%- for block in atajos -%}
-                <a class="bif-atajos__chip" href="{{ block.settings.enlace | default: routes.all_products_collection_url }}" {% if vuelta > 1 %}tabindex="-1"{% endif %} {% if vuelta == 1 %}{{ block.shopify_attributes }}{% endif %}>
-                  <span aria-hidden="true">{{ block.settings.emoji }}</span>{{ block.settings.texto }}
-                </a>
-              {%- endfor -%}
-            </div>
+        {%- comment -%} Barra quieta: los atajos no se desplazan solos (si no caben, se deslizan con el dedo o la rueda). {%- endcomment -%}
+        <div class="bif-atajos__pista bif-atajos__pista--fija">
+          {%- for block in atajos -%}
+            {%- liquid
+              assign tag = block.settings.enlace | split: '/' | last
+              case tag
+                when 'sueno'
+                  assign ico = 'luna'
+                when 'dolor'
+                  assign ico = 'curita'
+                when 'defensas'
+                  assign ico = 'escudo'
+                when 'estres'
+                  assign ico = 'mente'
+                when 'energia'
+                  assign ico = 'rayo'
+                when 'digestion'
+                  assign ico = 'estomago'
+                when 'huesos'
+                  assign ico = 'hueso'
+                when 'mujer'
+                  assign ico = 'flor'
+                else
+                  assign ico = 'hoja'
+              endcase
+            -%}
+            <a class="bif-atajos__chip" href="{{ block.settings.enlace | default: routes.all_products_collection_url }}" {{ block.shopify_attributes }}>
+              {% render 'bif-icono', nombre: ico %}{{ block.settings.texto }}
+            </a>
           {%- endfor -%}
         </div>
       </nav>

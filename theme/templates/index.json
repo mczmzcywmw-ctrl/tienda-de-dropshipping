@@ -9,7 +9,8 @@
         "mostrar_producto": false,
         "imagen_fondo": "shopify://shop_images/bif-fondo-naturaleza.png",
         "titulo_acento": "",
-        "palabras_rotan": ""
+        "palabras_rotan": "",
+        "orbita_productos": false
       },
       "blocks": {
         "cifra_1": {
