@@ -10,7 +10,8 @@
         "imagen_fondo": "shopify://shop_images/bif-fondo-naturaleza.png",
         "titulo_acento": "",
         "palabras_rotan": "",
-        "orbita_productos": false
+        "orbita_productos": false,
+        "orbita_sello": "BIENESTAR NATURAL • DESDE 2017"
       },
       "blocks": {
         "cifra_1": {

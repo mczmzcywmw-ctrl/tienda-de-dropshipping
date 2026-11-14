@@ -1537,3 +1537,7 @@ main[data-template^="product"] .product-media img { border-radius: 20px; }
 .bif-contacto__form { margin-top: 28px !important; }
 .bif-contacto__privacidad { margin: 0 !important; }
 .bif-contacto__enviar { margin-top: 6px; }
+/* Sello dorado: más grande y legible; el texto llena el círculo sin montarse */
+.bif-orbita__sello { width: clamp(108px, 24%, 128px) !important; top: -6% !important; right: -8% !important; }
+.bif-orbita__sello text { font-size: 10px !important; letter-spacing: 0 !important; font-weight: 700; }
+@media (max-width: 640px) { .bif-orbita__sello { width: 96px !important; top: -4% !important; right: -4% !important; } }
