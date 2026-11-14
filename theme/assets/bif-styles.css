@@ -1446,3 +1446,94 @@ main[data-template^="product"] .product-media img { border-radius: 20px; }
 /* Tarjetas de productos del tema (carrito, relacionados, catálogo): fotos del mismo tamaño, centradas y sobre fondo claro */
 .product-card .product-media, .product-card__image, .product-grid__item .product-media { background: #F7F7F3; }
 .product-card .product-media img, .product-grid__item .product-media img { object-fit: contain !important; }
+
+/* ==========================================================================
+   v25 · Página de contacto (sin animaciones)
+   ========================================================================== */
+.bif-contacto.bif-section { padding: 56px 0 96px !important; background: var(--bif-crema); }
+.bif-contacto, .bif-contacto * { animation: none !important; transition: none !important; }
+.bif-contacto__grid { display: grid; grid-template-columns: .95fr 1.05fr; gap: 28px; align-items: stretch; }
+.bif-contacto__panel { position: relative; overflow: hidden; padding: 48px 44px; border-radius: 28px; color: #fff; background:
+  radial-gradient(520px 360px at 100% 0%, rgba(232,200,114,.20), transparent 65%),
+  linear-gradient(160deg, #1F3B17 0%, #2C5421 55%, #477E33 100%); }
+.bif-contacto__panel::before { content: ''; position: absolute; inset: 14px; border: 1px solid rgba(255,255,255,.14); border-radius: 20px; pointer-events: none; }
+.bif-contacto__arbol { position: absolute; right: -36px; bottom: -40px; width: 230px; height: auto; opacity: .16; pointer-events: none; }
+.bif-contacto__ante { position: relative; display: inline-flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: #E8C872; }
+.bif-contacto__ante::before { content: ''; width: 26px; height: 1.5px; background: currentColor; }
+.bif-contacto__panel h1 { position: relative; margin-top: 14px; font-size: 40px; font-weight: 600; line-height: 1.12; color: #fff; letter-spacing: -.02em; }
+.bif-contacto__intro { position: relative; margin-top: 14px; max-width: 440px; font-size: 15.5px; color: rgba(255,255,255,.82); }
+.bif-contacto__canales { position: relative; list-style: none; margin: 30px 0 0; padding: 0; display: grid; gap: 12px; max-width: 420px; }
+.bif-contacto__canales a, .bif-contacto__canales div { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 18px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.16); color: #fff !important; }
+.bif-contacto__canales a:hover { background: rgba(255,255,255,.14); border-color: rgba(232,200,114,.6); }
+.bif-contacto__icono { flex: none; width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; background: #F2F6EF; color: var(--bif-verde-profundo); }
+.bif-contacto__icono svg { width: 21px; height: 21px; }
+.bif-contacto__canales small { display: block; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: #E8C872; }
+.bif-contacto__canales b { display: block; font-size: 15px; font-weight: 600; word-break: break-word; }
+.bif-contacto__nota { position: relative; margin-top: 22px; font-size: 13.5px; color: rgba(255,255,255,.7); }
+
+.bif-contacto__caja { padding: 44px 44px 40px; border-radius: 28px; background: #fff; border: 1px solid var(--bif-verde-linea); box-shadow: 0 30px 60px -44px rgba(31,59,23,.45); }
+.bif-contacto__caja h2 { font-size: 26px; font-weight: 600; color: var(--bif-texto); }
+.bif-contacto__sub { margin-top: 6px; color: var(--bif-gris); font-size: 15px; }
+.bif-contacto__form { display: grid; gap: 16px; margin-top: 26px; }
+.bif-contacto__fila { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.bif-contacto__campo { display: grid; gap: 7px; }
+.bif-contacto__campo span { font-size: 13.5px; font-weight: 600; color: var(--bif-texto); }
+.bif-contacto__campo em { font-style: normal; font-weight: 400; color: var(--bif-gris); }
+.bif-contacto__campo input, .bif-contacto__campo textarea { width: 100%; padding: 14px 16px; border-radius: 14px; border: 1.5px solid var(--bif-verde-linea); background: #FBFCFA; font: inherit; font-size: 15px; color: var(--bif-texto); outline: none; }
+.bif-contacto__campo textarea { resize: vertical; min-height: 130px; }
+.bif-contacto__campo input:focus, .bif-contacto__campo textarea:focus { border-color: var(--bif-verde); background: #fff; box-shadow: 0 0 0 3px rgba(71,126,51,.15); }
+.bif-contacto__enviar { justify-self: start; min-height: 52px; padding: 0 34px; border: 0; border-radius: 999px; background: var(--bif-verde); color: #fff; font: inherit; font-size: 15px; font-weight: 600; cursor: pointer; }
+.bif-contacto__enviar:hover { background: var(--bif-verde-oscuro); }
+.bif-contacto__enviar:focus-visible { outline: 2.5px solid var(--bif-verde-profundo); outline-offset: 3px; }
+.bif-contacto__privacidad { font-size: 12.5px; color: var(--bif-gris); }
+.bif-contacto__ok, .bif-contacto__error { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border-radius: 14px; font-size: 14.5px; }
+.bif-contacto__ok { background: var(--bif-verde-suave); border: 1px solid var(--bif-verde-linea); color: var(--bif-verde-profundo); }
+.bif-contacto__ok svg { flex: none; width: 22px; height: 22px; color: var(--bif-verde); }
+.bif-contacto__error { background: #FBF1EE; border: 1px solid #EBCFC6; color: #7A2E1D; }
+@media (max-width: 900px) {
+  .bif-contacto.bif-section { padding: 32px 0 64px !important; }
+  .bif-contacto__grid { grid-template-columns: 1fr; }
+  .bif-contacto__panel, .bif-contacto__caja { padding: 34px 24px; border-radius: 22px; }
+  .bif-contacto__panel h1 { font-size: 30px; }
+  .bif-contacto__fila { grid-template-columns: 1fr; }
+  .bif-contacto__enviar { width: 100%; justify-self: stretch; }
+}
+
+/* ==========================================================================
+   v25 · "¿Qué necesitas?" como lista desplegable compacta
+   ========================================================================== */
+.bif-filtro { position: relative; z-index: 5; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin: 22px 0 8px; padding: 14px 18px; border-radius: 20px; background: #fff; border: 1px solid var(--bif-verde-linea); box-shadow: 0 18px 40px -32px rgba(31,59,23,.45); }
+.bif-filtro__label { font-size: 15px; font-weight: 600; color: var(--bif-texto); }
+.bif-filtro__menu { position: relative; }
+.bif-filtro__menu summary { list-style: none; display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 16px 0 18px; border-radius: 999px; border: 1.5px solid var(--bif-verde-linea); background: var(--bif-verde-suave); color: var(--bif-verde-profundo); font-size: 14.5px; font-weight: 600; cursor: pointer; user-select: none; }
+.bif-filtro__menu summary::-webkit-details-marker { display: none; }
+.bif-filtro__menu summary:hover, .bif-filtro__menu[open] summary { border-color: var(--bif-verde); }
+.bif-filtro__menu summary:focus-visible { outline: 2.5px solid var(--bif-verde); outline-offset: 3px; }
+.bif-filtro__flecha { width: 18px; height: 18px; }
+.bif-filtro__menu[open] .bif-filtro__flecha { transform: rotate(180deg); }
+.bif-filtro__lista { position: absolute; left: 0; top: calc(100% + 8px); width: min(340px, 86vw); max-height: min(420px, 60vh); overflow-y: auto; margin: 0; padding: 8px; list-style: none; border-radius: 18px; background: #fff; border: 1px solid var(--bif-verde-linea); box-shadow: 0 28px 60px -24px rgba(20,40,14,.45); }
+.bif-filtro__lista a { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 12px; color: var(--bif-texto) !important; font-size: 14.5px; font-weight: 600; line-height: 1.3; }
+.bif-filtro__lista a small { display: block; margin-top: 2px; font-size: 12.5px; font-weight: 400; color: var(--bif-gris); }
+.bif-filtro__lista a:hover { background: var(--bif-verde-suave); }
+.bif-filtro__lista a.is-activa { background: var(--bif-verde-suave); color: var(--bif-verde-profundo) !important; }
+.bif-filtro__ico { flex: none; width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: color-mix(in srgb, var(--c, #477E33) 12%, #fff); color: var(--c, var(--bif-verde)); }
+.bif-filtro__ico svg { width: 18px; height: 18px; }
+.bif-filtro__estado { margin: 0; font-size: 14px; color: var(--bif-gris); }
+.bif-filtro__estado a { color: var(--bif-verde) !important; font-weight: 600; }
+.bif-filtro__ayuda { margin-left: auto; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: var(--bif-verde) !important; }
+.bif-filtro__ayuda svg { width: 18px; height: 18px; color: #1FA855; }
+@media (max-width: 640px) {
+  .bif-filtro { padding: 12px 14px; gap: 10px; }
+  .bif-filtro__label { width: 100%; }
+  .bif-filtro__menu, .bif-filtro__menu summary { width: 100%; justify-content: space-between; }
+  .bif-filtro__lista { width: 100%; }
+  .bif-filtro__ayuda { margin-left: 0; }
+}
+.bif-contacto__panel h1 { margin: 16px 0 0 !important; }
+.bif-contacto__intro { margin: 16px 0 0 !important; }
+.bif-contacto__canales { margin-top: 30px !important; }
+.bif-contacto__nota { margin: 22px 0 0 !important; }
+.bif-contacto__sub { margin: 8px 0 0 !important; }
+.bif-contacto__form { margin-top: 28px !important; }
+.bif-contacto__privacidad { margin: 0 !important; }
+.bif-contacto__enviar { margin-top: 6px; }

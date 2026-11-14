@@ -298,6 +298,18 @@
     });
   }
 
+  // Lista "¿Qué necesitas?": se cierra al tocar fuera o con la tecla Escape.
+  function iniciarFiltro() {
+    if (document.documentElement.dataset.bifFiltro) return;
+    document.documentElement.dataset.bifFiltro = '1';
+    document.addEventListener('click', function (e) {
+      document.querySelectorAll('.bif-filtro__menu[open]').forEach(function (m) { if (!m.contains(e.target)) m.removeAttribute('open'); });
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') document.querySelectorAll('.bif-filtro__menu[open]').forEach(function (m) { m.removeAttribute('open'); });
+    });
+  }
+
   // Botones que se acercan un poco al mouse.
   function iniciarMagneticos() {
     if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
@@ -313,7 +325,7 @@
     });
   }
 
-  function iniciar() { iniciarPalabras(); iniciarReveals(); iniciarAnuncios(); iniciarInclinacion(); iniciarContadores(); iniciarDesplegables(); iniciarRotadores(); iniciarEncabezado(); iniciarOrbita(); iniciarPausaFueraDePantalla(); }
+  function iniciar() { iniciarPalabras(); iniciarReveals(); iniciarAnuncios(); iniciarInclinacion(); iniciarContadores(); iniciarDesplegables(); iniciarRotadores(); iniciarEncabezado(); iniciarOrbita(); iniciarPausaFueraDePantalla(); iniciarFiltro(); }
   // Desactivados por rendimiento: iniciarPortadaMouse (luz y movimiento con el mouse) e iniciarMagneticos (botones que siguen al mouse).
 
   if (document.readyState === 'loading') {

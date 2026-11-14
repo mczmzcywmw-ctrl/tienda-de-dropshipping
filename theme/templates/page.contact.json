@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "contacto": {
+      "type": "bif-contacto",
+      "settings": {}
+    }
+  },
+  "order": [
+    "contacto"
+  ]
+}

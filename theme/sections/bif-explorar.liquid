@@ -50,53 +50,42 @@
   </div>
 
   <div class="bif-container">
-    <div class="bif-explorar__panel" id="bif-necesidades">
-      <div class="bif-explorar__panel-cab">
-        <div>
-          <h2>{{ section.settings.necesidades_titulo }}</h2>
-          <p>{{ section.settings.necesidades_texto }}</p>
-        </div>
-        {%- if activa != blank -%}
-          <a class="bif-explorar__quitar" href="{{ col.url }}#bif-necesidades">Ver todo {% if col.handle != 'all' %}en {{ col.title }}{% endif %} <span aria-hidden="true">×</span></a>
-        {%- endif -%}
-      </div>
-
-      <div class="bif-explorar__grid">
-        {%- assign n = 0 -%}
-        {%- for block in section.blocks -%}
-          {%- if block.type == 'necesidad' and block.settings.etiqueta != blank and col.all_tags contains block.settings.etiqueta -%}
-            {%- assign etiqueta = block.settings.etiqueta -%}
-            {%- assign es_activa = false -%}
-            {%- if etiqueta == activa -%}{%- assign es_activa = true -%}{%- endif -%}
-            {%- assign cuenta = 0 -%}
-            {%- if activa == blank -%}
-              {%- for p in col.products -%}{%- if p.tags contains etiqueta -%}{%- assign cuenta = cuenta | plus: 1 -%}{%- endif -%}{%- endfor -%}
-            {%- endif -%}
-            <a class="bif-explorar__nec{% if es_activa %} is-activa{% elsif activa != blank %} is-apagada{% endif %}" style="--n: {{ n }}; --c: {{ block.settings.color }}"
-               href="{% if es_activa %}{{ col.url }}{% else %}{{ col.url }}/{{ etiqueta | handle }}{% endif %}#bif-necesidades" {{ block.shopify_attributes }}>
-              <span class="bif-explorar__nec-icono">{% render 'bif-icono', nombre: block.settings.icono %}</span>
-              <span class="bif-explorar__nec-txt">
-                <b>{{ block.settings.titulo }}</b>
-                <span>{{ block.settings.texto }}</span>
-              </span>
-              {%- if cuenta > 0 -%}<small class="bif-explorar__nec-num">{{ cuenta }} {% if cuenta == 1 %}producto{% else %}productos{% endif %}</small>{%- endif -%}
-              {%- if es_activa -%}<small class="bif-explorar__nec-num">Viendo ahora ✓</small>{%- endif -%}
+    {%- comment -%} "¿Qué necesitas?": lista compacta que se abre con un botón (sin tarjetas grandes). {%- endcomment -%}
+    <div class="bif-filtro" id="bif-necesidades">
+      <span class="bif-filtro__label">{{ section.settings.necesidades_titulo }}</span>
+      <details class="bif-filtro__menu">
+        <summary>
+          {%- if activa != blank -%}{{ titulo_activa | default: activa }}{%- else -%}Todas las necesidades{%- endif -%}
+          <svg class="bif-filtro__flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </summary>
+        <ul class="bif-filtro__lista">
+          <li>
+            <a href="{{ col.url }}#bif-necesidades"{% if activa == blank %} class="is-activa" aria-current="true"{% endif %}>
+              <span class="bif-filtro__ico">{% render 'bif-icono', nombre: 'todo' %}</span>
+              <span>Todas las necesidades</span>
             </a>
-            {%- assign n = n | plus: 1 -%}
-          {%- endif -%}
-        {%- endfor -%}
-      </div>
+          </li>
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'necesidad' and block.settings.etiqueta != blank and col.all_tags contains block.settings.etiqueta -%}
+              {%- assign etiqueta = block.settings.etiqueta -%}
+              <li {{ block.shopify_attributes }}>
+                <a href="{{ col.url }}/{{ etiqueta | handle }}#bif-necesidades"{% if etiqueta == activa %} class="is-activa" aria-current="true"{% endif %}>
+                  <span class="bif-filtro__ico" style="--c: {{ block.settings.color }}">{% render 'bif-icono', nombre: block.settings.icono %}</span>
+                  <span>{{ block.settings.titulo }}<small>{{ block.settings.texto }}</small></span>
+                </a>
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </details>
 
-      <div class="bif-explorar__pie">
-        {%- if activa != blank -%}
-          <p class="bif-explorar__mostrando">Mostrando <b>{{ col.products_count }} {% if col.products_count == 1 %}producto{% else %}productos{% endif %}</b> para <b>{{ titulo_activa | default: activa }}</b>{% if col.handle != 'all' %} en {{ col.title }}{% endif %}.</p>
-        {%- else -%}
-          <p class="bif-explorar__mostrando">Toca una necesidad para ver solo los productos que te sirven.</p>
-        {%- endif -%}
-        {%- if wa != blank and section.settings.ayuda != blank -%}
-          <a class="bif-explorar__ayuda" href="https://wa.me/{{ wa }}" target="_blank" rel="noopener">{% render 'bif-icono', nombre: 'whatsapp' %} {{ section.settings.ayuda }}</a>
-        {%- endif -%}
-      </div>
+      {%- if activa != blank -%}
+        <p class="bif-filtro__estado">{{ col.products_count }} {% if col.products_count == 1 %}producto{% else %}productos{% endif %} · <a href="{{ col.url }}#bif-necesidades">Quitar filtro ×</a></p>
+      {%- endif -%}
+
+      {%- if wa != blank and section.settings.ayuda != blank -%}
+        <a class="bif-filtro__ayuda" href="https://wa.me/{{ wa }}?text={{ 'Hola BIF, quiero ayuda para elegir un producto.' | url_encode }}" target="_blank" rel="noopener">{% render 'bif-icono', nombre: 'whatsapp' %} {{ section.settings.ayuda }}</a>
+      {%- endif -%}
     </div>
   </div>
 </div>

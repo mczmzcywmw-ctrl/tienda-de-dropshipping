@@ -1,0 +1,116 @@
+{{ 'bif-styles.css' | asset_url | stylesheet_tag }}
+
+{%- comment -%}
+  Página de contacto de BIF: panel verde con los canales de atención y formulario en español.
+  Sin animaciones. El formulario usa el formulario de contacto nativo de Shopify
+  (los mensajes llegan al correo de la tienda).
+{%- endcomment -%}
+{%- liquid
+  assign wa = section.settings.whatsapp | remove: '+' | remove: ' '
+  assign wa_msj = 'Hola BIF, quiero hacer una consulta.' | url_encode
+-%}
+
+<section class="bif-contacto bif-section">
+  <div class="bif-container bif-contacto__grid">
+
+    <div class="bif-contacto__panel">
+      <img class="bif-contacto__arbol" src="{{ 'bif-arbol-logo.png' | asset_url }}" alt="" width="340" height="440" loading="lazy" aria-hidden="true">
+      {%- if section.settings.antetitulo != blank -%}<span class="bif-contacto__ante">{{ section.settings.antetitulo }}</span>{%- endif -%}
+      <h1>{{ section.settings.titulo | default: page.title }}</h1>
+      {%- if section.settings.texto != blank -%}<p class="bif-contacto__intro">{{ section.settings.texto }}</p>{%- endif -%}
+
+      <ul class="bif-contacto__canales">
+        {%- if wa != blank -%}
+          <li>
+            <a href="https://wa.me/{{ wa }}?text={{ wa_msj }}" target="_blank" rel="noopener">
+              <span class="bif-contacto__icono">{% render 'bif-icono', nombre: 'whatsapp' %}</span>
+              <span><small>WhatsApp</small><b>{{ section.settings.whatsapp_visible }}</b></span>
+            </a>
+          </li>
+        {%- endif -%}
+        {%- if section.settings.correo != blank -%}
+          <li>
+            <a href="mailto:{{ section.settings.correo }}">
+              <span class="bif-contacto__icono">{% render 'bif-icono', nombre: 'correo' %}</span>
+              <span><small>Correo</small><b>{{ section.settings.correo }}</b></span>
+            </a>
+          </li>
+        {%- endif -%}
+        {%- if section.settings.envios != blank -%}
+          <li>
+            <div>
+              <span class="bif-contacto__icono">{% render 'bif-icono', nombre: 'camion' %}</span>
+              <span><small>Envíos</small><b>{{ section.settings.envios }}</b></span>
+            </div>
+          </li>
+        {%- endif -%}
+      </ul>
+
+      {%- if section.settings.nota != blank -%}<p class="bif-contacto__nota">{{ section.settings.nota }}</p>{%- endif -%}
+    </div>
+
+    <div class="bif-contacto__caja">
+      <h2>{{ section.settings.form_titulo }}</h2>
+      {%- if section.settings.form_texto != blank -%}<p class="bif-contacto__sub">{{ section.settings.form_texto }}</p>{%- endif -%}
+
+      {%- form 'contact', id: 'bif-contacto-form' -%}
+        <div class="bif-contacto__form">
+        {%- if form.posted_successfully? -%}
+          <div class="bif-contacto__ok" role="status">
+            {% render 'bif-icono', nombre: 'escudo' %}
+            <p><b>¡Gracias por escribirnos!</b> Recibimos tu mensaje y te responderemos lo antes posible.</p>
+          </div>
+        {%- elsif form.errors -%}
+          <div class="bif-contacto__error" role="alert">
+            <p>Revisa los datos: {% if form.errors contains 'email' %}el correo no es válido.{% else %}falta completar algún campo.{% endif %}</p>
+          </div>
+        {%- endif -%}
+
+        <div class="bif-contacto__fila">
+          <label class="bif-contacto__campo">
+            <span>Nombre</span>
+            <input type="text" name="contact[name]" autocomplete="name" required value="{{ form.name }}" placeholder="Tu nombre">
+          </label>
+          <label class="bif-contacto__campo">
+            <span>Teléfono <em>(opcional)</em></span>
+            <input type="tel" name="contact[phone]" autocomplete="tel" value="{{ form.phone }}" placeholder="Ej: 300 123 4567">
+          </label>
+        </div>
+        <label class="bif-contacto__campo">
+          <span>Correo electrónico</span>
+          <input type="email" name="contact[email]" autocomplete="email" required value="{{ form.email }}" placeholder="tucorreo@ejemplo.com">
+        </label>
+        <label class="bif-contacto__campo">
+          <span>Mensaje</span>
+          <textarea name="contact[body]" rows="5" required placeholder="Cuéntanos en qué te podemos ayudar">{{ form.body }}</textarea>
+        </label>
+
+        <button type="submit" class="bif-contacto__enviar">{{ section.settings.boton }}</button>
+        <p class="bif-contacto__privacidad">Usamos tus datos solo para responder tu mensaje.</p>
+        </div>
+      {%- endform -%}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "BIF – Contacto",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "antetitulo", "label": "Texto pequeño", "default": "Estamos para ayudarte" },
+    { "type": "text", "id": "titulo", "label": "Título", "default": "Hablemos de tu bienestar" },
+    { "type": "textarea", "id": "texto", "label": "Texto", "default": "Escríbenos por el canal que prefieras. Te orientamos para elegir el producto indicado y resolvemos tus dudas antes y después de tu compra." },
+    { "type": "text", "id": "whatsapp", "label": "WhatsApp (número para el enlace)", "default": "573173570881" },
+    { "type": "text", "id": "whatsapp_visible", "label": "WhatsApp (como se muestra)", "default": "+57 317 357 0881" },
+    { "type": "text", "id": "correo", "label": "Correo", "default": "tiendadebienestarbif25@gmail.com" },
+    { "type": "text", "id": "envios", "label": "Envíos", "default": "A toda Colombia" },
+    { "type": "text", "id": "nota", "label": "Nota al final del panel", "default": "La forma más rápida de recibir respuesta es por WhatsApp." },
+    { "type": "text", "id": "form_titulo", "label": "Título del formulario", "default": "Envíanos un mensaje" },
+    { "type": "text", "id": "form_texto", "label": "Texto del formulario", "default": "Completa tus datos y te respondemos por correo." },
+    { "type": "text", "id": "boton", "label": "Texto del botón", "default": "Enviar mensaje" }
+  ],
+  "presets": [{ "name": "BIF – Contacto" }]
+}
+{% endschema %}
