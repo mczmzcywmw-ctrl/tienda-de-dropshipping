@@ -1541,3 +1541,32 @@ main[data-template^="product"] .product-media img { border-radius: 20px; }
 .bif-orbita__sello { width: clamp(108px, 24%, 128px) !important; top: -6% !important; right: -8% !important; }
 .bif-orbita__sello text { font-size: 10px !important; letter-spacing: 0 !important; font-weight: 700; }
 @media (max-width: 640px) { .bif-orbita__sello { width: 96px !important; top: -4% !important; right: -4% !important; } }
+
+/* ==========================================================================
+   v26 · Color de llamado a la acción: ámbar (contrasta con el verde y combina con el dorado del logo)
+   ========================================================================== */
+:root { --bif-cta: #F5A524; --bif-cta-hover: #E8920F; --bif-cta-texto: #1F3B17; }
+.bif-hero__botones .bif-btn--blanco,
+.bif-cta__botones .bif-btn--blanco,
+.bif-card .bif-btn--verde,
+.bif-contacto__enviar,
+main[data-template^="product"] .add-to-cart-button,
+.sticky-add-to-cart__button,
+button[name="checkout"], .cart__checkout-button {
+  background: var(--bif-cta) !important;
+  border-color: var(--bif-cta) !important;
+  color: var(--bif-cta-texto) !important;
+  font-weight: 700 !important;
+  box-shadow: 0 12px 26px -14px rgba(232,146,15,.85);
+}
+.bif-hero__botones .bif-btn--blanco:hover,
+.bif-cta__botones .bif-btn--blanco:hover,
+.bif-card .bif-btn--verde:hover,
+.bif-contacto__enviar:hover,
+main[data-template^="product"] .add-to-cart-button:hover,
+.sticky-add-to-cart__button:hover,
+button[name="checkout"]:hover, .cart__checkout-button:hover {
+  background: var(--bif-cta-hover) !important;
+  border-color: var(--bif-cta-hover) !important;
+}
+.bif-hero__botones .bif-btn--blanco svg, .bif-cta__botones .bif-btn--blanco svg, .add-to-cart-button svg { color: var(--bif-cta-texto); }
