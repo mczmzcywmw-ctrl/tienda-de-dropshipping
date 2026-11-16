@@ -13,7 +13,12 @@
 <section class="bif-contacto bif-section">
   <div class="bif-container bif-contacto__grid">
 
-    <div class="bif-contacto__panel">
+    <div class="bif-contacto__panel{% if section.settings.video != blank %} bif-contacto__panel--video{% endif %}">
+      {%- if section.settings.video != blank -%}
+        <div class="bif-contacto__video" aria-hidden="true">
+          {{ section.settings.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, preload: 'metadata', image_size: '1200x' }}
+        </div>
+      {%- endif -%}
       <img class="bif-contacto__arbol" src="{{ 'bif-arbol-logo.png' | asset_url }}" alt="" width="340" height="440" loading="lazy" aria-hidden="true">
       {%- if section.settings.antetitulo != blank -%}<span class="bif-contacto__ante">{{ section.settings.antetitulo }}</span>{%- endif -%}
       <h1>{{ section.settings.titulo | default: page.title }}</h1>
@@ -92,6 +97,36 @@
     </div>
 
   </div>
+
+  {%- if wa != blank and section.settings.franja_titulo != blank -%}
+    <div class="bif-container">
+      <div class="bif-contacto__franja">
+        <span class="bif-contacto__franja-icono">{% render 'bif-icono', nombre: 'whatsapp' %}</span>
+        <div>
+          <b>{{ section.settings.franja_titulo }}</b>
+          {%- if section.settings.franja_texto != blank -%}<p>{{ section.settings.franja_texto }}</p>{%- endif -%}
+        </div>
+        <a href="https://wa.me/{{ wa }}?text={{ wa_msj }}" target="_blank" rel="noopener">{{ section.settings.franja_boton }}</a>
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- if section.blocks.size > 0 -%}
+    <div class="bif-container bif-contacto__faq">
+      <div class="bif-titulo">
+        {%- if section.settings.faq_ante != blank -%}<span class="bif-antetitulo">{{ section.settings.faq_ante }}</span>{%- endif -%}
+        <h2>{{ section.settings.faq_titulo }}</h2>
+      </div>
+      <div class="bif-contacto__preguntas">
+        {%- for block in section.blocks -%}
+          <details class="bif-contacto__pregunta" {{ block.shopify_attributes }}{% if forloop.first %} open{% endif %}>
+            <summary>{{ block.settings.pregunta }}<span aria-hidden="true"></span></summary>
+            <div>{{ block.settings.respuesta }}</div>
+          </details>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
 </section>
 
 {% schema %}
@@ -109,7 +144,26 @@
     { "type": "text", "id": "nota", "label": "Nota al final del panel", "default": "La forma más rápida de recibir respuesta es por WhatsApp." },
     { "type": "text", "id": "form_titulo", "label": "Título del formulario", "default": "Envíanos un mensaje" },
     { "type": "text", "id": "form_texto", "label": "Texto del formulario", "default": "Completa tus datos y te respondemos por correo." },
-    { "type": "text", "id": "boton", "label": "Texto del botón", "default": "Enviar mensaje" }
+    { "type": "text", "id": "boton", "label": "Texto del botón", "default": "Enviar mensaje" },
+    { "type": "header", "content": "Video de fondo" },
+    { "type": "video", "id": "video", "label": "Video del panel verde", "info": "Se reproduce sin sonido y en bucle detrás del panel. Ideal: 10 a 20 segundos, horizontal (por ejemplo, la tienda, plantas o empacando pedidos)." },
+    { "type": "header", "content": "Franja de WhatsApp" },
+    { "type": "text", "id": "franja_titulo", "label": "Título", "default": "¿Prefieres hablar ahora mismo?" },
+    { "type": "text", "id": "franja_texto", "label": "Texto", "default": "Escríbenos por WhatsApp y te orientamos para elegir el producto indicado." },
+    { "type": "text", "id": "franja_boton", "label": "Botón", "default": "Abrir WhatsApp" },
+    { "type": "header", "content": "Preguntas frecuentes" },
+    { "type": "text", "id": "faq_ante", "label": "Texto pequeño", "default": "Resolvemos tus dudas" },
+    { "type": "text", "id": "faq_titulo", "label": "Título", "default": "Preguntas frecuentes" }
+  ],
+  "blocks": [
+    {
+      "type": "pregunta",
+      "name": "Pregunta",
+      "settings": [
+        { "type": "text", "id": "pregunta", "label": "Pregunta", "default": "Pregunta" },
+        { "type": "richtext", "id": "respuesta", "label": "Respuesta", "default": "<p>Respuesta</p>" }
+      ]
+    }
   ],
   "presets": [{ "name": "BIF – Contacto" }]
 }

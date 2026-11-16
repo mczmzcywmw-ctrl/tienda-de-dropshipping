@@ -1639,3 +1639,40 @@ button[name="checkout"]:hover, .cart__checkout-button:hover {
 .bif-pd-compra__promo a { margin-left: 4px; font-weight: 700; color: var(--bif-verde) !important; text-decoration: underline !important; }
 .bif-bienvenida__caja .bif-bienvenida__texto { padding: 0; display: block; }
 .bif-bienvenida__caja:focus { outline: none; }
+
+/* v29 · Contacto con más vida: video de fondo opcional, franja de WhatsApp y preguntas frecuentes */
+.bif-contacto__video { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.bif-contacto__video video, .bif-contacto__video img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.bif-contacto__panel--video::after { content: ''; position: absolute; inset: 0; z-index: 0; background: linear-gradient(160deg, rgba(31,59,23,.92) 0%, rgba(31,59,23,.78) 45%, rgba(47,90,34,.55) 100%); pointer-events: none; }
+.bif-contacto__panel--video > *:not(.bif-contacto__video) { position: relative; z-index: 1; }
+.bif-contacto__panel--video .bif-contacto__arbol { display: none; }
+.bif-contacto__enviar { background: var(--bif-cta, #F5A524) !important; color: var(--bif-cta-texto, #1F3B17) !important; font-weight: 700 !important; box-shadow: 0 14px 28px -16px rgba(232,146,15,.9); }
+.bif-contacto__enviar:hover { background: var(--bif-cta-hover, #E8920F) !important; }
+
+.bif-contacto__franja { margin-top: 28px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 20px; padding: 22px 26px; border-radius: 24px; background: linear-gradient(120deg, #FFF6E2, #FDEBC4); border: 1px solid #F3D9A0; }
+.bif-contacto__franja-icono { width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; background: #25D366; color: #fff; }
+.bif-contacto__franja-icono svg { width: 26px; height: 26px; }
+.bif-contacto__franja b { display: block; font-size: 18px; color: var(--bif-verde-profundo); }
+.bif-contacto__franja p { margin: 4px 0 0 !important; font-size: 14.5px; color: #5B4A22; }
+.bif-contacto__franja a { display: inline-flex; align-items: center; min-height: 48px; padding: 0 26px; border-radius: 999px; background: var(--bif-verde-profundo); color: #fff !important; font-weight: 700; text-decoration: none !important; white-space: nowrap; }
+.bif-contacto__franja a:hover { background: var(--bif-verde); }
+
+.bif-contacto__faq { margin-top: 72px; }
+.bif-contacto__preguntas { margin-top: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start; }
+.bif-contacto__pregunta { border-radius: 20px; background: #fff; border: 1px solid var(--bif-verde-linea); box-shadow: 0 18px 40px -36px rgba(31,59,23,.5); }
+.bif-contacto__pregunta[open] { border-color: rgba(71,126,51,.45); }
+.bif-contacto__pregunta summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 22px; font-weight: 700; font-size: 15.5px; color: var(--bif-texto); cursor: pointer; }
+.bif-contacto__pregunta summary::-webkit-details-marker { display: none; }
+.bif-contacto__pregunta summary span { flex: none; position: relative; width: 28px; height: 28px; border-radius: 50%; background: var(--bif-verde-suave); }
+.bif-contacto__pregunta summary span::before, .bif-contacto__pregunta summary span::after { content: ''; position: absolute; left: 50%; top: 50%; width: 12px; height: 2px; margin: -1px 0 0 -6px; border-radius: 2px; background: var(--bif-verde); }
+.bif-contacto__pregunta summary span::after { transform: rotate(90deg); }
+.bif-contacto__pregunta[open] summary span::after { display: none; }
+.bif-contacto__pregunta > div { padding: 0 22px 20px; font-size: 14.5px; line-height: 1.65; color: var(--bif-gris); }
+.bif-contacto__pregunta > div p { margin: 0 !important; }
+.bif-contacto__pregunta summary:focus-visible { outline: 2.5px solid var(--bif-verde); outline-offset: 2px; border-radius: 20px; }
+@media (max-width: 899px) {
+  .bif-contacto__franja { grid-template-columns: auto 1fr; padding: 20px; }
+  .bif-contacto__franja a { grid-column: 1 / -1; justify-content: center; }
+  .bif-contacto__preguntas { grid-template-columns: 1fr; }
+  .bif-contacto__faq { margin-top: 52px; }
+}

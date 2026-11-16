@@ -2,10 +2,18 @@
   "sections": {
     "contacto": {
       "type": "bif-contacto",
+      "blocks": {
+        "p1": { "type": "pregunta", "settings": { "pregunta": "¿Hacen envíos a toda Colombia?", "respuesta": "<p>Sí. Enviamos a cualquier ciudad o municipio de Colombia. Antes de pagar ves el valor del envío y confirmas tu pedido.</p>" } },
+        "p2": { "type": "pregunta", "settings": { "pregunta": "¿Me ayudan a elegir el producto?", "respuesta": "<p>Claro que sí. Escríbenos por WhatsApp, cuéntanos qué quieres cuidar y te orientamos antes y después de tu compra.</p>" } },
+        "p3": { "type": "pregunta", "settings": { "pregunta": "¿Cómo pago mi pedido?", "respuesta": "<p>Pagas en nuestra tienda en línea, en la página de pago segura de Shopify, con los medios de pago que aparecen al finalizar la compra.</p>" } },
+        "p4": { "type": "pregunta", "settings": { "pregunta": "¿Tienen descuento en la primera compra?", "respuesta": "<p>Sí. En tu primera compra tienes 15% de descuento. Es válido una vez por cliente.</p>" } },
+        "p5": { "type": "pregunta", "settings": { "pregunta": "¿Con qué laboratorios trabajan?", "respuesta": "<p>Trabajamos con laboratorios reconocidos como Heel, Laboratorio Homeopático Alemán, Jaquin de Francia, Bio-Forschung, Holistic Life Group, Healthy Sports y Nutra.</p>" } },
+        "p6": { "type": "pregunta", "settings": { "pregunta": "¿Algunos productos necesitan fórmula médica?", "respuesta": "<p>Sí, algunos medicamentos se venden con fórmula médica y lo indicamos en su descripción. Si tienes dudas, escríbenos antes de comprar.</p>" } },
+        "p7": { "type": "pregunta", "settings": { "pregunta": "¿Puedo usar los productos si tomo otros medicamentos?", "respuesta": "<p>Consulta primero con tu médico y cuéntanos qué medicamentos tomas. Así te orientamos mejor y con seguridad.</p>" } }
+      },
+      "block_order": ["p1", "p2", "p3", "p4", "p5", "p6", "p7"],
       "settings": {}
     }
   },
-  "order": [
-    "contacto"
-  ]
+  "order": ["contacto"]
 }

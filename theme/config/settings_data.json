@@ -21,6 +21,7 @@
     "card_corner_radius": 16,
     "inputs_border_radius": 12,
     "cart_type": "drawer",
+    "auto_open_cart_drawer": true,
     "show_add_discount_code": true,
     "color_palette": {
       "background": "#ffffff",
