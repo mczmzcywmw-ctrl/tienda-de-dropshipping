@@ -1621,3 +1621,21 @@ button[name="checkout"]:hover, .cart__checkout-button:hover {
 .bif-pd-compra__lista li.bif-pd-compra__promo { width: 100%; padding: 10px 14px; border-radius: 14px; background: #FFF8EA; border: 1px dashed var(--bif-cta, #F5A524); }
 .bif-pd-compra__promo b { color: var(--bif-verde-profundo); letter-spacing: .04em; }
 @media (min-width: 1100px) { .bif-aliados__lista { grid-template-columns: repeat(7, 1fr); } .bif-aliado__nombre { font-size: 15.5px; } }
+
+/* v28 · Aviso de bienvenida rediseñado: tarjeta única, limpia y sin código visible */
+.bif-bienvenida__caja { display: grid !important; grid-template-columns: 1fr !important; justify-items: center; gap: 0; width: min(420px, 100%) !important; padding: 34px 32px 26px; text-align: center; border-top: 6px solid var(--bif-verde); }
+.bif-bienvenida__logo { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; box-shadow: 0 10px 24px -12px rgba(31,59,23,.6); }
+.bif-bienvenida .bif-bienvenida__ante { margin-top: 14px; font-size: 12px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--bif-verde); }
+.bif-bienvenida__cifra { margin: 6px 0 0 !important; display: flex; align-items: baseline; justify-content: center; gap: 8px; line-height: 1; }
+.bif-bienvenida__cifra b { font-size: 72px; font-weight: 800; letter-spacing: -.04em; color: var(--bif-cta, #F5A524); }
+.bif-bienvenida__cifra span { font-size: 18px; font-weight: 700; color: var(--bif-texto); }
+.bif-bienvenida__caja h2 { margin: 4px 0 0 !important; font-size: 22px !important; font-weight: 700; color: var(--bif-verde-profundo); letter-spacing: -.01em; }
+.bif-bienvenida__texto { margin: 12px 0 0 !important; max-width: 320px; font-size: 14.5px; line-height: 1.6; color: var(--bif-gris); }
+.bif-bienvenida__caja .bif-bienvenida__boton { width: 100%; margin-top: 22px; }
+.bif-bienvenida__caja .bif-bienvenida__luego { margin-top: 12px; }
+.bif-bienvenida__caja .bif-bienvenida__cond { margin-top: 8px; }
+.bif-bienvenida__cerrar { background: var(--bif-verde-suave) !important; }
+@media (max-width: 640px) { .bif-bienvenida__caja { padding: 30px 22px 22px; } .bif-bienvenida__cifra b { font-size: 60px; } }
+.bif-pd-compra__promo a { margin-left: 4px; font-weight: 700; color: var(--bif-verde) !important; text-decoration: underline !important; }
+.bif-bienvenida__caja .bif-bienvenida__texto { padding: 0; display: block; }
+.bif-bienvenida__caja:focus { outline: none; }

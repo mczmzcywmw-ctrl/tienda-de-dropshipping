@@ -11,27 +11,19 @@
   -%}
   <div class="bif-bienvenida" id="bif-bienvenida" hidden data-retraso="{{ section.settings.retraso }}" data-dias="{{ section.settings.dias }}" data-codigo="{{ codigo }}">
     <div class="bif-bienvenida__fondo" data-cerrar></div>
-    <div class="bif-bienvenida__caja" role="dialog" aria-modal="true" aria-labelledby="bif-bienvenida-titulo">
+    <div class="bif-bienvenida__caja" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="bif-bienvenida-titulo">
       <button type="button" class="bif-bienvenida__cerrar" data-cerrar aria-label="Cerrar">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
       </button>
-      <div class="bif-bienvenida__arte" aria-hidden="true">
-        <img src="{{ 'bif-arbol-logo.png' | asset_url }}" alt="" width="340" height="440" loading="lazy">
-        <span class="bif-bienvenida__sello">{{ section.settings.porcentaje }}<small>OFF</small></span>
-      </div>
-      <div class="bif-bienvenida__texto">
-        <span class="bif-bienvenida__ante">{{ section.settings.antetitulo }}</span>
-        <h2 id="bif-bienvenida-titulo">{{ section.settings.titulo }}</h2>
-        <p>{{ section.settings.texto }}</p>
-        <div class="bif-bienvenida__codigo">
-          <span>Tu código</span>
-          <b>{{ codigo }}</b>
-          <button type="button" data-copiar>Copiar</button>
-        </div>
-        <a class="bif-bienvenida__boton" href="{{ enlace }}">{{ section.settings.boton }}</a>
-        <button type="button" class="bif-bienvenida__luego" data-cerrar>{{ section.settings.luego }}</button>
-        {%- if section.settings.condiciones != blank -%}<small class="bif-bienvenida__cond">{{ section.settings.condiciones }}</small>{%- endif -%}
-      </div>
+      {%- assign logo = images['bif-logo.png'] -%}
+      {%- if logo != blank -%}<img class="bif-bienvenida__logo" src="{{ logo | image_url: width: 160 }}" alt="{{ shop.name | escape }}" width="64" height="64">{%- endif -%}
+      <span class="bif-bienvenida__ante">{{ section.settings.antetitulo }}</span>
+      <p class="bif-bienvenida__cifra"><b>{{ section.settings.porcentaje }}</b><span>{{ section.settings.cifra_texto }}</span></p>
+      <h2 id="bif-bienvenida-titulo">{{ section.settings.titulo }}</h2>
+      <p class="bif-bienvenida__texto">{{ section.settings.texto }}</p>
+      <a class="bif-bienvenida__boton" href="{{ enlace }}">{{ section.settings.boton }}</a>
+      <button type="button" class="bif-bienvenida__luego" data-cerrar>{{ section.settings.luego }}</button>
+      {%- if section.settings.condiciones != blank -%}<small class="bif-bienvenida__cond">{{ section.settings.condiciones }}</small>{%- endif -%}
     </div>
   </div>
 
@@ -55,7 +47,7 @@
       function abrir() {
         anterior = document.activeElement;
         caja.hidden = false;
-        var b = caja.querySelector('.bif-bienvenida__boton');
+        var b = caja.querySelector(".bif-bienvenida__caja");
         if (b) b.focus();
       }
       caja.querySelectorAll('[data-cerrar]').forEach(function (el) { el.addEventListener('click', cerrar); });
@@ -63,11 +55,6 @@
         try { localStorage.setItem(clave, String(Date.now())); } catch (e) {}
       });
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !caja.hidden) cerrar(); });
-      var copiar = caja.querySelector('[data-copiar]');
-      copiar.addEventListener('click', function () {
-        var listo = function () { copiar.textContent = '¡Copiado!'; setTimeout(function () { copiar.textContent = 'Copiar'; }, 2000); };
-        if (navigator.clipboard) navigator.clipboard.writeText(caja.dataset.codigo).then(listo, listo); else listo();
-      });
       setTimeout(abrir, (parseInt(caja.dataset.retraso, 10) || 3) * 1000);
     })();
   </script>
@@ -79,15 +66,16 @@
   "tag": "div",
   "settings": [
     { "type": "checkbox", "id": "activo", "label": "Mostrar el aviso", "default": true },
-    { "type": "text", "id": "codigo", "label": "Código de descuento (debe existir en Descuentos)", "default": "BIENVENIDA15" },
+    { "type": "text", "id": "codigo", "label": "Código de descuento (no se muestra; se aplica solo con el botón)", "default": "BIENVENIDA15" },
     { "type": "text", "id": "porcentaje", "label": "Porcentaje que se muestra", "default": "15%" },
     { "type": "text", "id": "antetitulo", "label": "Texto pequeño", "default": "Bienvenido a BIF" },
-    { "type": "text", "id": "titulo", "label": "Título", "default": "15% de descuento en tu primera compra" },
-    { "type": "textarea", "id": "texto", "label": "Texto", "default": "Aplica a todos los productos de la tienda. Con envío a toda Colombia y asesoría por WhatsApp." },
-    { "type": "text", "id": "boton", "label": "Botón principal", "default": "Usar mi 15% y ver productos" },
+    { "type": "text", "id": "cifra_texto", "label": "Texto junto al porcentaje", "default": "de descuento" },
+    { "type": "text", "id": "titulo", "label": "Título", "default": "en tu primera compra" },
+    { "type": "textarea", "id": "texto", "label": "Texto", "default": "Te damos la bienvenida con un descuento en todos los productos. Toca el botón y se aplica solo al pagar." },
+    { "type": "text", "id": "boton", "label": "Botón principal", "default": "Quiero mi descuento" },
     { "type": "url", "id": "destino", "label": "A dónde lleva el botón" },
     { "type": "text", "id": "luego", "label": "Botón para cerrar", "default": "Ahora no, gracias" },
-    { "type": "text", "id": "condiciones", "label": "Condiciones", "default": "Válido una vez por cliente. No acumulable con otras promociones." },
+    { "type": "text", "id": "condiciones", "label": "Condiciones", "default": "Válido una vez por cliente." },
     { "type": "range", "id": "retraso", "label": "Segundos antes de aparecer", "min": 1, "max": 15, "step": 1, "default": 3 },
     { "type": "range", "id": "dias", "label": "Días antes de volver a mostrarlo", "min": 1, "max": 30, "step": 1, "default": 7 }
   ]
