@@ -1570,3 +1570,54 @@ button[name="checkout"]:hover, .cart__checkout-button:hover {
   border-color: var(--bif-cta-hover) !important;
 }
 .bif-hero__botones .bif-btn--blanco svg, .bif-cta__botones .bif-btn--blanco svg, .add-to-cart-button svg { color: var(--bif-cta-texto); }
+
+/* ==========================================================================
+   v27 · Aviso de bienvenida (15% primera compra) y Nuestros aliados
+   ========================================================================== */
+.bif-bienvenida { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 16px; font-family: var(--bif-fuente); }
+.bif-bienvenida[hidden] { display: none; }
+.bif-bienvenida__fondo { position: absolute; inset: 0; background: rgba(15,28,10,.55); }
+.bif-bienvenida__caja { position: relative; display: grid; grid-template-columns: 0.85fr 1.15fr; width: min(760px, 100%); max-height: calc(100vh - 32px); overflow: auto; border-radius: 28px; background: #fff; box-shadow: 0 40px 90px -30px rgba(0,0,0,.6); animation: bif-bienvenida-entra .35s ease-out both; }
+@keyframes bif-bienvenida-entra { from { opacity: 0; transform: translateY(14px) scale(.98); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .bif-bienvenida__caja { animation: none; } }
+.bif-bienvenida__cerrar { position: absolute; top: 12px; right: 12px; z-index: 2; width: 38px; height: 38px; border-radius: 50%; border: 0; background: rgba(255,255,255,.9); color: var(--bif-verde-profundo); display: grid; place-items: center; cursor: pointer; }
+.bif-bienvenida__cerrar svg { width: 18px; height: 18px; }
+.bif-bienvenida__arte { position: relative; display: grid; place-items: center; min-height: 100%; padding: 30px; background: radial-gradient(380px 300px at 50% 0%, rgba(232,200,114,.28), transparent 70%), linear-gradient(160deg, #1F3B17, #477E33); }
+.bif-bienvenida__arte img { width: 70%; max-width: 220px; height: auto; filter: drop-shadow(0 20px 30px rgba(0,0,0,.35)); }
+.bif-bienvenida__sello { position: absolute; left: 22px; bottom: 22px; display: grid; place-items: center; width: 92px; height: 92px; border-radius: 50%; background: var(--bif-cta, #F5A524); color: #1F3B17; font-size: 28px; font-weight: 800; line-height: 1; letter-spacing: -.02em; box-shadow: 0 14px 30px -12px rgba(0,0,0,.5); }
+.bif-bienvenida__sello small { display: block; margin-top: -10px; font-size: 13px; font-weight: 800; letter-spacing: .12em; }
+.bif-bienvenida__texto { padding: 40px 36px 30px; display: grid; gap: 12px; align-content: center; }
+.bif-bienvenida__ante { font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--bif-verde); }
+.bif-bienvenida__texto h2 { margin: 0; font-size: 30px; font-weight: 700; line-height: 1.12; letter-spacing: -.02em; color: var(--bif-texto); }
+.bif-bienvenida__texto p { margin: 0; font-size: 15px; line-height: 1.6; color: var(--bif-gris); }
+.bif-bienvenida__codigo { display: flex; align-items: center; gap: 10px; padding: 10px 10px 10px 16px; border-radius: 16px; border: 2px dashed var(--bif-cta, #F5A524); background: #FFF8EA; }
+.bif-bienvenida__codigo span { font-size: 12.5px; color: var(--bif-gris); }
+.bif-bienvenida__codigo b { flex: 1; font-size: 20px; font-weight: 800; letter-spacing: .06em; color: var(--bif-verde-profundo); }
+.bif-bienvenida__codigo button { padding: 8px 14px; border-radius: 999px; border: 0; background: var(--bif-verde-profundo); color: #fff; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
+.bif-bienvenida__boton { display: flex; align-items: center; justify-content: center; min-height: 52px; border-radius: 999px; background: var(--bif-cta, #F5A524); color: #1F3B17 !important; font-size: 15.5px; font-weight: 800; text-decoration: none !important; box-shadow: 0 14px 28px -14px rgba(232,146,15,.9); }
+.bif-bienvenida__boton:hover { background: var(--bif-cta-hover, #E8920F); }
+.bif-bienvenida__luego { justify-self: center; border: 0; background: none; color: var(--bif-gris); font: inherit; font-size: 13.5px; text-decoration: underline; cursor: pointer; }
+.bif-bienvenida__cond { font-size: 11.5px; color: #8A9286; text-align: center; }
+.bif-bienvenida :focus-visible { outline: 2.5px solid var(--bif-verde); outline-offset: 3px; }
+@media (max-width: 640px) {
+  .bif-bienvenida__caja { grid-template-columns: 1fr; }
+  .bif-bienvenida__arte { min-height: 0; padding: 22px; }
+  .bif-bienvenida__arte img { width: 34%; }
+  .bif-bienvenida__sello { width: 74px; height: 74px; font-size: 22px; left: auto; right: 18px; bottom: 18px; }
+  .bif-bienvenida__texto { padding: 24px 22px 22px; }
+  .bif-bienvenida__texto h2 { font-size: 24px; }
+}
+
+.bif-aliados.bif-section { padding: 88px 0 !important; background: #fff; }
+.bif-aliados .bif-titulo { margin-bottom: 40px; }
+.bif-aliados__lista { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; }
+.bif-aliado { display: grid; place-items: center; align-content: center; gap: 6px; min-height: 108px; padding: 18px 16px; border-radius: 20px; border: 1px solid var(--bif-verde-linea); background: #FBFCFA; text-align: center; color: var(--bif-texto) !important; }
+.bif-aliado:hover { border-color: var(--bif-verde); background: #fff; }
+.bif-aliado img { max-width: 140px; max-height: 64px; width: auto; height: auto; object-fit: contain; }
+.bif-aliado__nombre { font-size: 17px; font-weight: 700; letter-spacing: -.01em; line-height: 1.2; color: var(--bif-verde-profundo); }
+.bif-aliado small { font-size: 12px; letter-spacing: .04em; color: var(--bif-gris); }
+@media (max-width: 640px) { .bif-aliados.bif-section { padding: 64px 0 !important; } .bif-aliados__lista { grid-template-columns: 1fr 1fr; } }
+
+.bif-pd-compra__lista li.bif-pd-compra__promo { width: 100%; padding: 10px 14px; border-radius: 14px; background: #FFF8EA; border: 1px dashed var(--bif-cta, #F5A524); }
+.bif-pd-compra__promo b { color: var(--bif-verde-profundo); letter-spacing: .04em; }
+@media (min-width: 1100px) { .bif-aliados__lista { grid-template-columns: repeat(7, 1fr); } .bif-aliado__nombre { font-size: 15.5px; } }

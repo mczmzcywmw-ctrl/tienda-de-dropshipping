@@ -284,6 +284,70 @@
     "cta": {
       "type": "bif-cta",
       "settings": {}
+    },
+    "aliados": {
+      "type": "bif-aliados",
+      "settings": {},
+      "blocks": {
+        "a1": {
+          "type": "aliado",
+          "settings": {
+            "nombre": "Heel",
+            "detalle": "Homeopatía"
+          }
+        },
+        "a2": {
+          "type": "aliado",
+          "settings": {
+            "nombre": "Laboratorio Homeopático Alemán",
+            "detalle": "Homeopatía"
+          }
+        },
+        "a3": {
+          "type": "aliado",
+          "settings": {
+            "nombre": "Jaquin de Francia",
+            "detalle": "Esencias y naturales"
+          }
+        },
+        "a4": {
+          "type": "aliado",
+          "settings": {
+            "nombre": "Bio-Forschung",
+            "detalle": "Homeopatía spagírica"
+          }
+        },
+        "a5": {
+          "type": "aliado",
+          "settings": {
+            "nombre": "Holistic Life Group",
+            "detalle": "Esencias florales"
+          }
+        },
+        "a6": {
+          "type": "aliado",
+          "settings": {
+            "nombre": "Healthy Sports",
+            "detalle": "Nutrición deportiva"
+          }
+        },
+        "a7": {
+          "type": "aliado",
+          "settings": {
+            "nombre": "Nutra",
+            "detalle": "Suplementos"
+          }
+        }
+      },
+      "block_order": [
+        "a1",
+        "a2",
+        "a3",
+        "a4",
+        "a5",
+        "a6",
+        "a7"
+      ]
     }
   },
   "order": [
@@ -291,6 +355,7 @@
     "cinta",
     "categorias",
     "productos",
+    "aliados",
     "beneficios",
     "confianza",
     "pasos",

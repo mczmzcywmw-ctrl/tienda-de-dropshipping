@@ -9,9 +9,14 @@
         "menu_abajo": "",
         "correo": "tiendadebienestarbif25@gmail.com"
       }
+    },
+    "bienvenida": {
+      "type": "bif-bienvenida",
+      "settings": {}
     }
   },
   "order": [
-    "bif_footer"
+    "bif_footer",
+    "bienvenida"
   ]
 }

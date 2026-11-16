@@ -1,0 +1,55 @@
+{{ 'bif-styles.css' | asset_url | stylesheet_tag }}
+
+{%- comment -%}
+  Nuestros aliados: laboratorios con los que trabaja BIF. Si la marca tiene logo cargado se muestra
+  el logo; si no, el nombre con tipografía de la marca. Cada uno lleva a sus productos en la tienda.
+{%- endcomment -%}
+<section class="bif-aliados bif-section">
+  <div class="bif-container">
+    <div class="bif-titulo">
+      {%- if section.settings.antetitulo != blank -%}<span class="bif-antetitulo">{{ section.settings.antetitulo }}</span>{%- endif -%}
+      <h2>{{ section.settings.titulo }}</h2>
+      {%- if section.settings.texto != blank -%}<p>{{ section.settings.texto }}</p>{%- endif -%}
+    </div>
+    <ul class="bif-aliados__lista">
+      {%- for block in section.blocks -%}
+        {%- assign marca = block.settings.nombre -%}
+        <li {{ block.shopify_attributes }}>
+          <a class="bif-aliado" href="{{ block.settings.enlace | default: '/collections/vendors?q=' }}{% if block.settings.enlace == blank %}{{ marca | url_encode }}{% endif %}">
+            {%- if block.settings.logo != blank -%}
+              <img src="{{ block.settings.logo | image_url: width: 360 }}" alt="{{ marca | escape }}" width="{{ block.settings.logo.width }}" height="{{ block.settings.logo.height }}" loading="lazy">
+            {%- else -%}
+              <span class="bif-aliado__nombre">{{ marca }}</span>
+              {%- if block.settings.detalle != blank -%}<small>{{ block.settings.detalle }}</small>{%- endif -%}
+            {%- endif -%}
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "BIF – Nuestros aliados",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "antetitulo", "label": "Texto pequeño", "default": "Respaldo y calidad" },
+    { "type": "text", "id": "titulo", "label": "Título", "default": "Nuestros aliados" },
+    { "type": "textarea", "id": "texto", "label": "Texto", "default": "Trabajamos con laboratorios reconocidos en homeopatía, productos naturales y nutrición deportiva." }
+  ],
+  "blocks": [
+    {
+      "type": "aliado",
+      "name": "Aliado",
+      "settings": [
+        { "type": "text", "id": "nombre", "label": "Nombre (igual al proveedor de los productos)", "default": "Laboratorio" },
+        { "type": "text", "id": "detalle", "label": "Detalle corto (opcional)" },
+        { "type": "image_picker", "id": "logo", "label": "Logo (opcional, fondo blanco o transparente)" },
+        { "type": "url", "id": "enlace", "label": "Enlace (opcional; por defecto lleva a sus productos)" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "BIF – Nuestros aliados" }]
+}
+{% endschema %}
